@@ -1,0 +1,47 @@
+/* Navy theme tokens. Replaces the import of tokens.css in Base.astro
+   (or import it AFTER tokens.css to override).
+   Dark theme is scoped to screen so the /print route and the PDF stay
+   light and legible without touching print.css. */
+
+:root{
+  /* light defaults: used by print and as fallback */
+  --bg:#f4f5f2;
+  --bg-2:#e9ebe6;
+  --type:#161a1f;
+  --type-2:#4a5058;
+  --type-3:#7c838c;
+  --line:#d3d7d0;
+  --accent:#c47f1d;
+
+  --violet-1:#2a2564; --violet-2:#4640a0; --violet-3:#7a72d6; --violet-4:#b3acf0;
+  --gold-1:#6b4410;   --gold-2:#b8761a;   --gold-3:#f0a83a;   --gold-4:#ffcf6b;
+  --mag-1:#5e1a48;    --mag-2:#a52680;    --mag-3:#e94fb7;    --mag-4:#ff9bd6;
+  --paper:#f2eee6;
+  --ink:#171426;
+
+  --display:'Fraunces',Georgia,serif;
+  --body:'Manrope',system-ui,sans-serif;
+}
+
+@media screen{
+  :root{
+    --bg:#141b38;
+    --bg-2:#1b2350;
+    --type:#f2eee6;
+    --type-2:rgba(242,238,230,.8);
+    --type-3:rgba(242,238,230,.55);
+    --line:rgba(242,238,230,.16);
+    --accent:#f0a83a;
+  }
+  html{background:var(--bg)}
+  /* fine paper tooth over everything on screen */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+    opacity:.22;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+}
+
+html{color:var(--type);font-family:var(--body)}
+h1,h2,h3,.display{font-family:var(--display);font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-.02em}
+a{color:var(--type)}

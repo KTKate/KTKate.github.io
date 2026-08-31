@@ -1,0 +1,38 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('case-studies', (e) => import.meta.env.DEV || e.data.status !== 'draft');
+  return entries.map((e) => ({ params: { id: e.id }, props: { entry: e } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title}>
+  <article class="cs">
+    <header class="cs-head">
+      <h1>{entry.data.title}</h1>
+      <p class="summary">{entry.data.summary}</p>
+      <dl class="spec">
+        {entry.data.role && <><dt>Role</dt><dd>{entry.data.role}</dd></>}
+        {entry.data.timeframe && <><dt>Timeframe</dt><dd>{entry.data.timeframe}</dd></>}
+        {entry.data.status === 'restricted' && <><dt>Note</dt><dd>Some details withheld; happy to discuss in conversation.</dd></>}
+      </dl>
+    </header>
+    <div class="body"><Content /></div>
+  </article>
+</Base>
+
+<style>
+.cs{max-width:760px;margin:0 auto;padding:48px 40px 120px}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin:0 0 12px}
+.summary{font-size:1.2rem;color:var(--type-2);margin:0 0 24px}
+.spec{display:flex;gap:40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin:0 0 40px}
+.spec dt{font-size:.8rem;color:var(--type-3)}
+.spec dd{margin:4px 0 0}
+.body :global(h2){font-size:1.5rem;margin:2.2em 0 .6em}
+.body :global(p){color:var(--type-2);max-width:62ch}
+.body :global(img){max-width:100%;border-radius:4px}
+</style>

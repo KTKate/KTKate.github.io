@@ -1,0 +1,32 @@
+---
+// This route exists to become the PDF. It is intentionally plain and light.
+import { getCollection, render } from 'astro:content';
+import site from '../site';
+import '../styles/tokens.css';
+import '../styles/print.css';
+const entries = (await getCollection('case-studies', (e) => e.data.status !== 'draft'))
+  .sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(entries.map(async (e) => ({ e, Content: (await render(e)).Content })));
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{site.name} · Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <section class="cover">
+    <h1>{site.name}</h1>
+    <p>{site.positioning}</p>
+    <p>{site.email} · {site.linkedin}</p>
+  </section>
+  {rendered.map(({ e, Content }) => (
+    <section class="entry">
+      <h1>{e.data.title}</h1>
+      <p>{e.data.summary}</p>
+      <Content />
+    </section>
+  ))}
+</body>
+</html>
