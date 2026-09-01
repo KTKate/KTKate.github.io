@@ -19,7 +19,7 @@
   --paper:#f2eee6;
   --ink:#171426;
 
-  --display:'Fraunces',Georgia,serif;
+  --display:'Source Serif 4',Georgia,serif;
   --body:'Manrope',system-ui,sans-serif;
 }
 
@@ -42,6 +42,7 @@
   }
 }
 
-html{color:var(--type);font-family:var(--body)}
-h1,h2,h3,.display{font-family:var(--display);font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-.02em}
+html{color:var(--type);font-family:var(--body);font-size:17px;line-height:1.55}
+h1,h2,h3{font-family:var(--display);font-optical-sizing:auto;font-weight:500}
+h2,h3{font-weight:600;word-spacing:.06em}
 a{color:var(--type)}
