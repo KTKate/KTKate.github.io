@@ -9,9 +9,9 @@ timeframe: 2025–2026
 
 ## The situation
 
-<!-- What provisioning a LinuxONE environment looked like before Nexus and who felt it most. Two paragraphs. No numbers required. -->
+Net new IBM LinuxONE customers were often sold on the idea of the scaling ability of LinuxONE as a private "cloud in a box" type model. But when they received their shiny new server, it was nothing like a cloud. Customers struggled for months or even years to successfully get their workloads in production. Everything from networking config, storage config, resource config idiosyncracies that weren't documented anywhere were each their own major obstacle. Most clients needed additional paid consulting services to get their new systems set up. This was a big ask when the customer had just taken a risk on LinuxONE and it's relatively enormous initial capital expense compared to the usual aaS cloud subscriptions. The process was so complicated, a IBM consultant who was an expert in this, said it would take at least 8 hours to install an operating system on a new machine even if he was there on site with the customer with the OS install media in hand. 
 
-Placeholder.
+There were both conceptual and technical differences on LinuxONE that customers were not expecting. The terminology and documentation of LinuxONE assumed decades of system knowledge as most customers on LinuxONE's sister system, IBM Z have. The other factor is that on prem networking and storage skills are on the decline as more and more companies are cloud native. So even industry standard approaches like FCP storage protocols and SAN configs were sometimes huge blockers. Some customers didn't even realize they needed to have separate storage to use with their LinuxONE. 
 
 ## What we learned
 
