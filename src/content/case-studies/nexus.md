@@ -16,8 +16,9 @@ There were both conceptual and technical differences on LinuxONE that customers 
 ## What we learned
 
 <!-- The research and signals that shaped the direction. What surprised you. Methods and sources, never client names. -->
+I gathered input internally and externally about the potential improvements that would benefit LinuxONE. Then I synthesized a group of potential priorities and had my researcher do a global tour at regional LinuxONE events to get the clients and potential clients and Business Partners to priorities the list of 22 items. AI assisted system management and more streamlined system management were the top priorities identified. 
 
-Placeholder.
+At the same time I started a client council of ~30 clients generating over $1 billion in revenue with IBM, with recurring virtual sessions and a yearly in person event. The direction of the council is distinctly not to be a sales focused thing but a design/input future facing thing. We used these opportunities to gather data from clients about their pain points. When the idea of Nexus was presented we got incredibly positive 
 
 ## The bet
 
