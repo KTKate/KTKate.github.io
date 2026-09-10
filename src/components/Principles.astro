@@ -1,0 +1,44 @@
+---
+// Placeholder principles, deliberately. Real ones and the interactive
+// ring layout come later; this ships now so the section exists.
+const groups = [
+  { k:'design', name:'Design', color:'var(--violet-3)', items:[
+    'An hour with a user saves a quarter of rework.',
+    'Placeholder: second design principle.',
+  ]},
+  { k:'product', name:'Product', color:'var(--gold-3)', items:[
+    'Every roadmap item is a bet. Know what it costs to be wrong.',
+    'Placeholder: second product principle.',
+  ]},
+  { k:'tech', name:'Tech', color:'var(--mag-3)', items:[
+    'Understand the system well enough to know what is expensive.',
+    'Placeholder: second tech principle.',
+  ]},
+  { k:'all', name:'All three at once', color:'var(--paper)', items:[
+    'Prototype in the real stack.',
+    'Funding is a campaign, not a pitch.',
+  ]},
+];
+---
+<section id="principles" class="principles">
+  <h2>How I work</h2>
+  <div class="grid">
+    {groups.map(g => (
+      <div class="col" style={`--c:${g.color}`}>
+        <h3>{g.name}</h3>
+        <ul>{g.items.map(i => <li>{i}</li>)}</ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.principles{max-width:1200px;margin:0 auto;padding:96px 40px}
+h2{font-size:clamp(1.7rem,3vw,2.4rem);margin:0 0 28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:28px}
+.col{border-top:3px solid var(--c);padding-top:14px}
+.col h3{margin:0 0 10px;font-size:1.05rem;font-family:var(--body);font-weight:800}
+ul{list-style:none;margin:0;padding:0}
+li{padding:9px 0;border-top:1px solid var(--line);color:var(--type-2)}
+@media print{.principles{padding:24px 0}}
+</style>

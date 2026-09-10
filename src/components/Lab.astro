@@ -1,0 +1,35 @@
+---
+// Personal projects as technical evidence. Swap the placeholders for
+// the projects you are willing to show publicly.
+const projects = [
+  { c:'var(--mag-3)', name:'Private meeting transcription', d:'A fully local diarization and transcription tool for call recordings. No audio leaves the machine.', tags:'Python · Whisper · WSL2 → macOS' },
+  { c:'var(--gold-3)', name:'An agent I talk to over Telegram', d:'An autonomous pipeline that runs tasks on a schedule and reports back.', tags:'Agents · MCP · Tailscale' },
+  { c:'var(--violet-3)', name:'Reading a refrigerator\u2019s sensors', d:'Diagnosed a failing condenser fan by pulling live sensor data through the manufacturer\u2019s API instead of guessing.', tags:'Python · REST · a screwdriver' },
+];
+---
+<section id="lab" class="lab">
+  <h2>Lab</h2>
+  <p class="sub">Things I built because I wanted them.</p>
+  <div class="cards">
+    {projects.map(p => (
+      <div class="card" style={`--c:${p.c}`}>
+        <h3>{p.name}</h3>
+        <p>{p.d}</p>
+        <div class="tags">{p.tags}</div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+.lab{max-width:1200px;margin:0 auto;padding:0 40px 120px}
+h2{font-size:clamp(1.7rem,3vw,2.4rem);margin:0 0 6px}
+.sub{color:var(--type-3);margin:0 0 30px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:24px}
+.card{position:relative;padding:24px 22px 22px 28px;background:var(--bg-2);border-radius:6px;box-shadow:0 8px 14px -8px #05081a}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;border-radius:6px 0 0 6px;background:var(--c)}
+.card h3{margin:0 0 8px;font-size:1.1rem;font-family:var(--body);font-weight:800}
+.card p{margin:0;color:var(--type-2);font-size:.95rem}
+.tags{margin-top:12px;font-size:.8rem;color:var(--type-3)}
+@media print{.card{box-shadow:none;border:1px solid var(--line)}}
+</style>

@@ -1,0 +1,10 @@
+/* Applied only on the /print route, which is what becomes the PDF. */
+@page { size: A4; margin: 20mm; }
+html { background: #ffffff; color: #161a1f; font-size: 11pt; }
+a { color: #161a1f; text-decoration: none; }
+h1, h2, h3 { break-after: avoid; }
+section.entry { break-before: page; }
+.cover { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
+.cover h1 { font-size: 28pt; margin: 0 0 8pt; }
+.cover p { margin: 0 0 4pt; color: #4a5058; }
+img, svg { max-width: 100%; }
