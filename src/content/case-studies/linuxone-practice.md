@@ -33,7 +33,7 @@ diagram:
 
 **I established recurring client participation.** I founded the LinuxONE client council with about **30 clients**, recurring virtual sessions, and one in-person event each year. Its purpose is design input and future direction, not sales.
 
-**I connected the practice to product definition.** I lead design and research on Nexus and perform product leadership work without the product manager title, with influence across product management, strategy, and engineering.
+**I connected the practice to product definition.** I lead design and research on Launchpad for LinuxONE and perform product leadership work without the product manager title, with influence across product management, strategy, and engineering.
 
 ## Team activity and evidence
 
