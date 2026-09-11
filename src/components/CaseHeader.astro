@@ -1,0 +1,17 @@
+---
+import { restrictedNote } from '../site';
+const { data } = Astro.props;
+---
+<header class="case-header">
+  <p class="kicker">{data.category}</p>
+  <h1>{data.title}</h1>
+  <p class="summary">{data.summary}</p>
+  <div class="spec">{data.role && <p><strong>My role</strong>{data.role}</p>}{data.timeframe && <p><strong>Period</strong>{data.timeframe}</p>}</div>
+  {data.status === 'restricted' && <p class="restriction">{restrictedNote}</p>}
+  {data.brief && <dl class="brief">{data.brief.map(item => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>}
+</header>
+<style>
+.case-header h1{margin:0 0 20px}.summary{font-size:clamp(1.125rem,2vw,1.4rem);color:var(--type-2);max-width:52ch}.spec{display:flex;gap:24px 48px;flex-wrap:wrap;margin:26px 0}.spec p{margin:0;font-size:.9375rem}.spec strong{display:block;font-size:.875rem;color:var(--type-2);margin-bottom:3px}.restriction{font-size:.9375rem;background:#f1edf9;padding:16px 20px;border-left:3px solid var(--violet);margin:0 0 26px}.brief{margin:28px 0 0;border-top:1px solid var(--line)}.brief>div{display:grid;grid-template-columns:108px 1fr;gap:18px;padding:15px 0;border-bottom:1px solid var(--line)}.brief dt{font-size:.875rem;font-weight:800;color:var(--accent)}.brief dd{margin:0;font-size:1rem;color:var(--type);line-height:1.5}
+@media(max-width:500px){.brief>div{grid-template-columns:1fr;gap:5px}.spec{gap:20px}}
+@media print{.case-header h1{font-size:24pt}.summary{font-size:12pt}.brief dd{font-size:10pt}.brief>div{padding:8pt 0}.restriction{font-size:10pt}.spec{margin:14pt 0}}
+</style>

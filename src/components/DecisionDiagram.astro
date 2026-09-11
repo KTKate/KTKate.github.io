@@ -1,0 +1,13 @@
+---
+const { diagram } = Astro.props;
+---
+<figure class="decision-diagram">
+  <figcaption>{diagram.title}</figcaption>
+  <ol>{diagram.steps.map((step, index) => <li><span class="step-number">{String(index + 1).padStart(2, '0')}</span><strong>{step.title}</strong><span>{step.detail}</span></li>)}</ol>
+  <p>{diagram.caption}</p>
+</figure>
+<style>
+.decision-diagram{margin:36px 0;padding:28px;background:#f0eff6;border-left:4px solid var(--violet);break-inside:avoid}.decision-diagram figcaption{font-weight:800;font-size:1rem;margin-bottom:20px}.decision-diagram ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:24px}.decision-diagram li{position:relative;display:flex;flex-direction:column;gap:7px}.step-number{font-size:.875rem;color:#564ba5;font-weight:800}.decision-diagram li strong{font-size:1rem;line-height:1.4}.decision-diagram li>span:last-child{font-size:.9375rem;color:var(--type-2);line-height:1.5}.decision-diagram li:not(:last-child)::after{content:'→';position:absolute;right:-19px;top:0;color:#564ba5}.decision-diagram>p{font-size:.875rem;line-height:1.6;margin:24px 0 0;color:var(--type-2)}
+@media(max-width:600px){.decision-diagram{padding:22px}.decision-diagram ol{grid-template-columns:1fr;gap:22px}.decision-diagram li:not(:last-child)::after{display:none}.decision-diagram li:not(:last-child){border-bottom:1px solid #d6d2e7;padding-bottom:20px}}
+@media print{.decision-diagram{padding:14pt;margin:18pt 0}.decision-diagram ol{grid-template-columns:repeat(3,minmax(0,1fr))}.decision-diagram li>span:last-child,.decision-diagram>p{font-size:9pt}.decision-diagram li strong{font-size:10pt}}
+</style>

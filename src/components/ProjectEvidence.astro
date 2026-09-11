@@ -1,0 +1,12 @@
+---
+const { project, print = false } = Astro.props;
+---
+<div class="project-evidence">
+  <figure><figcaption>{project.name === 'Local transcription' ? 'Processing sequence' : 'System components'}</figcaption><ul>{project.components.map(item=><li>{item}</li>)}</ul><p>Conceptual view based on the project description.</p></figure>
+  <p class="constraint">{project.constraint}</p>
+  {print ? <p class="artifact"><strong>Artifact to add</strong>{project.artifact}</p> : <details><summary>Evidence to add</summary><p>{project.artifact}</p></details>}
+</div>
+<style>
+figure{margin:0 0 20px;background:#efedf5;padding:20px;border-left:3px solid var(--violet)}figcaption{font-size:.875rem;font-weight:750;margin-bottom:12px}figure ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}figure li{background:white;border:1px solid #c5bfd8;font-size:.875rem;padding:8px 12px;flex:1;min-width:120px;line-height:1.4}figure>p{font-size:.875rem;color:var(--type-2);margin:14px 0 0}.constraint{font-size:.9375rem;color:var(--type-2)}details{font-size:.875rem;border-top:1px solid var(--line)}summary{padding:12px 0;cursor:pointer;font-weight:750}details p,.artifact{color:var(--type-2);margin:0 0 14px;font-size:.875rem}.artifact strong{display:block;color:var(--type)}
+@media print{figure{padding:10pt;margin:0 0 10pt}figure li{font-size:9pt;min-width:80px}.constraint,.artifact{font-size:9pt}figure>p{font-size:8pt}}
+</style>

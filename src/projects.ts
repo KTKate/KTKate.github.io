@@ -1,0 +1,18 @@
+export const projects = [
+ { id:'cleo', name:'Cleo', type:'Autonomous AI agents', description:'An OpenClaw agent pipeline I operate through Telegram, connected through an MCP gateway.', tags:['Agent workflows','MCP','Telegram'],
+   constraint:'The system combines a conversational interface, autonomous agent execution, and tool access through MCP.',
+   components:['Telegram interface','OpenClaw agent pipeline','MCP gateway'],
+   artifact:'A redacted Telegram exchange and matching execution trace showing a task, tool calls, and final result. Remove account IDs, tokens, and private messages.' },
+ { id:'transcription', name:'Local transcription', type:'Local inference', description:'A fully local Teams call diarization and transcription tool, developed on WSL2 and targeting macOS.', tags:['Local inference','Diarization','WSL2'],
+   constraint:'Audio processing stays local. Development on WSL2 and a macOS target introduce platform-specific packaging and audio integration requirements.',
+   components:['Teams call audio','Local diarization + transcription','Speaker-labeled transcript'],
+   artifact:'A consented or synthetic audio sample alongside the actual speaker-labeled output. Include model names, hardware, and known transcription errors without inventing performance figures.' },
+ { id:'docupipe', name:'DocuPipe', type:'Agent-driven production', description:'An automated YouTube documentary pipeline about financial crimes and seized properties, with an agent negotiation loop and CI/CD.', tags:['Agent negotiation','Automation','CI/CD'],
+   constraint:'The project combines documentary production, agent negotiation, and continuous integration and delivery.',
+   components:['Documentary pipeline','Agent negotiation loop','CI/CD'],
+   artifact:'A redacted agent negotiation trace, a real pipeline run, and the resulting video excerpt. Show how the agents resolved one disagreement and identify any manual intervention.' },
+ { id:'prediction-markets', name:'Prediction-market bot', type:'API integration', description:'An automated betting bot built for Kalshi and Polymarket.', tags:['APIs','Automation','Prediction markets'],
+   constraint:'The system integrates with two prediction-market platforms. No trading performance or return is claimed.',
+   components:['Kalshi','Betting bot','Polymarket'],
+   artifact:'A redacted decision log and matching API response from a real or explicitly simulated run. Show the actual order controls and failure handling, if implemented. Remove balances and account identifiers.' },
+];

@@ -1,49 +1,45 @@
-# Portfolio
+# Kate Terraccino portfolio
 
-Astro 7, no legacy flags. Site and PDF from one content source, themed in
-the navy carved-paper direction.
+Astro 7 content collections, static GitHub Pages output, and a Playwright-generated PDF. HTML and PDF share case-study headers, diagrams, experience, principles, and independent-project content.
 
-## Run it
+## Development and verification
 
-    npm install
-    npx playwright install chromium
-    npm run dev          # http://localhost:4321
+```sh
+npm ci
+npx playwright install --with-deps chromium
+npm run sync
+npm run build
+npm test
+npm run preview
+```
 
-## Build site + PDF
+`npm run build` builds the HTML, generates `public/portfolio.pdf` from `/print/`, then builds again to include the PDF in `dist/`. The PDF is generated rather than committed. Fonts are local for consistent rendering. The Manrope license is included beside the font.
 
-    npm run build        # builds, writes public/portfolio.pdf, builds again
-    npm run preview      # check /, /about/, /work/nexus/, /portfolio.pdf
+`npm test` starts its own preview and inspects all seven public HTML routes at 320, 390, 768, 1024, and 1440 pixels. It checks overflow, image loading, console errors, minimum readable text size, WCAG A/AA rules through axe, keyboard behavior, reduced motion, enlarged text, no-JavaScript content, internal routes and anchors, publication holds, private/draft exclusions, and HTML/PDF-source parity. Screenshots and reports are written to ignored `artifacts/qa/`.
 
-The double build exists so the PDF ends up inside dist/. Crude, works.
+## Content
 
-## Structure
+- `src/site.ts`: positioning, contact information, experience, exact restriction note.
+- `src/content/case-studies/`: Markdown case studies and development drafts.
+- `src/content.config.ts`: content schema, including three-line briefs and decision diagrams.
+- `src/principles.ts`: principle groups shared by HTML and PDF.
+- `src/projects.ts`: independent project descriptions, conceptual components, constraints, and artifact requests.
+- `src/components/CaseHeader.astro` and `DecisionDiagram.astro`: shared web/PDF presentation.
+- `src/styles/tokens.css`: color, type, layout, focus, and reduced-motion foundations.
+- `docs/HOLDS.md`: publication restrictions. Read before changing Nexus claims.
 
-    src/site.ts                     name, lede, positioning, links (edit first)
-    src/content.config.ts           case-studies collection (Content Layer API)
-    src/content/case-studies/       nexus.md + _template.md; _ files are ignored
-    src/pages/index.astro           hero, work list, principles, lab
-    src/pages/work/[id].astro       case study pages (entry.id, not slug)
-    src/pages/about.astro           sequence paragraph + experience timeline
-    src/pages/print.astro           light, plain; becomes the PDF
-    src/components/Hero.astro       carved-channels art (placeholder block), or→and headline
-    src/components/Principles.astro placeholder principles
-    src/components/Lab.astro        placeholder personal-project cards
-    src/styles/tokens.css           navy on screen, light in print
-    scripts/pdf.mjs                 Playwright print of /print/
+Statuses:
 
-## Statuses
+- `public`: complete web page and PDF content.
+- `restricted`: complete web page and PDF content with the exact restricted-information note.
+- `draft`: development route only. PDF cover lists its title, without publishing the draft body.
 
-case study frontmatter `status`: draft (dev only), public, restricted
-(shown with a details-withheld note).
+Files prefixed with `_` are templates and excluded from the collection. Private local planning and captured review artifacts are ignored and never included in static output.
 
-## Deploy
+## Hero
 
-Push to GitHub, then repo Settings → Pages → Source: GitHub Actions.
-If the repo name is not <username>.github.io, set BASE_PATH in
-.github/workflows/deploy.yml and base in astro.config.mjs.
+The generated cut-paper asset depicts three complete stacks. Three independently clipped image layers provide restrained entrance motion. Reduced motion disables the animation. The same uncropped composition is used at every width. Artwork source and font license are documented in `docs/ASSETS.md`.
 
-## Deliberate placeholders
+## Deployment
 
-- Hero SVG art (swap the marked <svg> block later)
-- Principles text, Lab projects, About domain paragraph
-- Dates in the About timeline: verify against LinkedIn
+`.github/workflows/verify.yml` builds and checks pull requests and non-main pushes and retains screenshots and PDF as workflow artifacts. `.github/workflows/deploy.yml` deploys `main` to GitHub Pages. No hosting migration is required.

@@ -1,31 +1,17 @@
 ---
-const projects = [
-  { n:'01', name:'Cleo', type:'Autonomous agent system', d:'An agent pipeline I operate through Telegram, connected through an MCP gateway.', tags:['Agents','MCP','Telegram'] },
-  { n:'02', name:'Local transcription', type:'Private AI tool', d:'A fully local Teams call diarization and transcription tool, developed on WSL2 and targeting macOS.', tags:['Local inference','Diarization','WSL2'] },
-  { n:'03', name:'DocuPipe', type:'Automated production system', d:'A YouTube documentary pipeline with an agent negotiation loop and continuous delivery.', tags:['Multi-agent workflow','CI/CD','Media pipeline'] },
-  { n:'04', name:'Prediction markets', type:'Automated decision system', d:'A betting bot built for Kalshi and Polymarket.', tags:['APIs','Automation','Market data'] },
-];
+import { projects } from '../projects';
+import ProjectEvidence from './ProjectEvidence.astro';
 ---
-<section id="lab" class="lab" aria-labelledby="lab-title">
-  <header>
-    <div><p class="kicker">Independent work</p><h2 id="lab-title">Lab</h2></div>
-    <p>Private systems built on my own time. The evidence is in the architecture, constraints, and working software, not public repository activity.</p>
-  </header>
-  <ol class="projects">
-    {projects.map((project) => (
-      <li>
-        <div class="number">{project.n}</div>
-        <div class="title"><span>{project.type}</span><h3>{project.name}</h3></div>
-        <p>{project.d}</p>
-        <ul class="tags" aria-label={`${project.name} capabilities`}>{project.tags.map(tag => <li>{tag}</li>)}</ul>
-      </li>
-    ))}
-  </ol>
+<section id="lab" class="lab wrap" aria-labelledby="lab-title">
+  <div class="section-head"><div><p class="kicker">Independent technical work</p><h2 id="lab-title">AI systems I build.</h2></div><p>Private projects built independently on my own time. Agent workflows, local inference, API integration, and automated production.</p></div>
+  <div class="projects">{projects.map((project,index)=><article id={project.id}>
+    <p class="project-type"><span>{String(index+1).padStart(2,'0')}</span>{project.type}</p>
+    <h3>{project.name}</h3><p class="description">{project.description}</p>
+    <ul class="tags" aria-label={`${project.name} capabilities`}>{project.tags.map(tag=><li>{tag}</li>)}</ul>
+    <ProjectEvidence project={project}/>
+  </article>)}</div>
 </section>
-
 <style>
-.lab{max-width:1200px;margin:0 auto;padding:20px 40px 130px}.lab>header{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:42px}.lab>header p:last-child{color:var(--type-2);max-width:48ch;margin:0 0 8px auto}.kicker{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}h2{font-size:clamp(2.3rem,5vw,4.5rem);line-height:1;margin:0}
-.projects{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}.projects>li{display:grid;grid-template-columns:50px minmax(170px,.7fr) 1fr minmax(180px,.7fr);gap:24px;align-items:center;padding:25px 0;border-top:1px solid var(--line)}.number{font:600 1.05rem var(--display);color:var(--type-3)}.title span{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--type-3)}h3{font-size:1.4rem;margin:2px 0 0}.projects>li>p{color:var(--type-2);font-size:.92rem;margin:0}.tags{list-style:none;display:flex;flex-wrap:wrap;gap:5px;margin:0;padding:0}.tags li{font-size:.68rem;border:1px solid var(--line);padding:4px 8px;border-radius:2px;color:var(--type-2)}
-@media(max-width:800px){.lab{padding:10px 24px 90px}.lab>header{grid-template-columns:1fr;gap:16px}.lab>header p:last-child{margin:0}.projects>li{grid-template-columns:34px 1fr;gap:10px 14px}.projects>li>p,.tags{grid-column:2}}
-@media print{.lab{padding:24px 0}.projects>li{grid-template-columns:35px 160px 1fr}.tags{display:none}}
+.lab{padding-block:88px}.projects{display:grid;grid-template-columns:1fr 1fr;column-gap:48px;row-gap:38px}.projects>article{border-top:3px solid var(--type);padding-top:22px;min-width:0}.project-type{font-size:.875rem;font-weight:750;color:var(--type-2);display:flex;gap:14px;margin-bottom:16px}.project-type span{color:var(--accent)}h3{font-size:1.8rem;margin-bottom:14px}.description{color:var(--type-2);font-size:1rem;min-height:5em}.tags{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin:0 0 24px;padding:0}.tags li{font-size:.875rem;padding:3px 9px;border:1px solid #c8c8d5;color:var(--type-2)}
+@media(max-width:700px){.lab{padding-block:60px}.projects{grid-template-columns:1fr;gap:30px}.description{min-height:0}}
 </style>
