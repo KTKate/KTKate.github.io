@@ -1,5 +1,5 @@
 ---
-title: Nexus
+title: IBM Launchpad for LinuxONE
 summary: Establishing the research, technical feasibility, and organizational commitment for LinuxONE provisioning.
 order: 1
 status: restricted
@@ -37,7 +37,7 @@ diagram:
 
 **Recurring research provided continuing design input.** I founded the LinuxONE client council, which includes about **30 clients**, recurring virtual sessions, and one in-person event each year. Its purpose is design input and future direction.
 
-**The evidence combined several sources.** Client accounts described setup difficulties. Earlier research and available telemetry informed the choice of operating system and container platform use cases. These sources supported scope decisions; they do not establish a public performance result for Nexus.
+**The evidence combined several sources.** Client accounts described setup difficulties. Earlier research and available telemetry informed the choice of operating system and container platform use cases. These sources supported scope decisions; they do not establish a public performance result for Launchpad for LinuxONE.
 
 ## The bet
 
@@ -57,7 +57,7 @@ diagram:
 
 **The proposal became a funded product with a development team and client involvement.** My contribution was establishing the need, recognizing the technical feasibility, and organizing support for the product direction. Engineering, product management, and design carried the work into delivery together.
 
-**Release details remain restricted.** The evidence presented here is the transition from proposal to funded work, the defined provisioning scope, and continued client participation. Public release timing and performance results are omitted.
+**IBM has published the product name and intended scope.** Its [statement of direction for IBM Launchpad for LinuxONE](https://www.ibm.com/docs/en/announcements/linuxone-rockhopper-5-built-secured-ai-ready-enterprise-it) describes planned onboarding, configuration management, and workload deployment for administrators new to LinuxONE. This is a statement of future direction. Release timing and performance results remain restricted.
 
 ## What I would do differently
 

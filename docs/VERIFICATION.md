@@ -55,3 +55,13 @@ All seven routes and 27 internal links/anchors passed under the prefix, includin
 ## Filesystem path handling
 
 The QA root now uses Node's `fileURLToPath`, matching PDF generation. A copied checkout at `/tmp/portfolio path café` passed `QA_WIDTHS=390 node scripts/qa.mjs`: seven routes, 27 internal links/anchors, and all interaction checks. This verifies spaces and non-ASCII characters on Linux; native Windows execution was not performed.
+
+## Public product name and statement of direction
+
+Follow-up based on merged PR #2 (`7664409`), verified 11 September 2026. IBM announcement AD26-0467 supports the public name IBM Launchpad for LinuxONE and its intended scope. The precise permission and source are recorded in `docs/HOLDS.md`. Release dates and performance claims remain held. The existing case-study route is preserved.
+
+`npm run build` and `npm test` passed before and after the content update. The restricted environment initially prevented the PDF preview server from binding a local port; the complete commands passed with local preview ports enabled. `git diff --check` passed.
+
+The final run repeated all seven routes at all five widths listed above: 35 page checks, 27 internal link/anchor checks, zero failures. Full-page screenshots were reviewed, including the longer case-study title and updated home, About, practice, and print content. Keyboard, reduced-motion, enlarged-text, no-JavaScript, accessibility, publication-hold, and HTML/print parity checks passed.
+
+The regenerated PDF remains nine pages. The changed case-study pages were visually inspected. PDF extraction confirms the public product name, the exact restriction note, and an active link to the IBM announcement. The public and built PDF copies are byte-identical. Private LinkedIn planning now uses the public product name and remains ignored.
