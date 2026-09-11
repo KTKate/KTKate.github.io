@@ -18,7 +18,7 @@ const { Content } = await render(entry);
       <dl class="spec">
         {entry.data.role && <><dt>Role</dt><dd>{entry.data.role}</dd></>}
         {entry.data.timeframe && <><dt>Timeframe</dt><dd>{entry.data.timeframe}</dd></>}
-        {entry.data.status === 'restricted' && <><dt>Note</dt><dd>Some details withheld; happy to discuss in conversation.</dd></>}
+        {entry.data.status === 'restricted' && <><dt>Note</dt><dd>Some figures and dates are omitted until the product is generally available.</dd></>}
       </dl>
     </header>
     <div class="body"><Content /></div>
@@ -35,4 +35,5 @@ h1{font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin:0 0 12px}
 .body :global(h2){font-size:1.5rem;margin:2.2em 0 .6em}
 .body :global(p){color:var(--type-2);max-width:62ch;font-size:1.06rem;line-height:1.65}
 .body :global(img){max-width:100%;border-radius:4px}
+@media(max-width:640px){.cs{padding:36px 24px 80px}.spec{grid-auto-flow:row;grid-template-rows:none;gap:4px}.spec dd{margin:0 0 12px}.summary{font-size:1.1rem}}
 </style>

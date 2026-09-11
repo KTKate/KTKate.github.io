@@ -6,25 +6,25 @@ import site from '../site';
   <section class="about">
     <h1>About</h1>
     <p class="para">
-      <!-- The sequence, told as a sequence. Edit freely; verify dates. -->
-      I started in computer science and human–computer interaction, spent my first
-      years building software, then a decade leading design and research for
-      enterprise platforms, and now work at the intersection of product strategy,
-      design, and the technology underneath it.
+      I lead design and research for LinuxONE and Linux on Z at IBM. My current work
+      includes product and platform strategy, client research, and the organizational
+      work required to move a technical product from proposal to delivery.
     </p>
     <p class="para">
-      <!-- Domain paragraph placeholder: why servers and enterprise platforms shaped how you work. -->
-      Placeholder: domain paragraph.
+      My technical range includes Linux on Z, virtualization, containers, virtual
+      machines, networking, storage, APIs, hybrid cloud patterns, and server hardware.
+      I use that knowledge to evaluate product proposals, APIs, and demonstrations
+      with engineering.
     </p>
     <h2>Experience</h2>
     <ul class="timeline">
-      <li><b>Senior Design &amp; Research Lead, LinuxONE and Linux on Z</b> — IBM, 2024–present</li>
-      <li><b>Senior Design &amp; Research Manager, AIOps on Z</b> — IBM, 2023–2024</li>
-      <li><b>Senior Design &amp; Research Manager, z/OS Hybrid Cloud</b> — IBM, 2019–2023</li>
-      <li><b>UX Researcher</b> — IBM, 2017–2018</li>
-      <li><b>UX Designer &amp; Developer</b> — IBM, 2015–2019</li>
-      <li><b>UI Developer</b> — Spiceworks, 2015</li>
-      <li><b>B.S. Computer Science and Human Computer Interaction</b> — University of Rochester, 2014</li>
+      <li><b>Senior design and research lead, LinuxONE and Linux on Z</b><span>IBM</span></li>
+      <li><b>Senior design and research manager, AIOps on Z</b><span>IBM, 2023 to 2024</span></li>
+      <li><b>Senior design and research manager, z/OS hybrid cloud</b><span>IBM, 2019 to 2023</span></li>
+      <li><b>UX researcher</b><span>IBM, 2017 to 2018</span></li>
+      <li><b>UX designer and front-end developer</b><span>IBM, 2015 to 2019</span></li>
+      <li><b>UI developer</b><span>Spiceworks</span></li>
+      <li><b>B.S. in Computer Science and Human Computer Interaction</b><span>University of Rochester, 2014</span></li>
     </ul>
     <p class="para">Based in {site.location}. <a href={site.linkedin}>Full history on LinkedIn.</a></p>
   </section>
@@ -36,7 +36,9 @@ h1{font-size:clamp(2rem,4vw,3rem);margin:0 0 20px}
 h2{font-size:1.5rem;margin:2em 0 .6em}
 .para{color:var(--type-2);max-width:62ch}
 .timeline{list-style:none;margin:0;padding:0}
-.timeline li{padding:12px 0;border-top:1px solid var(--line);color:var(--type-2)}
+.timeline li{padding:14px 0;border-top:1px solid var(--line);color:var(--type-2);display:flex;justify-content:space-between;gap:24px}
 .timeline b{color:var(--type);font-weight:700}
+.timeline span{text-align:right;white-space:nowrap}
 a{color:var(--accent)}
+@media(max-width:640px){.about{padding:36px 24px 80px}.timeline li{display:block}.timeline span{display:block;text-align:left;margin-top:3px;white-space:normal}}
 </style>

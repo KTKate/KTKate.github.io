@@ -2,7 +2,7 @@
 const site = {
   name: 'Kate Terraccino',
   // Home page hero paragraph:
-  lede: "Over a decade leading design, research, and product strategy for the platforms behind the world's banks and insurers. I know the stack underneath, from virtualization and networking to the hardware itself, and on my own time I build with AI: agents, local tools, automation I actually use.",
+  lede: "I lead design, research, and product strategy for enterprise infrastructure. I work across APIs, virtualization, containers, networking, storage, and server hardware. Independently, I build AI agents, local tools, and automated production systems.",
   // One line used in <title> and the PDF cover:
   positioning: 'Design, research, and product strategy for enterprise platforms.',
   email: 'kateterraccino@gmail.com',

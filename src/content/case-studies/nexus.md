@@ -4,7 +4,6 @@ summary: Taking LinuxONE provisioning from client research to a funded product.
 order: 1
 status: restricted
 role: Product and design lead
-timeframe: 2025–2026
 ---
 
 New LinuxONE customers told us it took **7 to 24 months** to plan, configure, and deploy a first workload, and most of them paid for consulting to get there.
