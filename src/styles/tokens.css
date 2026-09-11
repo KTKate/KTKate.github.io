@@ -5,9 +5,9 @@
   --display:'Manrope',Arial,sans-serif; --body:'Manrope',Arial,sans-serif;
 }
 @font-face{font-family:Manrope;src:url('../assets/manrope.ttf') format('truetype');font-weight:200 800;font-style:normal;font-display:swap}
-*{box-sizing:border-box}
+*{box-sizing:border-box;min-width:0}
 html{background:var(--bg);color:var(--type);font-family:var(--body);font-size:16px;line-height:1.6;scroll-behavior:smooth;scroll-padding-top:24px}
-body{margin:0}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);font-weight:750;line-height:1.12;letter-spacing:-.045em;text-wrap:balance}
+body{margin:0;overflow-wrap:anywhere}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);font-weight:750;line-height:1.12;letter-spacing:-.045em;text-wrap:balance}
 h1{font-size:clamp(2.25rem,5vw,4.6rem)}h2{font-size:clamp(2rem,3.7vw,3.4rem)}h3{font-size:1.5rem}
 p{margin-bottom:1.2em}a{color:inherit;text-underline-offset:.22em}button{font:inherit}img,svg{max-width:100%}
 a,button{touch-action:manipulation}button{cursor:pointer}::selection{background:#dfd9ff;color:var(--navy)}

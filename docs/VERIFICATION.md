@@ -29,7 +29,7 @@ Widths: 320, 390, 768, 1024, 1440 pixels. Full-page screenshots are retained in 
 
 Checks include horizontal overflow, image loading, console errors, readable screen text size, and axe WCAG 2 A/AA and 2.1 AA rules. Automated accessibility checks do not replace a screen-reader review.
 
-Interaction checks cover the skip link, principle tab arrow keys and Home/End, selected-panel focus, keyboard-operated disclosure, reduced-motion animation removal, 200% text enlargement, and the no-JavaScript fallback. All internal routes and fragment targets resolve.
+Interaction checks cover the skip link, principle tab arrow keys and Home/End, selected-panel focus, keyboard-operated disclosure, reduced-motion animation removal, 200% text enlargement at 320 and 390 pixels, and the no-JavaScript fallback. All internal routes and fragment targets resolve.
 
 Publication checks confirm the exact Nexus restriction note in HTML and print, the absence of held Nexus timing/performance text, draft body exclusion from production, private planning exclusion from static output, and paragraph parity between every published case study and the print route.
 
