@@ -43,3 +43,5 @@ The generated cut-paper asset depicts three complete stacks. Three independently
 ## Deployment
 
 `.github/workflows/verify.yml` builds and checks pull requests and non-main pushes and retains screenshots and PDF as workflow artifacts. `.github/workflows/deploy.yml` deploys `main` to GitHub Pages. No hosting migration is required.
+
+For a configured subdirectory, set the same `BASE_PATH` for build and test. QA reads that prefix for page navigation and requests. `QA_WIDTHS=390` optionally limits route screenshots and axe checks for a targeted configuration run; omitting it runs all five widths.

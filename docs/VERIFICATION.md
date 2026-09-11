@@ -40,3 +40,14 @@ The build generated a nine-page PDF. All pages were rendered to images and visua
 ## Evidence limits
 
 The AIOps draft requires a specific product-direction decision before publication. Lab artifact placeholders specify actual redacted outputs needed to add further evidence; the conceptual diagrams do not claim audited implementation details or performance. Nexus release claims remain held under `docs/HOLDS.md`.
+
+## Configured subdirectory
+
+The review finding about root-only QA URLs was corrected. These additional commands passed for a subdirectory build:
+
+```sh
+BASE_PATH=/portfolio-review/ npm run build
+BASE_PATH=/portfolio-review/ QA_WIDTHS=390 npm test
+```
+
+All seven routes and 27 internal links/anchors passed under the prefix, including keyboard and enlarged-text checks. The normal root build was restored afterward. `QA_WIDTHS` is an optional test-only subset; the default remains all five widths.
