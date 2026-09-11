@@ -1,76 +1,34 @@
 ---
 import site from '../site';
+const art = `${import.meta.env.BASE_URL}images/paper-stacks.webp`;
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <svg class="art" viewBox="0 0 1440 820" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs>
-      <filter id="paper-edge" x="-15%" y="-15%" width="130%" height="140%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.02" numOctaves="2" seed="24" result="grain" />
-        <feDisplacementMap in="SourceGraphic" in2="grain" scale="7" />
-        <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#070a1d" flood-opacity=".42" />
-      </filter>
-      <filter id="paper-tooth">
-        <feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="8" result="noise" />
-        <feColorMatrix in="noise" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .09 0" />
-      </filter>
-    </defs>
-
-    <g class="stack violet" filter="url(#paper-edge)">
-      <path fill="#302b70" d="M-80-50H770c-72 77-119 137-145 203-30 75-37 155-93 202-60 51-158 39-235 85-75 44-103 122-187 160-55 25-119 25-190 10z" />
-      <path fill="#4a44a0" d="M-80-50H720c-68 76-102 132-124 197-25 71-38 138-92 179-58 43-147 31-224 75-77 43-108 113-188 145-53 21-111 18-172 5z" />
-      <path fill="#7a72d6" d="M-80-50H666c-55 69-77 120-95 179-20 66-35 121-86 158-54 38-135 25-213 67-72 39-106 98-181 126-49 18-103 13-171 0z" />
-      <path fill="#b3acf0" d="M-80-50H610c-42 63-56 106-72 159-18 59-35 101-82 134-50 34-125 20-199 59-70 36-106 84-176 106-47 15-99 6-161-10z" />
-    </g>
-
-    <g class="stack amber" filter="url(#paper-edge)">
-      <path fill="#714811" d="M1515-50H690c72 77 119 137 145 203 30 75 37 155 93 202 60 51 158 39 235 85 75 44 103 122 187 160 55 25 119 25 165 10z" />
-      <path fill="#a96718" d="M1515-50H740c68 76 102 132 124 197 25 71 38 138 92 179 58 43 147 31 224 75 77 43 108 113 188 145 53 21 104 18 147 5z" />
-      <path fill="#f0a83a" d="M1515-50H794c55 69 77 120 95 179 20 66 35 121 86 158 54 38 135 25 213 67 72 39 106 98 181 126 49 18 96 13 146 0z" />
-      <path fill="#ffcf6b" d="M1515-50H850c42 63 56 106 72 159 18 59 35 101 82 134 50 34 125 20 199 59 70 36 106 84 176 106 47 15 92 6 136-10z" />
-    </g>
-
-    <g class="stack magenta" filter="url(#paper-edge)">
-      <path fill="#651d4e" d="M-80 870V560c87 21 163 14 229-17 73-34 124-102 201-117 79-15 146 38 225 39 85 1 140-60 225-63 88-3 145 59 227 63 79 3 145-49 225-37 80 12 137 76 211 110 52 24 104 31 152 25v307z" />
-      <path fill="#9f287b" d="M-80 870V616c84 17 161 6 227-29 71-38 124-100 199-113 77-13 145 42 226 43 85 1 143-61 229-63 88-2 146 61 226 65 78 4 144-47 221-34 78 13 133 73 204 107 51 24 106 34 163 27v251z" />
-      <path fill="#e94fb7" d="M-80 870V676c82 11 158-4 226-43 68-39 123-96 197-107 75-11 144 45 227 47 86 2 146-60 232-61 87-1 146 62 225 67 76 5 141-44 216-31 75 13 128 68 198 101 50 24 108 37 174 27v194z" />
-      <path fill="#ff9bd6" d="M-80 870V738c78 4 153-13 222-55 66-40 121-89 195-98 74-9 143 48 231 50 87 2 149-59 236-58 85 1 145 63 223 69 74 6 138-39 210-26 71 13 123 62 192 94 49 23 111 39 186 24v132z" />
-    </g>
-
-    <path class="center-paper" filter="url(#paper-edge)" fill="var(--paper)" d="M416 283c56-39 90-105 156-123 70-19 111 44 183 43 70-1 113-62 180-40 62 20 91 88 145 128 53 40 143 45 158 113 15 69-62 112-92 174-28 58-14 137-72 168-57 31-119-19-184-21-66-2-128 45-190 23-60-22-76-96-124-139-50-45-132-64-151-128-20-67 34-152-9-198z" />
-    <rect width="1440" height="820" filter="url(#paper-tooth)" opacity=".65" />
-
-    <g class="labels">
-      <text x="92" y="106">DESIGN</text>
-      <text x="1348" y="106" text-anchor="end">PRODUCT</text>
-      <text x="720" y="786" text-anchor="middle">TECHNOLOGY</text>
-    </g>
-  </svg>
-
-  <div class="center">
-    <p class="eyebrow">Kate Terraccino</p>
-    <h1 id="hero-title">Designer <span>and</span> researcher <span>and</span> product strategist <span>and</span> engineer.</h1>
-    <p class="lede">{site.lede}</p>
-    <a class="cta" href="#work">Selected work <span aria-hidden="true">↓</span></a>
+  <div class="wrap hero-grid">
+    <div class="copy">
+      <p class="kicker">Product and platform direction</p>
+      <h1 id="hero-title"><span class="design">Designer <small>and</small><br/>researcher</span><br/><small>and</small> <span class="product">product<br/>strategist</span><br/><small>and</small> <span class="technology">engineer.</span></h1>
+      <p class="lede">{site.lede}</p>
+      <p class="technical">{site.technical}</p>
+      <a class="button" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
+    </div>
+    <figure class="paper-figure">
+      <div class="paper-art" role="img" aria-label="Three separate stacks of cut paper, violet for design and research, amber for product, and magenta for technology, with three open channels meeting between them.">
+        <img class="stack violet" src={art} width="1536" height="1024" alt="" fetchpriority="high" decoding="async" />
+        <img class="stack amber" src={art} width="1536" height="1024" alt="" decoding="async" />
+        <img class="stack magenta" src={art} width="1536" height="1024" alt="" decoding="async" />
+      </div>
+      <figcaption><span><i class="violet-key"></i>Design + research</span><span><i class="amber-key"></i>Product</span><span><i class="magenta-key"></i>Technology</span></figcaption>
+    </figure>
   </div>
 </section>
-
 <style>
-.hero{position:relative;height:calc(100svh - 92px);min-height:680px;max-height:920px;display:grid;place-items:center;overflow:hidden;isolation:isolate}
-.art{position:absolute;inset:0;width:100%;height:100%}
-.center{position:relative;z-index:2;text-align:center;width:min(500px,40vw);color:var(--ink)}
-.eyebrow{margin:0 0 12px;font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#5d5870}
-h1{font-size:clamp(1.75rem,3vw,2.65rem);line-height:1.08;letter-spacing:-.025em;margin:0}
-h1 span{color:#7b541d;font-style:italic;font-weight:500}
-.lede{font-size:clamp(.82rem,1.1vw,.96rem);line-height:1.55;margin:18px auto 20px;max-width:49ch;color:#4f4a5e}
-.cta{display:inline-flex;gap:8px;align-items:center;color:var(--paper);background:var(--ink);padding:10px 17px;border-radius:2px;font-size:.8rem;font-weight:800;text-decoration:none}
-.cta:hover{background:#2e2944}.cta span{font-size:1rem}
-.labels text{fill:var(--paper);font:800 12px var(--body);letter-spacing:.2em;opacity:.75}
-@media(max-width:800px){
-  .hero{height:auto;min-height:0;display:flex;flex-direction:column;padding-bottom:56px}
-  .art{position:relative;height:54vw;min-height:300px;order:0}
-  .center{order:1;width:auto;max-width:580px;margin:-5vw 24px 0;padding:28px 24px;background:var(--paper);box-shadow:0 14px 30px rgba(5,8,26,.28)}
-  h1{font-size:clamp(1.7rem,7vw,2.3rem)}.lede{font-size:.92rem}.labels{display:none}
-}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
-@media print{.hero{height:auto;min-height:0;display:block}.art{display:none}.center{color:var(--type);text-align:left;width:auto;max-width:none}.lede{color:var(--type-2)}.cta{display:none}}
+.hero{background:var(--navy);color:#fafaf8;padding:48px 0 76px}.hero-grid{display:grid;grid-template-columns:1.03fr 1.1fr;gap:24px;align-items:center}.copy{position:relative;z-index:1}.kicker{color:#c1bbff;margin-bottom:22px}
+h1{font-size:clamp(2.8rem,4.5vw,4.25rem);line-height:1.08;margin-bottom:28px;letter-spacing:-.055em}h1 small{font-size:.57em;font-weight:500;letter-spacing:-.03em;color:#fafaf8}.design{color:#beb8ff}.product{color:#f0a83a}.technology{color:#f78ad0}
+.lede{font-size:1.1875rem;line-height:1.55;max-width:43ch;margin-bottom:16px}.technical{font-size:1rem;color:#c9cedf;max-width:47ch;margin-bottom:28px}.button{background:var(--amber);color:var(--navy);gap:28px}.button:hover{background:#ffc565}.hero :focus-visible{outline-color:var(--amber)}
+.paper-figure{margin:0;min-width:0}.paper-art{position:relative;aspect-ratio:3/2;isolation:isolate}.stack{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:place 1.5s cubic-bezier(.16,1,.3,1) both}.violet{clip-path:polygon(0 0,49% 0,49% 40%,24% 65%,0 67%);--dx:-9px;--dy:-6px}.amber{clip-path:polygon(49% 0,100% 0,100% 68%,78% 66%,49% 40%);--dx:9px;--dy:-6px;animation-delay:.1s}.magenta{clip-path:polygon(0 67%,24% 65%,49% 40%,78% 66%,100% 68%,100% 100%,0 100%);--dx:0px;--dy:9px;animation-delay:.2s}
+@keyframes place{from{transform:translate(var(--dx),var(--dy))}to{transform:translate(0,0)}}
+figcaption{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;margin-top:26px;font-size:.875rem;color:#d6daea}figcaption span{display:flex;align-items:center;gap:7px}i{width:9px;height:9px;display:inline-block}.violet-key{background:var(--violet)}.amber-key{background:var(--amber)}.magenta-key{background:var(--magenta)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:42px}.copy{max-width:620px}.paper-figure{max-width:660px;width:100%;margin-inline:auto}h1{font-size:clamp(2.8rem,7.5vw,4.6rem)}.hero{padding:30px 0 52px}.lede,.technical{max-width:54ch}}
+@media(max-width:500px){h1{font-size:clamp(2.3rem,9.8vw,3rem)}.lede{font-size:1.125rem}.hero-grid{gap:34px}figcaption{justify-content:flex-start;gap:8px 16px;margin-top:18px}}
+@media print{.hero{background:white;color:var(--type)}.paper-figure,.button{display:none}.hero-grid{display:block}}
 </style>

@@ -1,44 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
+import Experience from '../components/Experience.astro';
 import site from '../site';
 ---
-<Base title="About">
-  <section class="about">
-    <h1>About</h1>
-    <p class="para">
-      I lead design and research for LinuxONE and Linux on Z at IBM. My current work
-      includes product and platform strategy, client research, and the organizational
-      work required to move a technical product from proposal to delivery.
-    </p>
-    <p class="para">
-      My technical range includes Linux on Z, virtualization, containers, virtual
-      machines, networking, storage, APIs, hybrid cloud patterns, and server hardware.
-      I use that knowledge to evaluate product proposals, APIs, and demonstrations
-      with engineering.
-    </p>
-    <h2>Experience</h2>
-    <ul class="timeline">
-      <li><b>Senior design and research lead, LinuxONE and Linux on Z</b><span>IBM</span></li>
-      <li><b>Senior design and research manager, AIOps on Z</b><span>IBM, 2023 to 2024</span></li>
-      <li><b>Senior design and research manager, z/OS hybrid cloud</b><span>IBM, 2019 to 2023</span></li>
-      <li><b>UX researcher</b><span>IBM, 2017 to 2018</span></li>
-      <li><b>UX designer and front-end developer</b><span>IBM, 2015 to 2019</span></li>
-      <li><b>UI developer</b><span>Spiceworks</span></li>
-      <li><b>B.S. in Computer Science and Human Computer Interaction</b><span>University of Rochester, 2014</span></li>
-    </ul>
-    <p class="para">Based in {site.location}. <a href={site.linkedin}>Full history on LinkedIn.</a></p>
-  </section>
+<Base title="About" description="Kate Terraccino leads product and platform direction through design, research, and technical evaluation for enterprise infrastructure.">
+  <div class="about wrap">
+    <section class="about-intro"><p class="kicker">About Kate</p><h1>Product direction informed by research and technical depth.</h1><p class="lead">I am a senior design and research lead at IBM for LinuxONE and Linux on Z. I lead product and platform strategy, client research, and the organizational work needed to move a technical product from proposal to delivery.</p><p>My technical range includes APIs, virtualization, containers, virtual machines, networking, storage, hybrid cloud patterns, and server hardware. I use that knowledge to evaluate implementation options with engineering.</p><p>I build independent AI and automation systems on my own time. Those projects also develop my understanding of hardware and server internals.</p><p>My career began in front-end development. My current work focuses on product decisions: what to build, how to establish feasibility, and how to organize delivery.</p></section>
+    <Experience />
+    <p class="location">{site.location}. <a href={site.linkedin}>LinkedIn profile</a></p>
+  </div>
 </Base>
-
 <style>
-.about{max-width:920px;margin:0 auto;padding:48px 40px 120px}
-h1{font-size:clamp(2rem,4vw,3rem);margin:0 0 20px}
-h2{font-size:1.5rem;margin:2em 0 .6em}
-.para{color:var(--type-2);max-width:62ch}
-.timeline{list-style:none;margin:0;padding:0}
-.timeline li{padding:14px 0;border-top:1px solid var(--line);color:var(--type-2);display:flex;justify-content:space-between;gap:24px}
-.timeline b{color:var(--type);font-weight:700}
-.timeline span{text-align:right;white-space:nowrap}
-a{color:var(--accent)}
-@media(max-width:640px){.about{padding:36px 24px 80px}.timeline li{display:block}.timeline span{display:block;text-align:left;margin-top:3px;white-space:normal}}
+.about{max-width:1050px;padding-top:56px;padding-bottom:72px}.about-intro{margin-bottom:60px}.about-intro h1{max-width:17ch;margin-bottom:30px}.about-intro p:not(.kicker){max-width:65ch;color:var(--type-2);font-size:1.0625rem;line-height:1.7}.about-intro .lead{font-size:1.3rem!important;color:var(--type)!important}.location{margin:40px 0 0;color:var(--type-2)}
+@media(max-width:600px){.about{padding-top:36px}.about-intro .lead{font-size:1.125rem!important}}
 </style>

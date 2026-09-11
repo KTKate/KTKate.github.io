@@ -1,48 +1,21 @@
-/* Navy theme tokens. Replaces the import of tokens.css in Base.astro
-   (or import it AFTER tokens.css to override).
-   Dark theme is scoped to screen so the /print route and the PDF stay
-   light and legible without touching print.css. */
-
-:root{
-  /* light defaults: used by print and as fallback */
-  --bg:#f4f5f2;
-  --bg-2:#e9ebe6;
-  --type:#161a1f;
-  --type-2:#4a5058;
-  --type-3:#7c838c;
-  --line:#d3d7d0;
-  --accent:#c47f1d;
-
-  --violet-1:#2a2564; --violet-2:#4640a0; --violet-3:#7a72d6; --violet-4:#b3acf0;
-  --gold-1:#6b4410;   --gold-2:#b8761a;   --gold-3:#f0a83a;   --gold-4:#ffcf6b;
-  --mag-1:#5e1a48;    --mag-2:#a52680;    --mag-3:#e94fb7;    --mag-4:#ff9bd6;
-  --paper:#f2eee6;
-  --ink:#171426;
-
-  --display:'Source Serif 4',Georgia,serif;
-  --body:'Manrope',system-ui,sans-serif;
+:root {
+  --bg:#fafaf8; --bg-2:#efefed; --type:#171d32; --type-2:#495063; --type-3:#596074;
+  --line:#d2d4dc; --accent:#564ba5; --paper:#fafaf8; --ink:#171d32; --navy:#141b38;
+  --violet:#7a72d6; --amber:#f0a83a; --magenta:#e94fb7;
+  --display:'Manrope',Arial,sans-serif; --body:'Manrope',Arial,sans-serif;
 }
-
-@media screen{
-  :root{
-    --bg:#141b38;
-    --bg-2:#1b2350;
-    --type:#f2eee6;
-    --type-2:rgba(242,238,230,.8);
-    --type-3:rgba(242,238,230,.55);
-    --line:rgba(242,238,230,.16);
-    --accent:#f0a83a;
-  }
-  html{background:var(--bg)}
-  /* fine paper tooth over everything on screen */
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
-    opacity:.22;mix-blend-mode:soft-light;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  }
-}
-
-html{color:var(--type);font-family:var(--body);font-size:17px;line-height:1.55}
-h1,h2,h3{font-family:var(--display);font-optical-sizing:auto;font-weight:500}
-h2,h3{font-weight:600;word-spacing:.06em}
-a{color:var(--type)}
+@font-face{font-family:Manrope;src:url('../assets/manrope.ttf') format('truetype');font-weight:200 800;font-style:normal;font-display:swap}
+*{box-sizing:border-box;min-width:0}
+html{background:var(--bg);color:var(--type);font-family:var(--body);font-size:16px;line-height:1.6;scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;overflow-wrap:anywhere}h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:var(--display);font-weight:750;line-height:1.12;letter-spacing:-.045em;text-wrap:balance}
+h1{font-size:clamp(2.25rem,5vw,4.6rem)}h2{font-size:clamp(2rem,3.7vw,3.4rem)}h3{font-size:1.5rem}
+p{margin-bottom:1.2em}a{color:inherit;text-underline-offset:.22em}button{font:inherit}img,svg{max-width:100%}
+a,button{touch-action:manipulation}button{cursor:pointer}::selection{background:#dfd9ff;color:var(--navy)}
+:focus-visible{outline:3px solid #654dc0;outline-offset:5px}
+[hidden]{display:none!important}.wrap{width:min(1248px,100%);margin-inline:auto;padding-inline:clamp(20px,4.5vw,64px)}
+.kicker{font-size:.875rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;line-height:1.5;color:var(--accent);margin:0 0 16px}
+.section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:36px}.section-head h2{margin:0}.section-head>p{color:var(--type-2);max-width:48ch;margin:0}
+.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;background:var(--navy);color:white;text-decoration:none;font-size:.9375rem;font-weight:750;border:0}.button:hover{background:#35305d}
+@media(max-width:700px){.section-head{grid-template-columns:1fr;gap:18px}.wrap{padding-inline:20px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{html{font-size:10pt;background:white}body{background:white}a{color:inherit}}

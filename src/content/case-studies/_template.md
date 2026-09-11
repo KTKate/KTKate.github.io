@@ -1,32 +1,49 @@
 ---
 title: Case study title
-summary: One sentence a recruiter reads in the list.
-order: 2
+summary: A specific product or organizational decision and its supported result.
+order: 5
 status: draft
-role: Your role
-timeframe: 20XX
+role: Verified role
+category: Product direction
+brief:
+  - label: Before
+    text: The observed starting situation.
+  - label: My decision
+    text: The decision Kate personally made.
+  - label: Evidence
+    text: The supported resulting change and its evidence source.
+diagram:
+  title: Decision sequence
+  caption: Explain what the diagram represents and its evidence limits.
+  steps:
+    - title: Need
+      detail: The established problem.
+    - title: Decision
+      detail: The selected approach.
+    - title: Result
+      detail: The verified outcome.
 ---
 
 ## The situation
 
-<!-- What the world looked like before, and who felt the problem most. -->
+<!-- State the problem first. No invented client details, metrics, or dates. -->
 
 ## What we learned
 
-<!-- Research, signals, what surprised you. Methods and sources, never client names. -->
+<!-- Explain the research and other evidence, including its limits. -->
 
 ## The bet
 
-<!-- What you chose to build first, what you descoped, the tradeoff you accepted. -->
+<!-- State the decision, alternatives, and scope. -->
 
-## Moving the org
+## Moving the organization
 
-<!-- The groups that had to come along and what you did to keep the work funded and alive. -->
+<!-- Separate Kate's decisions, team activity, and organizational context. -->
 
 ## What shipped
 
-<!-- The outcome. Link anything public. -->
+<!-- Only supported outcomes. Read docs/HOLDS.md before adding release claims. -->
 
 ## What I would do differently
 
-<!-- Optional. Keep only if specific. -->
+<!-- Include only a specific reflection supplied by Kate. -->

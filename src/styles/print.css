@@ -1,10 +1,15 @@
-/* Applied only on the /print route, which is what becomes the PDF. */
-@page { size: A4; margin: 20mm; }
-html { background: #ffffff; color: #161a1f; font-size: 11pt; }
-a { color: #161a1f; text-decoration: none; }
-h1, h2, h3 { break-after: avoid; }
-section.entry { break-before: page; }
-.cover { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
-.cover h1 { font-size: 28pt; margin: 0 0 8pt; }
-.cover p { margin: 0 0 4pt; color: #4a5058; }
-img, svg { max-width: 100%; }
+@page{size:A4;margin:17mm 18mm}
+html{background:white;color:#171d32;font-size:16px}
+.print-document{max-width:920px;margin:0 auto;padding:32px clamp(20px,4vw,48px)}
+.print-nav{display:flex;gap:24px;border-bottom:1px solid #d2d4dc;padding-bottom:20px;margin-bottom:40px;font-size:.9375rem}.print-document a{overflow-wrap:anywhere}
+.cover h1{font-size:clamp(2.4rem,6vw,4rem)}.cover .positioning{font-size:1.5rem;font-weight:700}.cover{padding:36px 0 60px}.cover h2{font-size:1.4rem;margin-top:32px}.cover p{max-width:60ch}.drafts{font-size:.875rem;margin-top:28px;color:#495063}.drafts p{margin:4px 0 0}
+.entry{margin:0 0 64px;padding-top:30px;border-top:1px solid #d2d4dc}.entry>h1{font-size:2.4rem}.principle-group{margin:28px 0}.principle-group h2{font-size:1.4rem}.print-project{margin-top:32px}.print-project>h2{font-size:1.7rem}
+@media print{
+ html{font-size:10pt}.print-document{max-width:none;padding:0;margin:0}.print-nav{display:none}h1,h2,h3{break-after:avoid}p{widows:3;orphans:3}
+ .cover{padding:26mm 0 0;min-height:240mm}.cover h1{font-size:32pt}.cover .positioning{font-size:15pt}.cover h2{font-size:14pt}.cover>p{font-size:11pt}.cover ol{padding-left:16pt}.cover li{margin-bottom:5pt}.drafts{font-size:9pt}
+ .entry{break-before:page;border:0;padding:0;margin:0}.entry>h1{font-size:25pt}.principle-group{break-inside:avoid;margin:18pt 0}.principle-group h2{font-size:14pt}.principle-group p{font-size:10pt}.print-project{break-inside:avoid;margin-top:18pt}.print-project>h2{font-size:16pt}.print-project>p{font-size:10pt}
+ a{color:inherit;text-decoration:none}img,svg{max-width:100%}
+}
+@media print{
+ .case-header h1{font-size:22pt!important;margin-bottom:10pt!important}.case-header .kicker{margin-bottom:8pt;font-size:8pt}.case-header .summary{font-size:11pt!important;margin-bottom:10pt}.case-header .spec{margin:10pt 0!important}.case-header .spec p{font-size:9pt}.case-header .spec strong{font-size:8pt}.case-header .restriction{padding:9pt 11pt;margin-bottom:12pt;font-size:9pt!important}.case-header .brief{margin-top:12pt}.case-header .brief>div{padding:6pt 0!important}.case-header .brief dd{font-size:9.5pt!important}.case-header .brief dt{font-size:8pt}.decision-diagram{padding:11pt!important;margin:14pt 0!important}.decision-diagram figcaption{margin-bottom:12pt!important;font-size:10pt!important}.decision-diagram>p{margin-top:12pt!important;font-size:8pt!important}.decision-diagram li>span:last-child{font-size:8.5pt!important}.case-body h2{font-size:12pt;margin:13pt 0 6pt}.case-body p{font-size:9.5pt;line-height:1.5;margin-bottom:10pt}
+}

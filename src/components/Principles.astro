@@ -1,107 +1,51 @@
 ---
-const layers = [
-  {
-    id: 'design',
-    name: 'Design and research',
-    number: '01',
-    principles: [
-      ['An hour with a user saves a quarter of rework.', 'Research belongs before requirements settle.'],
-      ['Make the unfamiliar explain itself.', 'Terminology, sequence, and feedback are part of the product.'],
-    ],
-  },
-  {
-    id: 'product',
-    name: 'Product',
-    number: '02',
-    principles: [
-      ['State the decision before making the artifact.', 'A prototype, roadmap, or study should resolve a named question.'],
-      ['Choose the smallest complete outcome.', 'Narrow scope without leaving the user to finish the job elsewhere.'],
-    ],
-  },
-  {
-    id: 'technology',
-    name: 'Technology',
-    number: '03',
-    principles: [
-      ['Read the interfaces, then assess the proposal.', 'APIs and working demos show which paths are available.'],
-      ['Design for the system that must run it.', 'Deployment, access, networking, and storage shape the experience.'],
-    ],
-  },
-  {
-    id: 'together',
-    name: 'Combined',
-    number: '01 + 02 + 03',
-    principles: [
-      ['Evidence sets direction. Technical knowledge makes it executable.', 'The product decision needs both.'],
-      ['Keep users involved after funding.', 'The research group should continue through delivery.'],
-    ],
-  },
-];
+import { principles } from '../principles';
 ---
 <section id="principles" class="principles" aria-labelledby="principles-title">
-  <div class="intro">
-    <p class="kicker">Operating principles</p>
-    <h2 id="principles-title">One decision, examined from each discipline.</h2>
-    <p>Select a layer. The combined view shows the rules I use across all three.</p>
-  </div>
-  <div class="switcher" data-principles>
-    <div class="tabs" role="tablist" aria-label="Principle groups">
-      {layers.map((layer, index) => (
-        <button id={`tab-${layer.id}`} type="button" role="tab" aria-selected={index === 3 ? 'true' : 'false'} aria-controls={`panel-${layer.id}`} tabindex={index === 3 ? '0' : '-1'} data-layer={layer.id}>
-          <span>{layer.number}</span>{layer.name}
-        </button>
-      ))}
-    </div>
-    <div class="paper-stack" aria-hidden="true"><i></i><i></i><i></i></div>
-    {layers.map((layer, index) => (
-      <div id={`panel-${layer.id}`} class="panel" role="tabpanel" aria-labelledby={`tab-${layer.id}`} hidden={index !== 3}>
-        <p class="panel-label">{layer.name}</p>
-        <ol>
-          {layer.principles.map(([title, detail]) => <li><strong>{title}</strong><span>{detail}</span></li>)}
-        </ol>
+  <div class="wrap">
+    <div class="section-head"><div><p class="kicker">Product principles</p><h2 id="principles-title">Three disciplines.<br/>A considered decision.</h2></div><p>How I use research, product thinking, and technical evaluation to decide what to build.</p></div>
+    <div class="switcher" data-principles>
+      <div class="tabs" aria-label="Principle groups">
+        {principles.map((p,index) => <button id={`tab-${p.id}`} type="button" data-panel={`panel-${p.id}`} data-group={p.id}><span>{p.number}</span>{p.name}</button>)}
       </div>
-    ))}
+      {principles.map(p => <section class="panel" id={`panel-${p.id}`} aria-labelledby={`tab-${p.id}`}><p class="panel-label">{p.name}</p><ol>{p.items.map(([title,detail]) => <li><h3>{title}</h3><p>{detail}</p></li>)}</ol></section>)}
+    </div>
   </div>
 </section>
-
 <script>
-  document.querySelectorAll('[data-principles]').forEach((root) => {
-    const tabs = [...root.querySelectorAll('[role="tab"]')];
-    const select = (tab) => {
-      tabs.forEach((item) => {
+  document.querySelectorAll<HTMLElement>('[data-principles]').forEach(root => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('button[data-panel]')];
+    root.querySelector('.tabs')?.setAttribute('role','tablist');
+    const select = (tab: HTMLButtonElement, focus = true) => {
+      tabs.forEach(item => {
         const selected = item === tab;
-        item.setAttribute('aria-selected', String(selected));
-        item.setAttribute('tabindex', selected ? '0' : '-1');
-        root.querySelector(`#panel-${item.dataset.layer}`).hidden = !selected;
+        item.setAttribute('role','tab');
+        item.setAttribute('aria-controls',item.dataset.panel!);
+        item.setAttribute('aria-selected',String(selected));
+        item.tabIndex = selected ? 0 : -1;
+        const panel = root.querySelector<HTMLElement>(`#${item.dataset.panel}`)!;
+        panel.setAttribute('role','tabpanel'); panel.tabIndex = 0; panel.hidden = !selected;
       });
-      root.dataset.active = tab.dataset.layer;
-      tab.focus();
+      root.dataset.active = tab.dataset.group;
+      if(focus) tab.focus();
     };
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => select(tab));
-      tab.addEventListener('keydown', (event) => {
-        if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
-        event.preventDefault();
-        const next = (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-        select(tabs[next]);
+    tabs.forEach((tab,index) => {
+      tab.addEventListener('click',()=>select(tab));
+      tab.addEventListener('keydown',event=>{
+        let next:number;
+        if(event.key==='Home') next=0;
+        else if(event.key==='End') next=tabs.length-1;
+        else if(event.key==='ArrowRight') next=(index+1)%tabs.length;
+        else if(event.key==='ArrowLeft') next=(index-1+tabs.length)%tabs.length;
+        else return;
+        event.preventDefault(); select(tabs[next]);
       });
     });
+    select(tabs[0],false);
   });
 </script>
-
 <style>
-.principles{max-width:1200px;margin:0 auto;padding:110px 40px;display:grid;grid-template-columns:minmax(240px,.75fr) minmax(500px,1.25fr);gap:9vw;align-items:center}
-.kicker,.panel-label{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-.intro h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;margin:12px 0 18px}.intro>p:last-child{color:var(--type-2);max-width:38ch}
-.switcher{position:relative;min-height:410px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative;z-index:4}
-button{border:0;border-top:3px solid transparent;background:rgba(242,238,230,.07);color:var(--type-2);padding:12px 8px 13px;font:700 .72rem var(--body);cursor:pointer}
-button span{display:block;font-size:.62rem;letter-spacing:.12em;margin-bottom:5px;color:var(--type-3)}
-button[data-layer="design"]{--tab:#7a72d6}button[data-layer="product"]{--tab:#f0a83a}button[data-layer="technology"]{--tab:#e94fb7}button[data-layer="together"]{--tab:var(--paper)}
-button[aria-selected="true"]{border-color:var(--tab);color:var(--type);background:rgba(242,238,230,.13)}
-.paper-stack{position:absolute;inset:104px 18px 0 18px}.paper-stack i{position:absolute;inset:0;border-radius:4px;transform-origin:bottom left;box-shadow:0 12px 24px rgba(4,7,25,.24)}
-.paper-stack i:nth-child(1){background:#7a72d6;transform:rotate(-3deg) translate(-12px,4px)}.paper-stack i:nth-child(2){background:#f0a83a;transform:rotate(2deg) translate(10px,-3px)}.paper-stack i:nth-child(3){background:#e94fb7;transform:rotate(-.5deg)}
-.panel{position:relative;z-index:3;margin:42px 34px 0;background:var(--paper);color:var(--ink);padding:30px 36px;min-height:246px;box-shadow:0 14px 28px rgba(4,7,25,.32)}
-.panel[hidden]{display:none}.panel-label{color:#686276;margin:0 0 14px}.panel ol{list-style:none;margin:0;padding:0;counter-reset:item}.panel li{counter-increment:item;display:grid;grid-template-columns:32px 1fr;padding:15px 0;border-top:1px solid #d8d3ca}.panel li::before{content:"0" counter(item);font-size:.7rem;font-weight:800;color:#88818f;padding-top:4px}.panel strong,.panel span{grid-column:2}.panel strong{font-family:var(--display);font-size:1.15rem}.panel span{font-size:.82rem;color:#615c69;margin-top:3px}
-@media(max-width:850px){.principles{grid-template-columns:1fr;gap:42px;padding:80px 24px}.switcher{min-height:430px}.tabs{overflow-x:auto;grid-template-columns:repeat(4,minmax(120px,1fr))}.panel{margin:42px 14px 0;padding:24px}.paper-stack{inset:105px 6px 0}}
-@media print{.principles{display:block;padding:30px 0}.tabs,.paper-stack{display:none}.switcher{min-height:0}.panel{display:block!important;margin:16px 0;box-shadow:none;border:1px solid var(--line);min-height:0}.panel-label{color:var(--type-3)}}
+.principles{padding:88px 0;background:#efedf5;border-block:1px solid #dedbe9}.switcher{border:1px solid #c7c2d8;background:var(--paper)}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid #c7c2d8}.tabs button{border:0;border-right:1px solid #d7d3e3;border-top:4px solid transparent;background:transparent;text-align:left;padding:19px 24px;font-size:1rem;font-weight:750;color:var(--type);line-height:1.4}.tabs button:last-child{border-right:0}.tabs button>span{display:block;font-size:.875rem;font-weight:600;color:var(--type-2);margin-bottom:8px}.tabs button[aria-selected=true]{background:#eeebfb;border-top-color:var(--violet)}.tabs button[data-group=product][aria-selected=true]{background:#fff2d9;border-top-color:var(--amber)}.tabs button[data-group=technology][aria-selected=true]{background:#fce5f4;border-top-color:var(--magenta)}.tabs button:hover{background:#f0eef6}.panel{padding:32px 36px;min-height:250px}.panel-label{font-size:.875rem;font-weight:750;color:var(--accent);margin:0 0 20px}.panel ol{display:grid;grid-template-columns:1fr 1fr;gap:48px;list-style:none;padding:0;margin:0}.panel h3{font-size:1.6rem;line-height:1.25;margin:0 0 12px;max-width:24ch}.panel li p{color:var(--type-2);margin:0;max-width:45ch}
+@media(max-width:700px){.principles{padding:60px 0}.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs button{min-width:0;overflow-wrap:anywhere;padding:15px;font-size:.9375rem;border-bottom:1px solid #d7d3e3}.tabs button:nth-child(2){border-right:0}.panel{padding:26px 22px;min-height:0}.panel ol{grid-template-columns:1fr;gap:26px}.panel h3{font-size:1.4rem}.panel li+li{border-top:1px solid var(--line);padding-top:24px}}
+@media print{.tabs{display:none}.panel{display:block!important;min-height:0;padding:16pt 0}.principles{padding:0;background:white;border:0}.panel ol{gap:20pt}.panel h3{font-size:12pt}}
 </style>
