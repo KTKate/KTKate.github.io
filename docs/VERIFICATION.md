@@ -51,3 +51,7 @@ BASE_PATH=/portfolio-review/ QA_WIDTHS=390 npm test
 ```
 
 All seven routes and 27 internal links/anchors passed under the prefix, including keyboard and enlarged-text checks. The normal root build was restored afterward. `QA_WIDTHS` is an optional test-only subset; the default remains all five widths.
+
+## Filesystem path handling
+
+The QA root now uses Node's `fileURLToPath`, matching PDF generation. A copied checkout at `/tmp/portfolio path café` passed `QA_WIDTHS=390 node scripts/qa.mjs`: seven routes, 27 internal links/anchors, and all interaction checks. This verifies spaces and non-ASCII characters on Linux; native Windows execution was not performed.
