@@ -9,6 +9,7 @@ export async function verifyMobilePaper(browser, siteRoot, out) {
       const page = await context.newPage();
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
+      page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
       await page.goto(siteRoot + '/', { waitUntil: 'networkidle' });
       await page.evaluate(() => document.fonts.ready);
       const paper = page.locator('[data-paper-art]');
@@ -24,6 +25,9 @@ export async function verifyMobilePaper(browser, siteRoot, out) {
       await page.waitForFunction(() => document.querySelector('[data-paper-art]').dataset.motion === 'running');
       await paint();
       const before = await positions();
+      await paper.dispatchEvent('pointermove', { pointerType: 'touch', clientX: 240, clientY: 420 });
+      await paint();
+      assert.deepEqual(await positions(), before, 'Touch movement must leave page scrolling in control');
       await page.screenshot({ path: `${out}/paper-${engine}-${width}-before.png` });
       await page.evaluate(() => window.scrollBy({ top: 160, behavior: 'instant' }));
       await paint();
@@ -39,22 +43,12 @@ export async function verifyMobilePaper(browser, siteRoot, out) {
       const reversed = await positions();
       assert(reversed.every((position, index) => Math.hypot(position.x - before[index].x, position.y - before[index].y) < .1), 'Reverse scrolling must return to the same composition');
 
-      await paper.evaluate(element => {
-        const bounds = element.getBoundingClientRect();
-        window.scrollBy({ top: bounds.top + bounds.height / 2 - innerHeight * .55, behavior: 'instant' });
-      });
+      assert.equal(await page.locator('[data-paper-figure] button').count(), 0);
+      await page.evaluate(() => window.scrollBy({ top: 200, behavior: 'instant' }));
       await paint();
-      await page.getByRole('button', { name: 'Pause motion' }).tap();
-      await paint();
-      const frozen = await positions();
-      await page.evaluate(() => window.scrollBy({ top: 100, behavior: 'instant' }));
-      await paint();
-      assert.deepEqual(await positions(), frozen, 'Touch pause must freeze motion');
-      await page.getByRole('button', { name: 'Play motion' }).tap();
-      await paint();
-      assert.notDeepEqual(await positions(), frozen, 'Touch play must restore scroll response');
+      assert.equal(await paper.getAttribute('data-phase'), 'joined');
+      assert(await page.locator('.paper-response').evaluateAll(elements => elements.every(element => new DOMMatrixReadOnly(getComputedStyle(element).transform).isIdentity)), 'The three sections must finish aligned');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await paint();
       assert(await page.locator('.paper-response').evaluateAll(elements => elements.every(element => getComputedStyle(element).transform === 'none')));

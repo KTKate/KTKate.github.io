@@ -2,11 +2,11 @@
 
 ## Cut-paper hero
 
-`public/images/paper-convergence.webp` is original generated artwork created using the built-in image generation tool. It depicts three complementary cut-paper stacks in violet, amber, and magenta, with dark-to-light sheets and three channels meeting at the center. The background is transparent. No client or project interface is depicted. The supplied inspiration images were inspected for material and construction reference; they are not redistributed in this repository.
+`public/images/paper-panel.webp` is original decorative artwork created with the built-in image-generation tool. Three multi-sheet sections in violet, amber, and magenta fit a common rectangular perimeter. The original image is 1448 × 1086 and is encoded as WebP at quality 92. Each stack has a dark-to-light tonal range and fine paper surface detail.
 
-The generated 1254 × 1254 RGBA PNG was encoded as WebP at quality 92 with its alpha channel preserved. All three animated stacks share that one cached resource. Motion responds directly to pointer movement and scrolling while the artwork is visible and can be paused from the keyboard. There is no repeating animation. Reduced-motion and no-JavaScript presentations are static. See [HERO-ART.md](HERO-ART.md) for the generation prompt and implementation details.
+The source bitmap contains a generated backdrop. Three SVG clipping paths in `src/components/paperPanelMasks.ts` exclude it so the site supplies the navy background and open channels. All three sections share one cached resource. Scrolling assembles them into their final panel. Reduced-motion and no-JavaScript presentations show that final panel immediately. No motion button or pointer effect is present.
 
-The approved asset is retained for the pointer/scroll refinement. A CSS tonal adjustment increases contrast without changing its transparency or geometry. The additional motion uses translated wrappers and downloads no additional imagery.
+The image depicts no client, project interface, or product evidence. The original rounded artwork is retired. See [HERO-ART.md](HERO-ART.md) for the exact prompt, source handling, and implementation details.
 
 ## Typeface
 

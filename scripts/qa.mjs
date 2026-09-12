@@ -51,13 +51,7 @@ try {
  const paper=page.locator('[data-paper-art]');await paper.scrollIntoViewIfNeeded();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='running');
  const stacks=page.locator('.stack');assert.equal(await stacks.count(),3);
  assert.equal(await paper.evaluate(e=>e.getAnimations({subtree:true}).length),0,'Paper must have no automatic animation');
- const pause=page.getByRole('button',{name:'Pause motion'});await pause.focus();await page.keyboard.press('Enter');
- assert.equal(await page.getByRole('button',{name:'Play motion'}).count(),1);
- await stacks.evaluateAll(es=>Promise.all(es.flatMap(e=>e.getAnimations().map(a=>a.ready))).then(()=>{}));
- const frozen=await stacks.evaluateAll(es=>es.map(e=>getComputedStyle(e).transform));await page.waitForTimeout(250);assert.deepEqual(await stacks.evaluateAll(es=>es.map(e=>getComputedStyle(e).transform)),frozen,'Pause must stop every stack');
- await page.locator('#lab').scrollIntoViewIfNeeded();await paper.scrollIntoViewIfNeeded();assert.equal(await paper.getAttribute('data-motion'),'paused','User pause must persist after scrolling');
- await page.getByRole('button',{name:'Play motion'}).click();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='running');
- await page.locator('#lab').scrollIntoViewIfNeeded();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='paused');
+ assert.equal(await page.locator('[data-paper-figure] button').count(),0,'Decorative scroll artwork must not add controls');
  await page.emulateMedia({reducedMotion:'reduce'});await page.reload();assert.equal(await page.locator('.stack').first().evaluate(e=>getComputedStyle(e).animationName),'none');assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior),'auto');
  assert.equal(await page.locator('[data-motion-control]').isVisible(),false);
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'200% text enlargement overflow');await page.screenshot({path:out+'/text-200-percent.png',fullPage:true});
@@ -73,7 +67,7 @@ try {
  assert.deepEqual(await readFile(root+'public/portfolio.pdf'),await readFile(root+'dist/portfolio.pdf'));
  await verifyPaperInteraction(browser,siteRoot,out);
  await verifyMobilePaper(browser,siteRoot,out);
- await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','no automatic paper motion','immediate input response and idle stability','keyboard pause and play','pause persists after scrolling','offscreen motion suspension','pointer response at distinct depths','touch scroll response','touch gesture exclusion','pause freezes input effects','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
+ await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','no automatic paper motion','immediate input response and idle stability','scroll-driven assembly','shared final arrangement','touch gesture exclusion','no decorative controls','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
  console.log(JSON.stringify({pages:results.length,failures,internalLinks:linkResults.length},null,2));
  assert.equal(failures.length,0,'QA failures recorded in artifacts/qa/report.json');
 }finally{await browser?.close();await server?.stop();}
