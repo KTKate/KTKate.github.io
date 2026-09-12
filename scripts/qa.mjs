@@ -4,6 +4,7 @@ import { preview } from 'astro';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
+import { verifyPaperInteraction } from './paper-qa.mjs';
 const widths=process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [320,390,768,1024,1440];
 const routes=['/','/about/','/work/nexus/','/work/linuxone-practice/','/work/hybrid-cloud/','/print/','/404.html'];
 const root=fileURLToPath(new URL('..',import.meta.url));
@@ -72,7 +73,8 @@ try {
  assert.equal((await page.request.get(siteRoot+'/work/aiops-operating-model/')).status(),404);
  assert.equal((await page.request.get(siteRoot+'/.private/linkedin-plan.md')).status(),404);
  assert.deepEqual(await readFile(root+'public/portfolio.pdf'),await readFile(root+'dist/portfolio.pdf'));
- await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','continuous paper motion','keyboard pause and play','pause persists after scrolling','offscreen motion suspension','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
+ await verifyPaperInteraction(browser,siteRoot,out);
+ await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','continuous paper motion','keyboard pause and play','pause persists after scrolling','offscreen motion suspension','pointer response at distinct depths','touch scroll response','touch gesture exclusion','pause freezes input effects','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
  console.log(JSON.stringify({pages:results.length,failures,internalLinks:linkResults.length},null,2));
  assert.equal(failures.length,0,'QA failures recorded in artifacts/qa/report.json');
 }finally{await browser?.close();await server?.stop();}

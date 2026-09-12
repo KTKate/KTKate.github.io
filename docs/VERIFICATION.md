@@ -77,3 +77,11 @@ New checks verify continuing animation, changing stack positions, keyboard pause
 Full-page screenshots were reviewed at 320, 390, 768, 1024, and 1440 pixels. Additional desktop screenshots inspected both motion limits; a complete cycle was recorded in ignored `artifacts/hero-revision/hero-motion.webm`. The masks were revised after inspection to preserve the complete edges of every stack. The mobile caption keeps all three discipline labels in a single row.
 
 The PDF was regenerated and remains nine pages, with the existing shared copy and case-study content synchronized. The decorative hero is excluded from print. Asset provenance and the exact generation prompt are recorded in `docs/HERO-ART.md`.
+
+## Pointer, scroll, and tonal refinement
+
+Follow-up to `c2f9d4a`, verified 11 September 2026. The approved transparent artwork now has stronger displayed contrast and bounded pointer/scroll translations. No additional image download is required. Pointer movement shifts the three stacks by different amounts; scrolling reduces their separation. Touch pointer events do not trigger mouse effects or intercept scrolling.
+
+Baseline and final `npm run build` and `npm test` passed, as did `git diff --check`. The final suite again completed 35 page checks across all seven routes at 320, 390, 768, 1024, and 1440 pixels, plus 27 internal links/anchors, with zero failures. The new `scripts/paper-qa.mjs` checks mouse response, distinct stack offsets, touch-device scrolling, ignored touch pointer movement, pause/play of input effects, and reduced-motion removal of input transforms. Existing keyboard, continuous-motion, offscreen suspension, enlarged-text, no-JavaScript, accessibility, publication-hold, and print-parity checks passed.
+
+Full-page captures are retained in ignored `artifacts/qa/`; additional captures show both pointer extremes and touch scrolling. Revised desktop, tablet, and mobile artwork was visually reviewed for complete edges, contrast, spacing, and separation from the text. The regenerated PDF remains nine pages and the public/build copies match byte for byte.
