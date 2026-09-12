@@ -93,3 +93,13 @@ Follow-up to `d996f27`, verified 11 September 2026. Removed the repeating ten-se
 Baseline and final `npm run build` and `npm test` passed. The final run covered all seven routes and five widths listed above: 35 page checks and 27 internal links/anchors, with zero failures. Added checks confirm that pointer and scroll responses stop within two browser frames and stay still afterward, with no automatic animations. Keyboard, accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and HTML/print parity checks passed. `git diff --check` passed.
 
 Reviewed full-page home captures at 320, 390, 768, 1024, and 1440 pixels, plus both pointer extremes and the touch scroll position. The local preview also passed the focused input checks. The regenerated PDF has nine pages; public and build copies are byte-identical.
+
+## Visible mobile scroll response
+
+Follow-up to merged PR #4 (`1700fdb`), verified 12 September 2026. Measurement of the live site at 390 pixels showed less than one pixel of stack movement during a 160-pixel scroll. Increased the bounded translations and shortened the scroll range so the movement occurs while the full composition is visible. It remains directly tied to scrolling, with no repeating animation or delayed easing.
+
+Baseline and final `npm run build` and `npm test` passed. The final suite covered `/`, `/about/`, `/work/nexus/`, `/work/linuxone-practice/`, `/work/hybrid-cloud/`, `/print/`, and `/404.html` at 320, 390, 768, 1024, and 1440 pixels: 35 page checks, 27 links/anchors, zero failures. Keyboard, axe accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and print parity checks passed. The PDF remains nine pages with byte-identical public/build copies.
+
+New mobile checks run in Chromium and WebKit at 320 and 390 pixels. All three stacks moved approximately 11.5 to 11.6 pixels during a 160-pixel scroll. Checks also cover reverse scrolling, prompt stopping, idle stability, touch pause/play, reduced motion, console errors, and overflow. Full-page home captures were reviewed at all five widths, along with mobile before/after positions. These are browser-engine tests with mobile emulation, not a physical iPhone test.
+
+`npm run test:webkit` is included in the GitHub verification workflow. Locally, the host lacked WebKit libraries and system installation required a password. Dependencies were downloaded and unpacked into `/tmp/portfolio-webkit/` without changing the operating system. The suite passed with `WEBKIT_EXECUTABLE_PATH=/tmp/portfolio-webkit/run.sh npm run test:webkit`, using a launcher that supplies those libraries. The default command uses Playwright's installed WebKit on CI. `git diff --check` passed.

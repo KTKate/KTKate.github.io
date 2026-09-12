@@ -8,6 +8,8 @@ The displayed image now uses a CSS tonal adjustment: contrast 1.24, brightness 1
 
 Fine mouse pointers also move the stacks at three different depths. Scrolling gradually reduces their separation as the artwork moves through the viewport, including on touch devices. The effects use bounded translations and retain the overhead view. Pointer exit returns the offset to neutral. Touch pointer movement does not alter the art or intercept gestures.
 
+The scroll response spans the smaller of the artwork height and half the viewport height. It finishes when the artwork center reaches 35% of the viewport height. Maximum translations are 7% horizontally and 4% upward for violet and amber, and 8% downward for magenta. This produces about 11.5 pixels of movement during a 160-pixel scroll at tested phone widths, compared with less than one pixel in the previous version. The regression suite requires at least seven pixels of travel per stack while the composition is visible.
+
 Input movement is applied in a single animation-frame callback per input update, with no delayed easing or repeated animation. When input stops, the artwork stays still. Pause freezes the input effects. Reduced motion removes all movement. The surrounding text and caption remain fixed.
 
 ## Generation prompt
