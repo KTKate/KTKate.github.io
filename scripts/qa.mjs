@@ -49,10 +49,7 @@ try {
  assert((await page.locator('#hero-title').innerText()).startsWith('Designer &'));
  const paper=page.locator('[data-paper-art]');await paper.scrollIntoViewIfNeeded();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='running');
  const stacks=page.locator('.stack');assert.equal(await stacks.count(),3);
- assert(await stacks.evaluateAll(es=>es.every(e=>e.getAnimations().some(a=>a.effect.getTiming().iterations===Infinity))),'Paper motion must continue after entry');
- await stacks.evaluateAll(es=>es.forEach(e=>e.getAnimations().forEach(a=>a.currentTime=0)));
- const initial=await stacks.evaluateAll(es=>es.map(e=>getComputedStyle(e).transform));await page.waitForTimeout(700);
- assert.notDeepEqual(await stacks.evaluateAll(es=>es.map(e=>getComputedStyle(e).transform)),initial,'Paper forms must visibly move');
+ assert.equal(await paper.evaluate(e=>e.getAnimations({subtree:true}).length),0,'Paper must have no automatic animation');
  const pause=page.getByRole('button',{name:'Pause motion'});await pause.focus();await page.keyboard.press('Enter');
  assert.equal(await page.getByRole('button',{name:'Play motion'}).count(),1);
  await stacks.evaluateAll(es=>Promise.all(es.flatMap(e=>e.getAnimations().map(a=>a.ready))).then(()=>{}));
@@ -64,7 +61,7 @@ try {
  assert.equal(await page.locator('[data-motion-control]').isVisible(),false);
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'200% text enlargement overflow');await page.screenshot({path:out+'/text-200-percent.png',fullPage:true});
  await page.setViewportSize({width:320,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'320px enlarged text overflow');await page.screenshot({path:out+'/text-200-percent-320.png',fullPage:true});
- const nojs=await browser.newPage({javaScriptEnabled:false,viewport:{width:320,height:900}});await nojs.goto(siteRoot+'/');assert.equal(await nojs.locator('.panel:visible').count(),4);assert.equal(await nojs.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await nojs.locator('[data-motion-control]').isVisible(),false);assert(await nojs.locator('.stack').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationPlayState==='paused')));await nojs.close();
+ const nojs=await browser.newPage({javaScriptEnabled:false,viewport:{width:320,height:900}});await nojs.goto(siteRoot+'/');assert.equal(await nojs.locator('.panel:visible').count(),4);assert.equal(await nojs.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await nojs.locator('[data-motion-control]').isVisible(),false);assert(await nojs.locator('.stack').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationName==='none')));await nojs.close();
  const linkResults=[];
  for(const href of links){const u=new URL(href);if(u.origin!==origin)continue;const res=await page.request.get(u.href);linkResults.push({path:u.pathname+u.hash,status:res.status()});if(!res.ok())failures.push({brokenLink:href,status:res.status()});if(u.hash){await page.goto(origin+u.pathname);if(!await page.locator(`[id="${decodeURIComponent(u.hash.slice(1))}"]`).count())failures.push({missingAnchor:href});}}
  await page.goto(siteRoot+'/work/nexus/');const nexus=await page.locator('main').innerText();assert(nexus.includes(note));assert(!/7 to 24|three.month|\bminutes\b|November|2026|IBM Z|8 hours/i.test(nexus));
@@ -74,7 +71,7 @@ try {
  assert.equal((await page.request.get(siteRoot+'/.private/linkedin-plan.md')).status(),404);
  assert.deepEqual(await readFile(root+'public/portfolio.pdf'),await readFile(root+'dist/portfolio.pdf'));
  await verifyPaperInteraction(browser,siteRoot,out);
- await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','continuous paper motion','keyboard pause and play','pause persists after scrolling','offscreen motion suspension','pointer response at distinct depths','touch scroll response','touch gesture exclusion','pause freezes input effects','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
+ await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','no automatic paper motion','immediate input response and idle stability','keyboard pause and play','pause persists after scrolling','offscreen motion suspension','pointer response at distinct depths','touch scroll response','touch gesture exclusion','pause freezes input effects','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
  console.log(JSON.stringify({pages:results.length,failures,internalLinks:linkResults.length},null,2));
  assert.equal(failures.length,0,'QA failures recorded in artifacts/qa/report.json');
 }finally{await browser?.close();await server?.stop();}

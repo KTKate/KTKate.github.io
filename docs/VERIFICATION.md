@@ -85,3 +85,11 @@ Follow-up to `c2f9d4a`, verified 11 September 2026. The approved transparent art
 Baseline and final `npm run build` and `npm test` passed, as did `git diff --check`. The final suite again completed 35 page checks across all seven routes at 320, 390, 768, 1024, and 1440 pixels, plus 27 internal links/anchors, with zero failures. The new `scripts/paper-qa.mjs` checks mouse response, distinct stack offsets, touch-device scrolling, ignored touch pointer movement, pause/play of input effects, and reduced-motion removal of input transforms. Existing keyboard, continuous-motion, offscreen suspension, enlarged-text, no-JavaScript, accessibility, publication-hold, and print-parity checks passed.
 
 Full-page captures are retained in ignored `artifacts/qa/`; additional captures show both pointer extremes and touch scrolling. Revised desktop, tablet, and mobile artwork was visually reviewed for complete edges, contrast, spacing, and separation from the text. The regenerated PDF remains nine pages and the public/build copies match byte for byte.
+
+## Motion only during input
+
+Follow-up to `d996f27`, verified 11 September 2026. Removed the repeating ten-second motion and delayed interpolation. Stack positions now update directly in response to pointer movement or scrolling. There is no animation loop while idle. The stronger tones, pause control, touch scrolling, and reduced-motion presentation remain.
+
+Baseline and final `npm run build` and `npm test` passed. The final run covered all seven routes and five widths listed above: 35 page checks and 27 internal links/anchors, with zero failures. Added checks confirm that pointer and scroll responses stop within two browser frames and stay still afterward, with no automatic animations. Keyboard, accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and HTML/print parity checks passed. `git diff --check` passed.
+
+Reviewed full-page home captures at 320, 390, 768, 1024, and 1440 pixels, plus both pointer extremes and the touch scroll position. The local preview also passed the focused input checks. The regenerated PDF has nine pages; public and build copies are byte-identical.

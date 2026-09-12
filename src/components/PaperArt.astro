@@ -25,7 +25,6 @@ const art = `${import.meta.env.BASE_URL}images/paper-convergence.webp`;
     let paused = false;
     let visible = false;
     let frame = 0;
-    let lastTime = 0;
     let pointer: { x: number; y: number } | null = null;
     const current = { x: 0, y: 0, spread: 0 };
     const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -38,30 +37,18 @@ const art = `${import.meta.env.BASE_URL}images/paper-convergence.webp`;
     const stop = () => {
       cancelAnimationFrame(frame);
       frame = 0;
-      lastTime = 0;
     };
-    const tick = (time: number) => {
+    const tick = () => {
       frame = 0;
-      if (!canMove()) { lastTime = 0; return; }
+      if (!canMove()) return;
       const bounds = art.getBoundingClientRect();
       const progress = clamp((innerHeight - bounds.top) / (innerHeight + bounds.height), 0, 1);
-      const target = {
+      Object.assign(current, {
         x: pointer ? clamp((pointer.x - bounds.left) / bounds.width * 2 - 1, -1, 1) : 0,
         y: pointer ? clamp((pointer.y - bounds.top) / bounds.height * 2 - 1, -1, 1) : 0,
         spread: 1 - progress,
-      };
-      const elapsed = lastTime ? Math.min(time - lastTime, 64) : 16;
-      const easing = 1 - Math.exp(-elapsed / 110);
-      lastTime = time;
-      let settling = false;
-      (['x', 'y', 'spread'] as const).forEach(key => {
-        current[key] += (target[key] - current[key]) * easing;
-        if (Math.abs(target[key] - current[key]) < .001) current[key] = target[key];
-        else settling = true;
       });
       draw();
-      if (settling) frame = requestAnimationFrame(tick);
-      else lastTime = 0;
     };
     const schedule = () => {
       if (canMove() && !frame) frame = requestAnimationFrame(tick);
@@ -102,13 +89,11 @@ const art = `${import.meta.env.BASE_URL}images/paper-convergence.webp`;
   });
 </script>
 <style>
-.paper-figure{margin:0;min-width:0;width:100%}.paper-art{position:relative;aspect-ratio:1;isolation:isolate}.paper-forms{position:absolute;inset:5%;pointer-events:none}.paper-response{position:absolute;inset:0;transform:translate(calc(var(--input-x,0) * var(--depth) + var(--scroll-spread,0) * var(--spread-x)),calc(var(--input-y,0) * var(--depth) * .75 + var(--scroll-spread,0) * var(--spread-y)))}.violet-response{--depth:1.2%;--spread-x:-1.2%;--spread-y:-.8%}.amber-response{--depth:1.7%;--spread-x:1.2%;--spread-y:-.8%}.magenta-response{--depth:2.2%;--spread-x:0%;--spread-y:1.4%}.stack{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;animation:converge 10s cubic-bezier(.45,0,.25,1) infinite;animation-play-state:paused;will-change:transform}
-.violet{clip-path:polygon(0 0,50% 0,50% 49%,44% 52.5%,10% 72%,0 80%);--dx:-2%;--dy:-1.4%;--turn:-.6deg;transform-origin:35% 40%}.amber{clip-path:polygon(50% 0,100% 0,100% 80%,88% 72%,56% 52%,50% 49%);--dx:2%;--dy:-1.4%;--turn:.6deg;transform-origin:65% 40%}.magenta{clip-path:polygon(0 80%,10% 72%,44% 52.5%,50% 49%,56% 52%,88% 72%,100% 80%,100% 100%,0 100%);--dx:0%;--dy:2.4%;--turn:0deg;transform-origin:50% 72%}
+.paper-figure{margin:0;min-width:0;width:100%}.paper-art{position:relative;aspect-ratio:1;isolation:isolate}.paper-forms{position:absolute;inset:5%;pointer-events:none}.paper-response{position:absolute;inset:0;transform:translate(calc(var(--input-x,0) * var(--depth) + var(--scroll-spread,0) * var(--spread-x)),calc(var(--input-y,0) * var(--depth) * .75 + var(--scroll-spread,0) * var(--spread-y)))}.violet-response{--depth:1.2%;--spread-x:-1.2%;--spread-y:-.8%}.amber-response{--depth:1.7%;--spread-x:1.2%;--spread-y:-.8%}.magenta-response{--depth:2.2%;--spread-x:0%;--spread-y:1.4%}.stack{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.violet{clip-path:polygon(0 0,50% 0,50% 49%,44% 52.5%,10% 72%,0 80%)}.amber{clip-path:polygon(50% 0,100% 0,100% 80%,88% 72%,56% 52%,50% 49%)}.magenta{clip-path:polygon(0 80%,10% 72%,44% 52.5%,50% 49%,56% 52%,88% 72%,100% 80%,100% 100%,0 100%)}
 .stack{filter:contrast(1.24) brightness(1.08) saturate(.92)}
-[data-motion=running] .stack{animation-play-state:running}
-@keyframes converge{0%,100%{transform:translate(var(--dx),var(--dy)) rotate(var(--turn))}38%,58%{transform:translate(0,0) rotate(0deg)}}
 figcaption{padding:10px 4% 0}.disciplines{display:grid;grid-template-columns:1.4fr .7fr 1fr;gap:20px;font-size:.875rem;font-weight:700;line-height:1.5}.disciplines span{border-top:2px solid;padding-top:9px}.design-label{color:#bdb5ff}.product-label{color:#f0a83a}.technology-label{color:#f78ad0}.figure-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;min-height:44px}.figure-footer p{font-size:1rem;letter-spacing:-.025em;margin:0;color:#f6f5fd}.motion-control{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 0 8px 12px;border:0;background:none;font-size:.875rem;color:#c9cedf}.motion-control:hover{color:white;text-decoration:underline;text-underline-offset:4px}.motion-symbol{display:inline-block;width:12px;font-size:1rem}
 @media(max-width:500px){figcaption{padding-inline:0}.disciplines{gap:12px}.figure-footer{gap:10px}.figure-footer p{font-size:.9375rem}}
-@media(prefers-reduced-motion:reduce){.stack{animation:none;will-change:auto;transform:none}.paper-response{transform:none}.motion-control{display:none}}
+@media(prefers-reduced-motion:reduce){.paper-response{transform:none}.motion-control{display:none}}
 @media print{.paper-figure{display:none}}
 </style>

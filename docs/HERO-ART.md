@@ -2,13 +2,13 @@
 
 The hero uses `public/images/paper-convergence.webp`, a 1254 × 1254 image with an alpha channel. Generated with the built-in image generation tool and encoded as WebP with the original alpha preserved. The page supplies the navy background.
 
-`src/components/PaperArt.astro` divides the image along the transparent channels. Each complete paper stack moves independently toward the center and back over a ten-second cycle. The masks include every colored sheet and keep neighboring colors separate. A keyboard-accessible control pauses or resumes all three stacks. Animation pauses when the artwork leaves the viewport or the document is hidden. Reduced-motion and no-JavaScript presentations are static.
+`src/components/PaperArt.astro` divides the image along the transparent channels. Each complete paper stack moves only in response to pointer movement or scrolling. The masks include every colored sheet and keep neighboring colors separate. A keyboard-accessible control pauses or resumes all three stacks. Input responses pause when the artwork leaves the viewport or the document is hidden. Reduced-motion and no-JavaScript presentations are static.
 
 The displayed image now uses a CSS tonal adjustment: contrast 1.24, brightness 1.08, and saturation 0.92. This increases the separation between dark lower sheets and pale upper faces while preserving the approved image geometry and alpha channel. The source image remains unchanged.
 
 Fine mouse pointers also move the stacks at three different depths. Scrolling gradually reduces their separation as the artwork moves through the viewport, including on touch devices. The effects use bounded translations and retain the overhead view. Pointer exit returns the offset to neutral. Touch pointer movement does not alter the art or intercept gestures.
 
-Input movement uses an animation-frame callback only while responding or settling. Pause stops both the continuous cycle and the input effects. Reduced motion removes all movement. The surrounding text and caption remain fixed.
+Input movement is applied in a single animation-frame callback per input update, with no delayed easing or repeated animation. When input stops, the artwork stays still. Pause freezes the input effects. Reduced motion removes all movement. The surrounding text and caption remain fixed.
 
 ## Generation prompt
 
