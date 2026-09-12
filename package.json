@@ -7,7 +7,8 @@
     "build": "astro build && node scripts/pdf.mjs && astro build",
     "preview": "astro preview",
     "sync": "astro sync",
-    "test": "node scripts/qa.mjs"
+    "test": "node scripts/qa.mjs",
+    "test:webkit": "node scripts/webkit-qa.mjs"
   },
   "dependencies": {
     "astro": "^7.0.0"

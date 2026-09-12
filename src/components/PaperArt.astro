@@ -1,99 +1,112 @@
 ---
-const art = `${import.meta.env.BASE_URL}images/paper-convergence.webp`;
+import { paperPanelMasks } from './paperPanelMasks';
+const art = `${import.meta.env.BASE_URL}images/paper-panel.webp`;
+const sections = [
+  { color: 'violet', id: 'design', label: 'Design & research', href: `${import.meta.env.BASE_URL}work/linuxone-practice/` },
+  { color: 'amber', id: 'product', label: 'Product strategy', href: `${import.meta.env.BASE_URL}work/nexus/` },
+  { color: 'magenta', id: 'technology', label: 'Technology', href: '#lab' },
+];
 ---
 <figure class="paper-figure" data-paper-figure>
-  <div class="paper-art" role="img" aria-label="Three stacks of cut paper: violet for design and research, amber for product, and magenta for technology. Each has dark lower sheets and a light upper surface. Three open channels meet at the center." data-paper-art>
-    <div class="paper-forms" aria-hidden="true">
-      <div class="paper-response violet-response"><img class="stack violet" src={art} width="1254" height="1254" alt="" fetchpriority="high" decoding="async" /></div>
-      <div class="paper-response amber-response"><img class="stack amber" src={art} width="1254" height="1254" alt="" decoding="async" /></div>
-      <div class="paper-response magenta-response"><img class="stack magenta" src={art} width="1254" height="1254" alt="" decoding="async" /></div>
+  <figcaption class="art-heading"><span>Explore how I work</span><button type="button" data-discipline-reset aria-controls="hero-evidence" aria-pressed="true">All disciplines</button></figcaption>
+  <svg class="paper-masks" width="0" height="0" aria-hidden="true"><defs>
+    {paperPanelMasks.map(mask => <clipPath id={`paper-${mask.name}`} clipPathUnits="objectBoundingBox"><path transform="scale(.0006906077 .0009208103)" d={mask.path} /></clipPath>)}
+  </defs></svg>
+  <div class="paper-art" data-paper-art role="group" aria-label="Explore work by discipline">
+    <div class="paper-forms">
+      {sections.map(section => <div class={`paper-response ${section.color}-response`}>
+        <button class={`paper-choice ${section.color}`} type="button" data-discipline-choice={section.id} aria-pressed="false" aria-controls="hero-evidence">
+          <img class="stack" src={art} width="1448" height="1086" alt="" decoding="async" fetchpriority={section.id === 'design' ? 'high' : 'auto'} />
+          <span class="paper-label">{section.label}</span>
+        </button>
+        <a class={`paper-fallback ${section.color}`} href={section.href}><img class="fallback-image" src={art} width="1448" height="1086" alt="" /><span class="paper-label">{section.label}<span aria-hidden="true">↗</span></span></a>
+      </div>)}
     </div>
   </div>
-  <figcaption>
-    <div class="disciplines"><span class="design-label">Design &amp; research</span><span class="product-label">Product</span><span class="technology-label">Technology</span></div>
-    <div class="figure-footer"><p>One product direction.</p><button class="motion-control" type="button" data-motion-control hidden><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span data-motion-label>Pause motion</span></button></div>
-  </figcaption>
 </figure>
 <script>
   document.querySelectorAll<HTMLElement>('[data-paper-figure]').forEach(figure => {
     const art = figure.querySelector<HTMLElement>('[data-paper-art]')!;
-    const control = figure.querySelector<HTMLButtonElement>('[data-motion-control]')!;
-    const label = control.querySelector<HTMLElement>('[data-motion-label]')!;
-    const symbol = control.querySelector<HTMLElement>('.motion-symbol')!;
+    const hero = figure.closest<HTMLElement>('[data-hero]')!;
+    const choices = Array.from(figure.querySelectorAll<HTMLButtonElement>('[data-discipline-choice]'));
+    const reset = figure.querySelector<HTMLButtonElement>('[data-discipline-reset]')!;
+    const select = (id: string) => {
+      hero.dataset.discipline = id;
+      figure.dataset.selection = id;
+      choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.disciplineChoice === id)));
+      hero.querySelectorAll<HTMLElement>('[data-evidence]').forEach(panel => { panel.hidden = panel.dataset.evidence !== id; });
+      reset.setAttribute('aria-pressed', String(id === 'all'));
+      update();
+    };
+    choices.forEach(button => {
+      button.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') select(button.dataset.disciplineChoice!); });
+      button.addEventListener('focus', () => select(button.dataset.disciplineChoice!));
+      button.addEventListener('click', () => select(button.dataset.disciplineChoice!));
+    });
+    reset.addEventListener('click', () => select('all'));
+    figure.dataset.interactive = 'true';
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
-    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
-    let paused = false;
     let visible = false;
     let frame = 0;
-    let pointer: { x: number; y: number } | null = null;
-    const current = { x: 0, y: 0, spread: 0 };
-    const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
-    const canMove = () => !preference.matches && !paused && visible && !document.hidden;
     const draw = () => {
-      art.style.setProperty('--input-x', current.x.toFixed(4));
-      art.style.setProperty('--input-y', current.y.toFixed(4));
-      art.style.setProperty('--scroll-spread', current.spread.toFixed(4));
-    };
-    const stop = () => {
-      cancelAnimationFrame(frame);
-      frame = 0;
-    };
-    const tick = () => {
-      frame = 0;
-      if (!canMove()) return;
       const bounds = art.getBoundingClientRect();
-      const progress = clamp((innerHeight - bounds.top) / (innerHeight + bounds.height), 0, 1);
-      Object.assign(current, {
-        x: pointer ? clamp((pointer.x - bounds.left) / bounds.width * 2 - 1, -1, 1) : 0,
-        y: pointer ? clamp((pointer.y - bounds.top) / bounds.height * 2 - 1, -1, 1) : 0,
-        spread: 1 - progress,
-      });
-      draw();
+      const start = Math.max(0, scrollY + bounds.top + bounds.height / 2 - innerHeight * .7);
+      const distance = Math.min(bounds.height * .4, innerHeight * .24);
+      const progress = preference.matches || hero.dataset.discipline !== 'all' ? 1 : Math.max(0, Math.min(1, (scrollY - start) / distance));
+      figure.style.setProperty('--assembly', progress.toFixed(4));
+      figure.style.setProperty('--separation', (1 - progress).toFixed(4));
+      art.dataset.phase = progress === 1 ? 'joined' : progress === 0 ? 'separate' : 'assembling';
     };
     const schedule = () => {
-      if (canMove() && !frame) frame = requestAnimationFrame(tick);
+      if (frame || !visible || preference.matches || document.hidden) return;
+      frame = requestAnimationFrame(() => { frame = 0; draw(); });
     };
-    const resetPointer = () => { pointer = null; schedule(); };
     const update = () => {
-      control.hidden = preference.matches;
-      art.dataset.motion = canMove() ? 'running' : 'paused';
-      label.textContent = paused ? 'Play motion' : 'Pause motion';
-      symbol.textContent = paused ? '▷' : 'Ⅱ';
-      if (preference.matches) {
-        pointer = null;
-        current.x = current.y = current.spread = 0;
-        draw();
-      }
-      if (canMove()) schedule();
-      else stop();
+      cancelAnimationFrame(frame);
+      frame = 0;
+      art.dataset.motion = !preference.matches && visible && !document.hidden ? 'running' : 'static';
+      draw();
     };
-    control.addEventListener('click', () => { paused = !paused; update(); });
-    art.addEventListener('pointermove', event => {
-      if (event.pointerType !== 'mouse' || !finePointer.matches || !canMove()) return;
-      pointer = { x: event.clientX, y: event.clientY };
-      schedule();
-    }, { passive: true });
-    art.addEventListener('pointerleave', resetPointer);
     window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule, { passive: true });
-    window.addEventListener('blur', resetPointer);
-    finePointer.addEventListener('change', resetPointer);
+    window.addEventListener('resize', update, { passive: true });
     preference.addEventListener('change', update);
     document.addEventListener('visibilitychange', update);
     const observer = new IntersectionObserver(entries => {
       visible = entries[0].isIntersecting;
       update();
-    }, { threshold: 0.1 });
+    }, { threshold: .1 });
     observer.observe(art);
     update();
   });
 </script>
 <style>
-.paper-figure{margin:0;min-width:0;width:100%}.paper-art{position:relative;aspect-ratio:1;isolation:isolate}.paper-forms{position:absolute;inset:5%;pointer-events:none}.paper-response{position:absolute;inset:0;transform:translate(calc(var(--input-x,0) * var(--depth) + var(--scroll-spread,0) * var(--spread-x)),calc(var(--input-y,0) * var(--depth) * .75 + var(--scroll-spread,0) * var(--spread-y)))}.violet-response{--depth:1.2%;--spread-x:-1.2%;--spread-y:-.8%}.amber-response{--depth:1.7%;--spread-x:1.2%;--spread-y:-.8%}.magenta-response{--depth:2.2%;--spread-x:0%;--spread-y:1.4%}.stack{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.violet{clip-path:polygon(0 0,50% 0,50% 49%,44% 52.5%,10% 72%,0 80%)}.amber{clip-path:polygon(50% 0,100% 0,100% 80%,88% 72%,56% 52%,50% 49%)}.magenta{clip-path:polygon(0 80%,10% 72%,44% 52.5%,50% 49%,56% 52%,88% 72%,100% 80%,100% 100%,0 100%)}
-.stack{filter:contrast(1.24) brightness(1.08) saturate(.92)}
-figcaption{padding:10px 4% 0}.disciplines{display:grid;grid-template-columns:1.4fr .7fr 1fr;gap:20px;font-size:.875rem;font-weight:700;line-height:1.5}.disciplines span{border-top:2px solid;padding-top:9px}.design-label{color:#bdb5ff}.product-label{color:#f0a83a}.technology-label{color:#f78ad0}.figure-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;min-height:44px}.figure-footer p{font-size:1rem;letter-spacing:-.025em;margin:0;color:#f6f5fd}.motion-control{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 0 8px 12px;border:0;background:none;font-size:.875rem;color:#c9cedf}.motion-control:hover{color:white;text-decoration:underline;text-underline-offset:4px}.motion-symbol{display:inline-block;width:12px;font-size:1rem}
-@media(max-width:500px){figcaption{padding-inline:0}.disciplines{gap:12px}.figure-footer{gap:10px}.figure-footer p{font-size:.9375rem}}
-@media(prefers-reduced-motion:reduce){.paper-response{transform:none}.motion-control{display:none}}
+.paper-figure{--assembly:1;--separation:0;margin:0;min-width:0;width:100%;container-type:inline-size;grid-area:art;align-self:center}
+.art-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 4% 12px;font-size:.875rem;color:#c9cedf}
+.art-heading button{display:none;background:none;border:0;padding:8px 0;color:#c9cedf;font:inherit;text-decoration:underline;text-underline-offset:5px;cursor:pointer;min-height:44px}
+.art-heading button[aria-pressed="true"]{color:white;text-decoration:none}.art-heading button:hover{color:white}
+.paper-art{position:relative;aspect-ratio:4/3;isolation:isolate;overflow:clip}
+.paper-forms{position:absolute;inset:3%;pointer-events:none}
+.paper-response{position:absolute;inset:0;transform:translate(calc(var(--separation) * var(--from-x)),calc(var(--separation) * var(--from-y))) rotate(calc(var(--separation) * var(--from-angle)));transform-origin:50% 48%}
+.violet-response{--from-x:-6%;--from-y:-1.5%;--from-angle:-2deg}.amber-response{--from-x:6%;--from-y:-1.5%;--from-angle:2deg}.magenta-response{--from-x:0%;--from-y:8%;--from-angle:0deg}
+.paper-choice,.paper-fallback{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;border-radius:0;background:none;color:#171d36;font:inherit;text-align:left;pointer-events:auto;cursor:pointer;isolation:isolate;-webkit-tap-highlight-color:transparent}
+.paper-choice{display:none}.paper-fallback{display:block}.paper-figure[data-interactive] .paper-choice{display:block}.paper-figure[data-interactive] .paper-fallback{display:none}.paper-figure[data-interactive] .art-heading button{display:block}
+.stack,.fallback-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+.paper-masks{position:absolute;pointer-events:none}.violet{clip-path:url(#paper-violet)}.amber{clip-path:url(#paper-amber)}.magenta{clip-path:url(#paper-magenta)}
+.paper-label{position:absolute;display:flex;align-items:center;gap:12px;font-size:clamp(.875rem,1.4vw,1.125rem);font-weight:750;line-height:1.35;max-width:32%;padding:7px 3px;border-bottom:2px solid transparent}
+.violet .paper-label{left:9%;top:13%}.amber .paper-label{right:9%;top:13%}.magenta .paper-label{left:50%;bottom:10%;transform:translateX(-50%);max-width:70%}
+.paper-choice[aria-pressed="true"] .paper-label{border-bottom-color:currentColor}.paper-choice[aria-pressed="true"] .stack{filter:brightness(1.08)}
+.paper-choice:focus-visible{outline:none}.paper-choice:focus-visible .paper-label,.paper-fallback:focus-visible .paper-label{outline:3px solid #171d36;outline-offset:3px;border-radius:2px}
+.paper-figure[data-selection]:not([data-selection="all"]) .paper-response{transition:transform 180ms ease-out}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.paper-choice .paper-label{transition:translate 140ms ease-out}.paper-choice:hover .paper-label{translate:0 -3px}}
+@media(max-width:500px){.art-heading{margin:0 0 2px}.paper-label{gap:5px}.violet .paper-label{left:8%;top:12%}.amber .paper-label{right:8%;top:12%}.magenta .paper-label{bottom:9%}}
+@media(prefers-reduced-motion:reduce){.paper-response{transform:none;transition:none!important}}
+@container (max-width:17em){
+  .art-heading{flex-wrap:wrap}.art-heading button{white-space:nowrap}
+  .paper-art{aspect-ratio:auto;overflow:visible}.paper-forms{position:static;display:grid;gap:12px}.paper-response{position:relative;transform:none!important;transition:none!important}
+  .paper-choice,.paper-fallback{position:relative;inset:auto;clip-path:none;height:auto;background:#242b49;color:#fafaf8;border-left:6px solid var(--choice-color)}
+  .violet{--choice-color:#beb8ff}.amber{--choice-color:#f0a83a}.magenta{--choice-color:#f78ad0}
+  .stack,.fallback-image{display:none}.paper-label,.violet .paper-label,.amber .paper-label,.magenta .paper-label{position:static;max-width:none;transform:none;translate:none;padding:12px;line-height:1.4}
+  .paper-choice:focus-visible .paper-label,.paper-fallback:focus-visible .paper-label{outline-color:white;outline-offset:-4px}
+}
 @media print{.paper-figure{display:none}}
 </style>

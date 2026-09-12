@@ -93,3 +93,23 @@ Follow-up to `d996f27`, verified 11 September 2026. Removed the repeating ten-se
 Baseline and final `npm run build` and `npm test` passed. The final run covered all seven routes and five widths listed above: 35 page checks and 27 internal links/anchors, with zero failures. Added checks confirm that pointer and scroll responses stop within two browser frames and stay still afterward, with no automatic animations. Keyboard, accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and HTML/print parity checks passed. `git diff --check` passed.
 
 Reviewed full-page home captures at 320, 390, 768, 1024, and 1440 pixels, plus both pointer extremes and the touch scroll position. The local preview also passed the focused input checks. The regenerated PDF has nine pages; public and build copies are byte-identical.
+
+## Visible mobile scroll response
+
+Follow-up to merged PR #4 (`1700fdb`), verified 12 September 2026. Measurement of the live site at 390 pixels showed less than one pixel of stack movement during a 160-pixel scroll. Increased the bounded translations and shortened the scroll range so the movement occurs while the full composition is visible. It remains directly tied to scrolling, with no repeating animation or delayed easing.
+
+Baseline and final `npm run build` and `npm test` passed. The final suite covered `/`, `/about/`, `/work/nexus/`, `/work/linuxone-practice/`, `/work/hybrid-cloud/`, `/print/`, and `/404.html` at 320, 390, 768, 1024, and 1440 pixels: 35 page checks, 27 links/anchors, zero failures. Keyboard, axe accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and print parity checks passed. The PDF remains nine pages with byte-identical public/build copies.
+
+New mobile checks run in Chromium and WebKit at 320 and 390 pixels. All three stacks moved approximately 11.5 to 11.6 pixels during a 160-pixel scroll. Checks also cover reverse scrolling, prompt stopping, idle stability, touch pause/play, reduced motion, console errors, and overflow. Full-page home captures were reviewed at all five widths, along with mobile before/after positions. These are browser-engine tests with mobile emulation, not a physical iPhone test.
+
+`npm run test:webkit` is included in the GitHub verification workflow. Locally, the host lacked WebKit libraries and system installation required a password. Dependencies were downloaded and unpacked into `/tmp/portfolio-webkit/` without changing the operating system. The suite passed with `WEBKIT_EXECUTABLE_PATH=/tmp/portfolio-webkit/run.sh npm run test:webkit`, using a launcher that supplies those libraries. The default command uses Playwright's installed WebKit on CI. `git diff --check` passed.
+
+## Shared paper composition
+
+Follow-up to `55d914b`, verified 12 September 2026. Replaced the rounded artwork with three complementary sections of a common rectangular paper panel. Scrolling aligns the sections into that final panel. Stable connectors link the three discipline labels to one product-direction caption. Removed the pause/play button, its symbol, and the pointer offset. Reduced-motion and no-JavaScript presentations show the complete panel immediately. Asset provenance, the exact built-in generation prompt, and source clipping are documented in `HERO-ART.md`.
+
+Baseline and final `npm run build`, `npm test`, `WEBKIT_EXECUTABLE_PATH=/tmp/portfolio-webkit/run.sh npm run test:webkit`, and `git diff --check` passed. The final suite checked all seven routes at 320, 390, 768, 1024, and 1440 pixels: 35 page checks and 27 internal links/anchors with zero failures. The nine-page PDF was regenerated and public/build copies are byte-identical.
+
+Interaction checks verify visible touch-scroll movement, reversal, the aligned endpoint, idle stability, ignored pointer movement, and the absence of decorative controls. Chromium and WebKit mobile tests passed at 320 and 390 pixels. The WebKit suite now captures console errors as well as page errors, addressing the inline review comment on PR #5. Existing keyboard navigation, axe accessibility, enlarged-text, no-JavaScript, publication-hold, and print-parity checks passed.
+
+Reviewed full-page home screenshots across all five widths, desktop assembly states, mobile assembly states, and the completed static panel. Inspection prompted refinements to the central edge and narrow-screen containment. The local preview's cached failed import was cleared by restarting its identified server on the same port, 4322. Physical iPhone verification remains unavailable; mobile checks use browser emulation.

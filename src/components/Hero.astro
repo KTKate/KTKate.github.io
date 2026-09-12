@@ -1,24 +1,37 @@
 ---
 import site from '../site';
 import PaperArt from './PaperArt.astro';
+const base = import.meta.env.BASE_URL;
+const evidence = [
+  { id: 'all', title: '', copy: site.technical, link: '#work', action: 'Explore selected work' },
+  { id: 'design', title: 'Research determines product needs.', copy: 'I founded the LinuxONE client council with about 30 clients, recurring virtual sessions, and an annual in-person event for design input and future direction.', link: `${base}work/linuxone-practice/`, action: 'Explore the research practice' },
+  { id: 'product', title: 'Product direction becomes funded work.', copy: 'For Launchpad for LinuxONE, I focused the initial scope on onboarding and provisioning, and helped secure commitments from product management, engineering, and design.', link: `${base}work/nexus/`, action: 'Explore the product decisions' },
+  { id: 'technology', title: 'Technical judgment includes building.', copy: 'Independently, I build AI systems with agent workflows, local transcription, API integration, and automation. My Lab explains the architecture and constraints of these private projects.', link: '#lab', action: 'Explore independent systems' },
+];
 ---
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero" aria-labelledby="hero-title" data-hero data-discipline="all">
   <div class="wrap hero-grid">
-    <div class="copy">
+    <div class="intro">
       <p class="kicker">Product and platform direction</p>
-      <h1 id="hero-title"><span class="design">Designer <span class="ampersand">&amp;</span><br/>researcher</span><br/><small>and</small> <span class="product">product<br/>strategist</span><br/><small>and</small> <span class="technology">engineer.</span></h1>
+      <h1 id="hero-title"><span class="design" data-heading="design">Designer <span class="ampersand">&amp;</span><br/>researcher</span><br/><small>and</small> <span class="product" data-heading="product">product<br/>strategist</span><br/><small>and</small> <span class="technology" data-heading="technology">engineer.</span></h1>
       <p class="lede">{site.lede}</p>
-      <p class="technical">{site.technical}</p>
-      <a class="button" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
     </div>
     <PaperArt />
+    <div class="hero-evidence" id="hero-evidence" aria-live="polite" aria-atomic="true">
+      {evidence.map(item => <div class="hero-evidence-panel" data-evidence={item.id} hidden={item.id !== 'all'}>
+        {item.title && <h2>{item.title}</h2>}
+        <p class="technical">{item.copy}</p>
+        <a class="button" href={item.link}>{item.action}<span aria-hidden="true">↗</span></a>
+      </div>)}
+    </div>
   </div>
 </section>
 <style>
-.hero{background:var(--navy);color:#fafaf8;padding:42px 0 66px}.hero-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:24px;align-items:center}.copy{position:relative;z-index:1}.kicker{color:#c1bbff;margin-bottom:22px}
+.hero{background:var(--navy);color:#fafaf8;padding:42px 0 66px}.hero-grid{display:grid;grid-template-columns:1fr 1.2fr;grid-template-areas:"intro art" "evidence art";column-gap:24px;row-gap:20px;align-items:start}.intro{grid-area:intro;position:relative;z-index:1}.kicker{color:#c1bbff;margin-bottom:22px}
 h1{font-size:clamp(2.8rem,4.5vw,4.25rem);line-height:1.08;margin-bottom:28px;letter-spacing:-.055em}h1 small{font-size:.57em;font-weight:500;letter-spacing:-.03em;color:#fafaf8}.ampersand{font-size:.78em;letter-spacing:-.06em}.design{color:#beb8ff}.product{color:#f0a83a}.technology{color:#f78ad0}
-.lede{font-size:1.1875rem;line-height:1.55;max-width:43ch;margin-bottom:16px}.technical{font-size:1rem;color:#c9cedf;max-width:47ch;margin-bottom:28px}.button{background:var(--amber);color:var(--navy);gap:28px}.button:hover{background:#ffc565}.hero :focus-visible{outline-color:var(--amber)}
-@media(max-width:700px){.hero-grid{grid-template-columns:1fr;gap:32px}.copy{max-width:620px}.hero-grid :global(.paper-figure){max-width:620px;margin-inline:auto}h1{font-size:clamp(2.8rem,7.5vw,4.6rem)}.hero{padding:30px 0 52px}.lede,.technical{max-width:54ch}}
-@media(max-width:500px){h1{font-size:clamp(2.3rem,9.8vw,3rem)}.lede{font-size:1.125rem}.hero-grid{gap:26px}}
-@media print{.hero{background:white;color:var(--type)}.button{display:none}.hero-grid{display:block}}
+.hero[data-discipline="design"] .design,.hero[data-discipline="product"] .product,.hero[data-discipline="technology"] .technology{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.13em}
+.lede{font-size:1.1875rem;line-height:1.55;max-width:43ch;margin:0}.hero-evidence{grid-area:evidence;display:grid;align-self:start}.hero-evidence-panel{grid-area:1/1;min-width:0}.hero-evidence-panel[hidden]{display:block;visibility:hidden;pointer-events:none}.hero-evidence h2{font-size:1.0625rem;line-height:1.5;letter-spacing:0;margin:0 0 8px}.technical{font-size:1rem;color:#c9cedf;max-width:47ch;margin:0 0 24px}.button{background:var(--amber);color:var(--navy);gap:20px}.button:hover{background:#ffc565}.hero :focus-visible{outline-color:var(--amber)}
+@media(max-width:700px){.hero-grid{grid-template-columns:1fr;grid-template-areas:"intro" "art" "evidence";row-gap:24px}.intro,.hero-evidence{max-width:620px}.hero-grid :global(.paper-figure){max-width:620px;margin-inline:auto}h1{font-size:clamp(2.8rem,7.5vw,4.6rem)}.hero{padding:30px 0 52px}.lede,.technical{max-width:54ch}}
+@media(max-width:500px){h1{font-size:clamp(2.3rem,9.8vw,3rem)}.lede{font-size:1.125rem}.hero-grid{row-gap:20px}}
+@media print{.hero{background:white;color:var(--type)}.button{display:none}.hero-grid{display:block}.hero-evidence-panel[hidden]{display:none}}
 </style>
