@@ -1,31 +1,50 @@
 ---
 import { paperPanelMasks } from './paperPanelMasks';
 const art = `${import.meta.env.BASE_URL}images/paper-panel.webp`;
-const sections = ['violet', 'amber', 'magenta'];
+const sections = [
+  { color: 'violet', id: 'design', label: 'Design & research', href: `${import.meta.env.BASE_URL}work/linuxone-practice/` },
+  { color: 'amber', id: 'product', label: 'Product strategy', href: `${import.meta.env.BASE_URL}work/nexus/` },
+  { color: 'magenta', id: 'technology', label: 'Technology', href: '#lab' },
+];
 ---
 <figure class="paper-figure" data-paper-figure>
+  <figcaption class="art-heading"><span>Explore how I work</span><button type="button" data-discipline-reset aria-controls="hero-evidence" aria-pressed="true">All disciplines</button></figcaption>
   <svg class="paper-masks" width="0" height="0" aria-hidden="true"><defs>
     {paperPanelMasks.map(mask => <clipPath id={`paper-${mask.name}`} clipPathUnits="objectBoundingBox"><path transform="scale(.0006906077 .0009208103)" d={mask.path} /></clipPath>)}
   </defs></svg>
-  <div class="paper-art" role="img" aria-label="Violet design and research, amber product strategy, and magenta technology assemble into one cut-paper panel. Three recessed channels meet at its center." data-paper-art>
-    <div class="paper-forms" aria-hidden="true">
-      {sections.map(section => <div class={`paper-response ${section}-response`}><img class={`stack ${section}`} src={art} width="1448" height="1086" alt="" decoding="async" fetchpriority={section === 'violet' ? 'high' : 'auto'} /></div>)}
+  <div class="paper-art" data-paper-art role="group" aria-label="Explore work by discipline">
+    <div class="paper-forms">
+      {sections.map(section => <div class={`paper-response ${section.color}-response`}>
+        <button class={`paper-choice ${section.color}`} type="button" data-discipline-choice={section.id} aria-pressed="false" aria-controls="hero-evidence">
+          <img class="stack" src={art} width="1448" height="1086" alt="" decoding="async" fetchpriority={section.id === 'design' ? 'high' : 'auto'} />
+          <span class="paper-label">{section.label}</span>
+        </button>
+        <a class={`paper-fallback ${section.color}`} href={section.href}><img class="fallback-image" src={art} width="1448" height="1086" alt="" /><span class="paper-label">{section.label}<span aria-hidden="true">↗</span></span></a>
+      </div>)}
     </div>
   </div>
-  <figcaption>
-    <div class="disciplines"><span class="design-label">Design &amp; research</span><span class="product-label">Product</span><span class="technology-label">Technology</span></div>
-    <svg class="connections" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true">
-      <path class="connection design-line" d="M100 0 V12 L296 43" pathLength="1" />
-      <path class="connection product-line" d="M300 0 V43" pathLength="1" />
-      <path class="connection technology-line" d="M500 0 V12 L304 43" pathLength="1" />
-      <path class="shared-line" d="M300 43 V64" />
-    </svg>
-    <p class="shared-direction">One product direction.</p>
-  </figcaption>
 </figure>
 <script>
   document.querySelectorAll<HTMLElement>('[data-paper-figure]').forEach(figure => {
     const art = figure.querySelector<HTMLElement>('[data-paper-art]')!;
+    const hero = figure.closest<HTMLElement>('[data-hero]')!;
+    const choices = Array.from(figure.querySelectorAll<HTMLButtonElement>('[data-discipline-choice]'));
+    const reset = figure.querySelector<HTMLButtonElement>('[data-discipline-reset]')!;
+    const select = (id: string) => {
+      hero.dataset.discipline = id;
+      figure.dataset.selection = id;
+      choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.disciplineChoice === id)));
+      hero.querySelectorAll<HTMLElement>('[data-evidence]').forEach(panel => { panel.hidden = panel.dataset.evidence !== id; });
+      reset.setAttribute('aria-pressed', String(id === 'all'));
+      update();
+    };
+    choices.forEach(button => {
+      button.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') select(button.dataset.disciplineChoice!); });
+      button.addEventListener('focus', () => select(button.dataset.disciplineChoice!));
+      button.addEventListener('click', () => select(button.dataset.disciplineChoice!));
+    });
+    reset.addEventListener('click', () => select('all'));
+    figure.dataset.interactive = 'true';
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     let visible = false;
     let frame = 0;
@@ -33,7 +52,7 @@ const sections = ['violet', 'amber', 'magenta'];
       const bounds = art.getBoundingClientRect();
       const start = Math.max(0, scrollY + bounds.top + bounds.height / 2 - innerHeight * .7);
       const distance = Math.min(bounds.height * .4, innerHeight * .24);
-      const progress = preference.matches ? 1 : Math.max(0, Math.min(1, (scrollY - start) / distance));
+      const progress = preference.matches || hero.dataset.discipline !== 'all' ? 1 : Math.max(0, Math.min(1, (scrollY - start) / distance));
       figure.style.setProperty('--assembly', progress.toFixed(4));
       figure.style.setProperty('--separation', (1 - progress).toFixed(4));
       art.dataset.phase = progress === 1 ? 'joined' : progress === 0 ? 'separate' : 'assembling';
@@ -61,24 +80,33 @@ const sections = ['violet', 'amber', 'magenta'];
   });
 </script>
 <style>
-.paper-figure{--assembly:1;--separation:0;margin:0;min-width:0;width:100%}
+.paper-figure{--assembly:1;--separation:0;margin:0;min-width:0;width:100%;container-type:inline-size;grid-area:art;align-self:center}
+.art-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 4% 12px;font-size:.875rem;color:#c9cedf}
+.art-heading button{display:none;background:none;border:0;padding:8px 0;color:#c9cedf;font:inherit;text-decoration:underline;text-underline-offset:5px;cursor:pointer;min-height:44px}
+.art-heading button[aria-pressed="true"]{color:white;text-decoration:none}.art-heading button:hover{color:white}
 .paper-art{position:relative;aspect-ratio:4/3;isolation:isolate;overflow:clip}
 .paper-forms{position:absolute;inset:3%;pointer-events:none}
 .paper-response{position:absolute;inset:0;transform:translate(calc(var(--separation) * var(--from-x)),calc(var(--separation) * var(--from-y))) rotate(calc(var(--separation) * var(--from-angle)));transform-origin:50% 48%}
-.violet-response{--from-x:-6%;--from-y:-1.5%;--from-angle:-2deg}
-.amber-response{--from-x:6%;--from-y:-1.5%;--from-angle:2deg}
-.magenta-response{--from-x:0%;--from-y:8%;--from-angle:0deg}
-.stack{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.violet-response{--from-x:-6%;--from-y:-1.5%;--from-angle:-2deg}.amber-response{--from-x:6%;--from-y:-1.5%;--from-angle:2deg}.magenta-response{--from-x:0%;--from-y:8%;--from-angle:0deg}
+.paper-choice,.paper-fallback{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;border-radius:0;background:none;color:#171d36;font:inherit;text-align:left;pointer-events:auto;cursor:pointer;isolation:isolate;-webkit-tap-highlight-color:transparent}
+.paper-choice{display:none}.paper-fallback{display:block}.paper-figure[data-interactive] .paper-choice{display:block}.paper-figure[data-interactive] .paper-fallback{display:none}.paper-figure[data-interactive] .art-heading button{display:block}
+.stack,.fallback-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
 .paper-masks{position:absolute;pointer-events:none}.violet{clip-path:url(#paper-violet)}.amber{clip-path:url(#paper-amber)}.magenta{clip-path:url(#paper-magenta)}
-figcaption{padding:0 4%;text-align:center}
-.disciplines{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font-size:.875rem;font-weight:700;line-height:1.4}
-.design-label{color:#bdb5ff}.product-label{color:#f0a83a}.technology-label{color:#f78ad0}
-.connections{display:block;width:100%;height:48px;margin-top:10px;overflow:visible;fill:none;stroke-width:1.5;vector-effect:non-scaling-stroke}
-.connection{stroke-linejoin:round}
-.design-line{stroke:#bdb5ff}.product-line{stroke:#f0a83a}.technology-line{stroke:#f78ad0}
-.shared-line{stroke:#eeeafc}
-.shared-direction{margin:9px 0 0;font-size:1rem;font-weight:650;color:#f6f5fd}
-@media(max-width:500px){figcaption{padding-inline:0}.disciplines{gap:8px}.shared-direction{font-size:.9375rem}.connections{height:38px}}
-@media(prefers-reduced-motion:reduce){.paper-response{transform:none}.connection{stroke-dashoffset:0}.shared-line{opacity:1}}
+.paper-label{position:absolute;display:flex;align-items:center;gap:12px;font-size:clamp(.875rem,1.4vw,1.125rem);font-weight:750;line-height:1.35;max-width:32%;padding:7px 3px;border-bottom:2px solid transparent}
+.violet .paper-label{left:9%;top:13%}.amber .paper-label{right:9%;top:13%}.magenta .paper-label{left:50%;bottom:10%;transform:translateX(-50%);max-width:70%}
+.paper-choice[aria-pressed="true"] .paper-label{border-bottom-color:currentColor}.paper-choice[aria-pressed="true"] .stack{filter:brightness(1.08)}
+.paper-choice:focus-visible{outline:none}.paper-choice:focus-visible .paper-label,.paper-fallback:focus-visible .paper-label{outline:3px solid #171d36;outline-offset:3px;border-radius:2px}
+.paper-figure[data-selection]:not([data-selection="all"]) .paper-response{transition:transform 180ms ease-out}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.paper-choice .paper-label{transition:translate 140ms ease-out}.paper-choice:hover .paper-label{translate:0 -3px}}
+@media(max-width:500px){.art-heading{margin:0 0 2px}.paper-label{gap:5px}.violet .paper-label{left:8%;top:12%}.amber .paper-label{right:8%;top:12%}.magenta .paper-label{bottom:9%}}
+@media(prefers-reduced-motion:reduce){.paper-response{transform:none;transition:none!important}}
+@container (max-width:17em){
+  .art-heading{flex-wrap:wrap}.art-heading button{white-space:nowrap}
+  .paper-art{aspect-ratio:auto;overflow:visible}.paper-forms{position:static;display:grid;gap:12px}.paper-response{position:relative;transform:none!important;transition:none!important}
+  .paper-choice,.paper-fallback{position:relative;inset:auto;clip-path:none;height:auto;background:#242b49;color:#fafaf8;border-left:6px solid var(--choice-color)}
+  .violet{--choice-color:#beb8ff}.amber{--choice-color:#f0a83a}.magenta{--choice-color:#f78ad0}
+  .stack,.fallback-image{display:none}.paper-label,.violet .paper-label,.amber .paper-label,.magenta .paper-label{position:static;max-width:none;transform:none;translate:none;padding:12px;line-height:1.4}
+  .paper-choice:focus-visible .paper-label,.paper-fallback:focus-visible .paper-label{outline-color:white;outline-offset:-4px}
+}
 @media print{.paper-figure{display:none}}
 </style>

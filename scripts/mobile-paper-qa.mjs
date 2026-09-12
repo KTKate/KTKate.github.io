@@ -43,16 +43,34 @@ export async function verifyMobilePaper(browser, siteRoot, out) {
       const reversed = await positions();
       assert(reversed.every((position, index) => Math.hypot(position.x - before[index].x, position.y - before[index].y) < .1), 'Reverse scrolling must return to the same composition');
 
-      assert.equal(await page.locator('[data-paper-figure] button').count(), 0);
+      assert.equal(await page.locator('[data-discipline-choice]').count(), 3);
       await page.evaluate(() => window.scrollBy({ top: 200, behavior: 'instant' }));
       await paint();
       assert.equal(await paper.getAttribute('data-phase'), 'joined');
       assert(await page.locator('.paper-response').evaluateAll(elements => elements.every(element => new DOMMatrixReadOnly(getComputedStyle(element).transform).isIdentity)), 'The three sections must finish aligned');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      for (const id of ['design', 'product', 'technology']) {
+        const choice = page.locator(`[data-discipline-choice="${id}"]`);
+        await choice.locator('.paper-label').tap();
+        await page.waitForTimeout(220);
+        assert.equal(await choice.getAttribute('aria-pressed'), 'true');
+        assert.equal(await page.locator(`[data-evidence="${id}"]`).isVisible(), true);
+        assert.equal(await page.locator('[data-evidence]:visible').count(), 1);
+        const evidence = await page.locator('.hero-evidence').boundingBox();
+        const artwork = await paper.boundingBox();
+        assert(evidence.y >= artwork.y + artwork.height, 'Mobile evidence must follow the artwork');
+        assert(evidence.y < 844, 'Tapping must reveal evidence within the current viewport');
+        await page.screenshot({ path: `${out}/paper-${engine}-${width}-${id}.png` });
+      }
+      await page.locator('[data-discipline-reset]').tap();
+      assert.equal(await page.locator('[data-evidence="all"]').isVisible(), true);
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await paint();
       assert(await page.locator('.paper-response').evaluateAll(elements => elements.every(element => getComputedStyle(element).transform === 'none')));
       assert.equal(await page.locator('[data-motion-control]').isVisible(), false);
+      await page.locator('[data-discipline-choice="design"] .paper-label').tap();
+      assert.equal(await page.locator('[data-evidence="design"]').isVisible(), true);
+      assert.equal(await paper.evaluate(element => element.getAnimations({ subtree: true }).length), 0);
       assert.deepEqual(errors, []);
       results.push({ engine, width, scroll: 160, movement: distances });
     } finally {
