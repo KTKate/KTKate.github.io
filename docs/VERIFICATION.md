@@ -65,3 +65,15 @@ Follow-up based on merged PR #2 (`7664409`), verified 11 September 2026. IBM ann
 The final run repeated all seven routes at all five widths listed above: 35 page checks, 27 internal link/anchor checks, zero failures. Full-page screenshots were reviewed, including the longer case-study title and updated home, About, practice, and print content. Keyboard, reduced-motion, enlarged-text, no-JavaScript, accessibility, publication-hold, and HTML/print parity checks passed.
 
 The regenerated PDF remains nine pages. The changed case-study pages were visually inspected. PDF extraction confirms the public product name, the exact restriction note, and an active link to the IBM announcement. The public and built PDF copies are byte-identical. Private LinkedIn planning now uses the public product name and remains ignored.
+
+## Animated paper hero revision
+
+Follow-up based on merged PR #3 (`fee62c4`), verified 11 September 2026. Replaced the artwork with a transparent image containing three complementary dark-to-light cut-paper stacks. Each stack moves toward the common center and back in a continuing ten-second cycle. The headline now starts with "Designer & researcher." Tablet widths retain the artwork beside the introduction; mobile shows the complete composition below the copy.
+
+Baseline `npm run build` and `npm test` passed before edits. Final `npm run build`, `npm test`, and `git diff --check` passed. The complete suite covered the seven routes and five widths listed above: 35 page checks and 27 internal link/anchor checks, with zero failures. After refining the tablet breakpoint, `npm run build` and `QA_WIDTHS=768 npm test` passed again, including all seven routes and all interaction checks.
+
+New checks verify continuing animation, changing stack positions, keyboard pause/play, persistence of a manual pause after scrolling, and suspension outside the viewport. Reduced-motion and no-JavaScript checks verify a static composition and no unusable motion control. The pause test waits for the browser's animation-ready promise before comparing frozen positions. Existing accessibility, text enlargement, navigation, restricted-content, and print/PDF parity checks also pass.
+
+Full-page screenshots were reviewed at 320, 390, 768, 1024, and 1440 pixels. Additional desktop screenshots inspected both motion limits; a complete cycle was recorded in ignored `artifacts/hero-revision/hero-motion.webm`. The masks were revised after inspection to preserve the complete edges of every stack. The mobile caption keeps all three discipline labels in a single row.
+
+The PDF was regenerated and remains nine pages, with the existing shared copy and case-study content synchronized. The decorative hero is excluded from print. Asset provenance and the exact generation prompt are recorded in `docs/HERO-ART.md`.
