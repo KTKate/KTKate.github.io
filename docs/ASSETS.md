@@ -2,9 +2,11 @@
 
 ## Cut-paper hero
 
-`public/images/paper-stacks.webp` is original generated artwork created for this portfolio revision using the built-in image generation tool. It depicts three separate physical stacks in violet, amber, and magenta on navy. No client or project interface is depicted. The supplied inspiration images were inspected for material and construction reference; they are not redistributed in this repository.
+`public/images/paper-convergence.webp` is original generated artwork created using the built-in image generation tool. It depicts three complementary cut-paper stacks in violet, amber, and magenta, with dark-to-light sheets and three channels meeting at the center. The background is transparent. No client or project interface is depicted. The supplied inspiration images were inspected for material and construction reference; they are not redistributed in this repository.
 
-The generated 1536 × 1024 PNG was encoded as WebP at quality 87 for delivery. All three stack images share that one cached resource. CSS clipping separates the stacks for a brief entrance animation, which is disabled by reduced-motion preference.
+The generated 1254 × 1254 RGBA PNG was encoded as WebP at quality 92 with its alpha channel preserved. All three animated stacks share that one cached resource. Motion responds directly to pointer movement and scrolling while the artwork is visible and can be paused from the keyboard. There is no repeating animation. Reduced-motion and no-JavaScript presentations are static. See [HERO-ART.md](HERO-ART.md) for the generation prompt and implementation details.
+
+The approved asset is retained for the pointer/scroll refinement. A CSS tonal adjustment increases contrast without changing its transparency or geometry. The additional motion uses translated wrappers and downloads no additional imagery.
 
 ## Typeface
 

@@ -65,3 +65,31 @@ Follow-up based on merged PR #2 (`7664409`), verified 11 September 2026. IBM ann
 The final run repeated all seven routes at all five widths listed above: 35 page checks, 27 internal link/anchor checks, zero failures. Full-page screenshots were reviewed, including the longer case-study title and updated home, About, practice, and print content. Keyboard, reduced-motion, enlarged-text, no-JavaScript, accessibility, publication-hold, and HTML/print parity checks passed.
 
 The regenerated PDF remains nine pages. The changed case-study pages were visually inspected. PDF extraction confirms the public product name, the exact restriction note, and an active link to the IBM announcement. The public and built PDF copies are byte-identical. Private LinkedIn planning now uses the public product name and remains ignored.
+
+## Animated paper hero revision
+
+Follow-up based on merged PR #3 (`fee62c4`), verified 11 September 2026. Replaced the artwork with a transparent image containing three complementary dark-to-light cut-paper stacks. Each stack moves toward the common center and back in a continuing ten-second cycle. The headline now starts with "Designer & researcher." Tablet widths retain the artwork beside the introduction; mobile shows the complete composition below the copy.
+
+Baseline `npm run build` and `npm test` passed before edits. Final `npm run build`, `npm test`, and `git diff --check` passed. The complete suite covered the seven routes and five widths listed above: 35 page checks and 27 internal link/anchor checks, with zero failures. After refining the tablet breakpoint, `npm run build` and `QA_WIDTHS=768 npm test` passed again, including all seven routes and all interaction checks.
+
+New checks verify continuing animation, changing stack positions, keyboard pause/play, persistence of a manual pause after scrolling, and suspension outside the viewport. Reduced-motion and no-JavaScript checks verify a static composition and no unusable motion control. The pause test waits for the browser's animation-ready promise before comparing frozen positions. Existing accessibility, text enlargement, navigation, restricted-content, and print/PDF parity checks also pass.
+
+Full-page screenshots were reviewed at 320, 390, 768, 1024, and 1440 pixels. Additional desktop screenshots inspected both motion limits; a complete cycle was recorded in ignored `artifacts/hero-revision/hero-motion.webm`. The masks were revised after inspection to preserve the complete edges of every stack. The mobile caption keeps all three discipline labels in a single row.
+
+The PDF was regenerated and remains nine pages, with the existing shared copy and case-study content synchronized. The decorative hero is excluded from print. Asset provenance and the exact generation prompt are recorded in `docs/HERO-ART.md`.
+
+## Pointer, scroll, and tonal refinement
+
+Follow-up to `c2f9d4a`, verified 11 September 2026. The approved transparent artwork now has stronger displayed contrast and bounded pointer/scroll translations. No additional image download is required. Pointer movement shifts the three stacks by different amounts; scrolling reduces their separation. Touch pointer events do not trigger mouse effects or intercept scrolling.
+
+Baseline and final `npm run build` and `npm test` passed, as did `git diff --check`. The final suite again completed 35 page checks across all seven routes at 320, 390, 768, 1024, and 1440 pixels, plus 27 internal links/anchors, with zero failures. The new `scripts/paper-qa.mjs` checks mouse response, distinct stack offsets, touch-device scrolling, ignored touch pointer movement, pause/play of input effects, and reduced-motion removal of input transforms. Existing keyboard, continuous-motion, offscreen suspension, enlarged-text, no-JavaScript, accessibility, publication-hold, and print-parity checks passed.
+
+Full-page captures are retained in ignored `artifacts/qa/`; additional captures show both pointer extremes and touch scrolling. Revised desktop, tablet, and mobile artwork was visually reviewed for complete edges, contrast, spacing, and separation from the text. The regenerated PDF remains nine pages and the public/build copies match byte for byte.
+
+## Motion only during input
+
+Follow-up to `d996f27`, verified 11 September 2026. Removed the repeating ten-second motion and delayed interpolation. Stack positions now update directly in response to pointer movement or scrolling. There is no animation loop while idle. The stronger tones, pause control, touch scrolling, and reduced-motion presentation remain.
+
+Baseline and final `npm run build` and `npm test` passed. The final run covered all seven routes and five widths listed above: 35 page checks and 27 internal links/anchors, with zero failures. Added checks confirm that pointer and scroll responses stop within two browser frames and stay still afterward, with no automatic animations. Keyboard, accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and HTML/print parity checks passed. `git diff --check` passed.
+
+Reviewed full-page home captures at 320, 390, 768, 1024, and 1440 pixels, plus both pointer extremes and the touch scroll position. The local preview also passed the focused input checks. The regenerated PDF has nine pages; public and build copies are byte-identical.

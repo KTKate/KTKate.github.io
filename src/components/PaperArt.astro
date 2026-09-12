@@ -1,0 +1,99 @@
+---
+const art = `${import.meta.env.BASE_URL}images/paper-convergence.webp`;
+---
+<figure class="paper-figure" data-paper-figure>
+  <div class="paper-art" role="img" aria-label="Three stacks of cut paper: violet for design and research, amber for product, and magenta for technology. Each has dark lower sheets and a light upper surface. Three open channels meet at the center." data-paper-art>
+    <div class="paper-forms" aria-hidden="true">
+      <div class="paper-response violet-response"><img class="stack violet" src={art} width="1254" height="1254" alt="" fetchpriority="high" decoding="async" /></div>
+      <div class="paper-response amber-response"><img class="stack amber" src={art} width="1254" height="1254" alt="" decoding="async" /></div>
+      <div class="paper-response magenta-response"><img class="stack magenta" src={art} width="1254" height="1254" alt="" decoding="async" /></div>
+    </div>
+  </div>
+  <figcaption>
+    <div class="disciplines"><span class="design-label">Design &amp; research</span><span class="product-label">Product</span><span class="technology-label">Technology</span></div>
+    <div class="figure-footer"><p>One product direction.</p><button class="motion-control" type="button" data-motion-control hidden><span aria-hidden="true" class="motion-symbol">Ⅱ</span><span data-motion-label>Pause motion</span></button></div>
+  </figcaption>
+</figure>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-paper-figure]').forEach(figure => {
+    const art = figure.querySelector<HTMLElement>('[data-paper-art]')!;
+    const control = figure.querySelector<HTMLButtonElement>('[data-motion-control]')!;
+    const label = control.querySelector<HTMLElement>('[data-motion-label]')!;
+    const symbol = control.querySelector<HTMLElement>('.motion-symbol')!;
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+    let paused = false;
+    let visible = false;
+    let frame = 0;
+    let pointer: { x: number; y: number } | null = null;
+    const current = { x: 0, y: 0, spread: 0 };
+    const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+    const canMove = () => !preference.matches && !paused && visible && !document.hidden;
+    const draw = () => {
+      art.style.setProperty('--input-x', current.x.toFixed(4));
+      art.style.setProperty('--input-y', current.y.toFixed(4));
+      art.style.setProperty('--scroll-spread', current.spread.toFixed(4));
+    };
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+    const tick = () => {
+      frame = 0;
+      if (!canMove()) return;
+      const bounds = art.getBoundingClientRect();
+      const progress = clamp((innerHeight - bounds.top) / (innerHeight + bounds.height), 0, 1);
+      Object.assign(current, {
+        x: pointer ? clamp((pointer.x - bounds.left) / bounds.width * 2 - 1, -1, 1) : 0,
+        y: pointer ? clamp((pointer.y - bounds.top) / bounds.height * 2 - 1, -1, 1) : 0,
+        spread: 1 - progress,
+      });
+      draw();
+    };
+    const schedule = () => {
+      if (canMove() && !frame) frame = requestAnimationFrame(tick);
+    };
+    const resetPointer = () => { pointer = null; schedule(); };
+    const update = () => {
+      control.hidden = preference.matches;
+      art.dataset.motion = canMove() ? 'running' : 'paused';
+      label.textContent = paused ? 'Play motion' : 'Pause motion';
+      symbol.textContent = paused ? '▷' : 'Ⅱ';
+      if (preference.matches) {
+        pointer = null;
+        current.x = current.y = current.spread = 0;
+        draw();
+      }
+      if (canMove()) schedule();
+      else stop();
+    };
+    control.addEventListener('click', () => { paused = !paused; update(); });
+    art.addEventListener('pointermove', event => {
+      if (event.pointerType !== 'mouse' || !finePointer.matches || !canMove()) return;
+      pointer = { x: event.clientX, y: event.clientY };
+      schedule();
+    }, { passive: true });
+    art.addEventListener('pointerleave', resetPointer);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+    window.addEventListener('blur', resetPointer);
+    finePointer.addEventListener('change', resetPointer);
+    preference.addEventListener('change', update);
+    document.addEventListener('visibilitychange', update);
+    const observer = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      update();
+    }, { threshold: 0.1 });
+    observer.observe(art);
+    update();
+  });
+</script>
+<style>
+.paper-figure{margin:0;min-width:0;width:100%}.paper-art{position:relative;aspect-ratio:1;isolation:isolate}.paper-forms{position:absolute;inset:5%;pointer-events:none}.paper-response{position:absolute;inset:0;transform:translate(calc(var(--input-x,0) * var(--depth) + var(--scroll-spread,0) * var(--spread-x)),calc(var(--input-y,0) * var(--depth) * .75 + var(--scroll-spread,0) * var(--spread-y)))}.violet-response{--depth:1.2%;--spread-x:-1.2%;--spread-y:-.8%}.amber-response{--depth:1.7%;--spread-x:1.2%;--spread-y:-.8%}.magenta-response{--depth:2.2%;--spread-x:0%;--spread-y:1.4%}.stack{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.violet{clip-path:polygon(0 0,50% 0,50% 49%,44% 52.5%,10% 72%,0 80%)}.amber{clip-path:polygon(50% 0,100% 0,100% 80%,88% 72%,56% 52%,50% 49%)}.magenta{clip-path:polygon(0 80%,10% 72%,44% 52.5%,50% 49%,56% 52%,88% 72%,100% 80%,100% 100%,0 100%)}
+.stack{filter:contrast(1.24) brightness(1.08) saturate(.92)}
+figcaption{padding:10px 4% 0}.disciplines{display:grid;grid-template-columns:1.4fr .7fr 1fr;gap:20px;font-size:.875rem;font-weight:700;line-height:1.5}.disciplines span{border-top:2px solid;padding-top:9px}.design-label{color:#bdb5ff}.product-label{color:#f0a83a}.technology-label{color:#f78ad0}.figure-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px;min-height:44px}.figure-footer p{font-size:1rem;letter-spacing:-.025em;margin:0;color:#f6f5fd}.motion-control{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 0 8px 12px;border:0;background:none;font-size:.875rem;color:#c9cedf}.motion-control:hover{color:white;text-decoration:underline;text-underline-offset:4px}.motion-symbol{display:inline-block;width:12px;font-size:1rem}
+@media(max-width:500px){figcaption{padding-inline:0}.disciplines{gap:12px}.figure-footer{gap:10px}.figure-footer p{font-size:.9375rem}}
+@media(prefers-reduced-motion:reduce){.paper-response{transform:none}.motion-control{display:none}}
+@media print{.paper-figure{display:none}}
+</style>
