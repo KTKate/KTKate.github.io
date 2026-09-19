@@ -25,6 +25,7 @@ npm run preview
 - `src/principles.ts`: principle groups shared by HTML and PDF.
 - `src/projects.ts`: independent project descriptions, conceptual components, constraints, and artifact requests.
 - `src/components/CaseHeader.astro` and `DecisionDiagram.astro`: shared web/PDF presentation.
+- `src/components/SelectedWork.astro`: home-page contribution and evidence summaries, read from the same case-study briefs used by the pages and PDF.
 - `src/styles/tokens.css`: color, type, layout, focus, and reduced-motion foundations.
 - `docs/HOLDS.md`: publication restrictions. Read before changing Nexus claims.
 
@@ -38,7 +39,7 @@ Files prefixed with `_` are templates and excluded from the collection. Private 
 
 ## Hero
 
-The generated cut-paper asset depicts three complete stacks. Three independently clipped image layers provide restrained entrance motion. Reduced motion disables the animation. The same uncropped composition is used at every width. Artwork source and font license are documented in `docs/ASSETS.md`.
+The current site uses three clipped cut-paper sections that align during scrolling. Each section selects related portfolio evidence through hover, keyboard focus, or touch. Reduced motion shows the assembled composition immediately. Hidden evidence panels reserve their layout space so selection does not move subsequent content. Artwork and interaction details are documented in `docs/HERO-ART.md`.
 
 ## Deployment
 

@@ -5,6 +5,7 @@ import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import { verifyPaperInteraction } from './paper-qa.mjs';
+import { verifyMobilePaper } from './mobile-paper-qa.mjs';
 const widths=process.env.QA_WIDTHS ? process.env.QA_WIDTHS.split(',').map(Number) : [320,390,768,1024,1440];
 const routes=['/','/about/','/work/nexus/','/work/linuxone-practice/','/work/hybrid-cloud/','/print/','/404.html'];
 const root=fileURLToPath(new URL('..',import.meta.url));
@@ -48,20 +49,16 @@ try {
  const details=page.locator('details').first();await details.locator('summary').focus();await page.keyboard.press('Enter');assert.equal(await details.getAttribute('open'),'');
  assert((await page.locator('#hero-title').innerText()).startsWith('Designer &'));
  const paper=page.locator('[data-paper-art]');await paper.scrollIntoViewIfNeeded();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='running');
+ await page.mouse.move(0,0);await page.waitForTimeout(250);
  const stacks=page.locator('.stack');assert.equal(await stacks.count(),3);
  assert.equal(await paper.evaluate(e=>e.getAnimations({subtree:true}).length),0,'Paper must have no automatic animation');
- const pause=page.getByRole('button',{name:'Pause motion'});await pause.focus();await page.keyboard.press('Enter');
- assert.equal(await page.getByRole('button',{name:'Play motion'}).count(),1);
- await stacks.evaluateAll(es=>Promise.all(es.flatMap(e=>e.getAnimations().map(a=>a.ready))).then(()=>{}));
- const frozen=await stacks.evaluateAll(es=>es.map(e=>getComputedStyle(e).transform));await page.waitForTimeout(250);assert.deepEqual(await stacks.evaluateAll(es=>es.map(e=>getComputedStyle(e).transform)),frozen,'Pause must stop every stack');
- await page.locator('#lab').scrollIntoViewIfNeeded();await paper.scrollIntoViewIfNeeded();assert.equal(await paper.getAttribute('data-motion'),'paused','User pause must persist after scrolling');
- await page.getByRole('button',{name:'Play motion'}).click();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='running');
- await page.locator('#lab').scrollIntoViewIfNeeded();await page.waitForFunction(()=>document.querySelector('[data-paper-art]').dataset.motion==='paused');
+ assert.equal(await page.locator('[data-discipline-choice]').count(),3,'Every paper section must expose a discipline control');
  await page.emulateMedia({reducedMotion:'reduce'});await page.reload();assert.equal(await page.locator('.stack').first().evaluate(e=>getComputedStyle(e).animationName),'none');assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior),'auto');
  assert.equal(await page.locator('[data-motion-control]').isVisible(),false);
  await page.evaluate(()=>document.documentElement.style.fontSize='200%');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'200% text enlargement overflow');await page.screenshot({path:out+'/text-200-percent.png',fullPage:true});
  await page.setViewportSize({width:320,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,'320px enlarged text overflow');await page.screenshot({path:out+'/text-200-percent-320.png',fullPage:true});
- const nojs=await browser.newPage({javaScriptEnabled:false,viewport:{width:320,height:900}});await nojs.goto(siteRoot+'/');assert.equal(await nojs.locator('.panel:visible').count(),4);assert.equal(await nojs.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await nojs.locator('[data-motion-control]').isVisible(),false);assert(await nojs.locator('.stack').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationName==='none')));await nojs.close();
+ for(const id of ['design','product','technology']){const choice=page.locator(`[data-discipline-choice="${id}"]`);assert.equal(await choice.evaluate(e=>getComputedStyle(e).clipPath),'none','Enlarged labels must not be clipped to paper');await choice.click();assert.equal(await page.locator(`[data-evidence="${id}"]`).isVisible(),true);}
+ const nojs=await browser.newPage({javaScriptEnabled:false,viewport:{width:320,height:900}});await nojs.goto(siteRoot+'/');assert.equal(await nojs.locator('.panel:visible').count(),4);assert.equal(await nojs.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);assert.equal(await nojs.locator('[data-motion-control]').isVisible(),false);assert(await nojs.locator('.stack').evaluateAll(es=>es.every(e=>getComputedStyle(e).animationName==='none')));assert.equal(await nojs.locator('.paper-fallback:visible').count(),3);assert.equal(await nojs.locator('[data-discipline-choice]:visible').count(),0);await nojs.close();
  const linkResults=[];
  for(const href of links){const u=new URL(href);if(u.origin!==origin)continue;const res=await page.request.get(u.href);linkResults.push({path:u.pathname+u.hash,status:res.status()});if(!res.ok())failures.push({brokenLink:href,status:res.status()});if(u.hash){await page.goto(origin+u.pathname);if(!await page.locator(`[id="${decodeURIComponent(u.hash.slice(1))}"]`).count())failures.push({missingAnchor:href});}}
  await page.goto(siteRoot+'/work/nexus/');const nexus=await page.locator('main').innerText();assert(nexus.includes(note));assert(!/7 to 24|three.month|\bminutes\b|November|2026|IBM Z|8 hours/i.test(nexus));
@@ -71,7 +68,8 @@ try {
  assert.equal((await page.request.get(siteRoot+'/.private/linkedin-plan.md')).status(),404);
  assert.deepEqual(await readFile(root+'public/portfolio.pdf'),await readFile(root+'dist/portfolio.pdf'));
  await verifyPaperInteraction(browser,siteRoot,out);
- await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','no automatic paper motion','immediate input response and idle stability','keyboard pause and play','pause persists after scrolling','offscreen motion suspension','pointer response at distinct depths','touch scroll response','touch gesture exclusion','pause freezes input effects','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
+ await verifyMobilePaper(browser,siteRoot,out);
+ await writeFile(out+'/report.json',JSON.stringify({results,failures,linkResults,checks:['keyboard skip link','tab arrows/Home/End and tabpanel focus','details keyboard toggle','ampersand headline','no automatic paper motion','immediate input response and idle stability','scroll-driven assembly','shared final arrangement','touch gesture exclusion','spatial discipline labels','hover, keyboard and touch evidence selection','no motion controls','reduced motion','200% text enlargement','no JavaScript fallback','internal routes and anchors','Nexus publication holds','case-study body parity with print','draft exclusion','private file exclusion','PDF byte parity']},null,2));
  console.log(JSON.stringify({pages:results.length,failures,internalLinks:linkResults.length},null,2));
  assert.equal(failures.length,0,'QA failures recorded in artifacts/qa/report.json');
 }finally{await browser?.close();await server?.stop();}

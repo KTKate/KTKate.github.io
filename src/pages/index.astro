@@ -4,22 +4,18 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Principles from '../components/Principles.astro';
 import Lab from '../components/Lab.astro';
-const base = import.meta.env.BASE_URL;
+import SelectedWork from '../components/SelectedWork.astro';
 const entries = (await getCollection('case-studies', e => import.meta.env.DEV || e.data.status !== 'draft')).sort((a,b)=>a.data.order-b.data.order);
 ---
 <Base>
   <Hero />
   <section class="evidence-strip" aria-label="Selected experience"><div class="wrap evidence-grid"><p><strong>4</strong><span>Hybrid cloud products<br/>to general availability</span></p><p><strong>0 → 6</strong><span>LinuxONE design<br/>and research practice</span></p><p><strong>≈30</strong><span>Clients in the<br/>LinuxONE council</span></p></div></section>
-  <section id="work" class="work wrap" aria-labelledby="work-title">
-    <div class="section-head"><div><p class="kicker">Product direction and delivery</p><h2 id="work-title">Selected work</h2></div><p>Research that informs product scope. Technical evaluation that establishes feasibility. Organizational work that supports delivery.</p></div>
-    <ol class="work-list">{entries.map((entry,index)=><li><a href={`${base}work/${entry.id}/`}><span class="number">{String(index+1).padStart(2,'0')}</span><div><p class="category">{entry.data.category}</p><h3>{entry.data.title}</h3><p class="summary">{entry.data.summary}</p><p class="result">{entry.data.result || 'Development draft'}</p>{entry.data.status==='restricted' && <p class="status">Selected details restricted</p>}{entry.data.status==='draft' && <p class="status">Draft · Development only</p>}</div><span class="read">Read case study <span aria-hidden="true">↗</span></span></a></li>)}</ol>
-  </section>
+  <SelectedWork entries={entries} />
   <Principles />
   <Lab />
 </Base>
 <style>
-.evidence-strip{background:#efeff2;border-bottom:1px solid var(--line)}.evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);padding-block:30px}.evidence-grid p{display:flex;align-items:center;gap:18px;margin:0;padding:0 25px;border-right:1px solid #c7c9d3}.evidence-grid p:first-child{padding-left:0}.evidence-grid p:last-child{border:0}.evidence-grid strong{font-size:2.5rem;letter-spacing:-.06em;white-space:normal;line-height:1.2}.evidence-grid span{font-size:.875rem;line-height:1.5;color:var(--type-2)}.work{padding-block:88px}.work-list{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line)}.work-list>li>a{display:grid;grid-template-columns:44px 1fr 140px;gap:24px;align-items:start;padding:34px 0;border-top:1px solid var(--line);text-decoration:none}.number{font-size:.9375rem;font-weight:700;color:var(--type-3);padding-top:2px}.category{font-size:.875rem;color:var(--accent);font-weight:750;margin-bottom:10px}h3{font-size:clamp(1.65rem,2.4vw,2.2rem);margin:0 0 12px;max-width:27ch}.summary{color:var(--type-2);max-width:60ch;margin-bottom:15px}.result{font-size:.9375rem;font-weight:800;margin:0}.status{font-size:.875rem;color:var(--type-2);margin:8px 0 0}.read{font-size:.875rem;align-self:center;font-weight:750}.read span{font-size:1.4rem;display:block;margin-top:8px}.work-list a:hover h3{text-decoration:underline;text-underline-offset:6px}.work-list a:hover .read{color:var(--accent)}
-@media(max-width:1000px){.evidence-grid p{display:block}.evidence-grid strong{display:block;margin-bottom:6px}}
-@media(max-width:700px){.work{padding-block:60px}.work-list>li>a{grid-template-columns:26px 1fr;gap:14px}.read{grid-column:2;display:flex;align-items:center;gap:12px}.read span{margin:0}.evidence-grid{gap:20px;padding-block:24px}.evidence-grid p{padding:0 10px 0 0}.evidence-grid strong{font-size:1.85rem}.evidence-grid span{font-size:.875rem}.evidence-grid br{display:none}}
+.evidence-strip{background:#efeff2;border-bottom:1px solid var(--line)}.evidence-grid{display:grid;grid-template-columns:repeat(3,1fr);padding-block:30px}.evidence-grid p{display:flex;align-items:center;gap:18px;margin:0;padding:0 25px;border-right:1px solid #c7c9d3}.evidence-grid p:first-child{padding-left:0}.evidence-grid p:last-child{border:0}.evidence-grid strong{font-size:2.5rem;letter-spacing:-.06em;white-space:normal;line-height:1.2}.evidence-grid span{font-size:.875rem;line-height:1.5;color:var(--type-2)}@media(max-width:1000px){.evidence-grid p{display:block}.evidence-grid strong{display:block;margin-bottom:6px}}
+@media(max-width:700px){.evidence-grid{gap:20px;padding-block:24px}.evidence-grid p{padding:0 10px 0 0}.evidence-grid strong{font-size:1.85rem}.evidence-grid span{font-size:.875rem}.evidence-grid br{display:none}}
 @media(max-width:500px){.evidence-grid{grid-template-columns:1fr;gap:18px}.evidence-grid p{display:flex;border:0;gap:18px}.evidence-grid strong{min-width:90px;margin:0}.evidence-grid span{max-width:22ch}}
 </style>
