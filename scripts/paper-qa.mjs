@@ -28,6 +28,7 @@ export async function verifyPaperInteraction(browser, siteRoot, out) {
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await paint();
     const targets = { design: '/work/linuxone-practice/', product: '/work/nexus/', technology: '#lab' };
+    const heroHeight = await page.locator('[data-hero]').evaluate(element => element.getBoundingClientRect().height);
     for (const [id, href] of Object.entries(targets)) {
       const choice = page.locator(`[data-discipline-choice="${id}"]`);
       await choice.locator('.paper-label').hover();
@@ -37,6 +38,8 @@ export async function verifyPaperInteraction(browser, siteRoot, out) {
       assert((await page.locator(`[data-evidence="${id}"] a`).getAttribute('href')).endsWith(href));
       assert.equal(await paper.getAttribute('data-phase'), 'joined');
       assert.equal(await page.locator('[data-evidence]:visible').count(), 1);
+      const selectedHeight = await page.locator('[data-hero]').evaluate(element => element.getBoundingClientRect().height);
+      assert(Math.abs(selectedHeight - heroHeight) < 1, 'Evidence selection must not move the selected work section');
       await page.screenshot({ path: `${out}/paper-desktop-${id}.png` });
     }
     const reset = page.locator('[data-discipline-reset]');

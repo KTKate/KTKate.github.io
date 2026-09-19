@@ -49,6 +49,7 @@ export async function verifyMobilePaper(browser, siteRoot, out) {
       assert.equal(await paper.getAttribute('data-phase'), 'joined');
       assert(await page.locator('.paper-response').evaluateAll(elements => elements.every(element => new DOMMatrixReadOnly(getComputedStyle(element).transform).isIdentity)), 'The three sections must finish aligned');
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      const heroHeight = await page.locator('[data-hero]').evaluate(element => element.getBoundingClientRect().height);
       for (const id of ['design', 'product', 'technology']) {
         const choice = page.locator(`[data-discipline-choice="${id}"]`);
         await choice.locator('.paper-label').tap();
@@ -56,6 +57,8 @@ export async function verifyMobilePaper(browser, siteRoot, out) {
         assert.equal(await choice.getAttribute('aria-pressed'), 'true');
         assert.equal(await page.locator(`[data-evidence="${id}"]`).isVisible(), true);
         assert.equal(await page.locator('[data-evidence]:visible').count(), 1);
+        const selectedHeight = await page.locator('[data-hero]').evaluate(element => element.getBoundingClientRect().height);
+        assert(Math.abs(selectedHeight - heroHeight) < 1, 'Evidence selection must preserve hero height');
         const evidence = await page.locator('.hero-evidence').boundingBox();
         const artwork = await paper.boundingBox();
         assert(evidence.y >= artwork.y + artwork.height, 'Mobile evidence must follow the artwork');
