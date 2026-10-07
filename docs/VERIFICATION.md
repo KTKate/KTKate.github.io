@@ -121,3 +121,7 @@ Verified 7 October 2026 on branch `claude/portfolio-site-redesign-uruh39`, after
 The home page is two screens: one specific sentence about the job, the four cases as a numbered list, a side-projects line, and contact. New pages: `/side-projects/` and `/work/aiops-operating-model/`, the latter now `public` and written as a management year rather than a product decision.
 
 `npm run build`, `npm test`, and `git diff --check` passed. The suite covered eight routes at 320, 390, 768, 1024, and 1440 pixels: 40 page checks and 37 internal link and anchor checks, zero failures, zero axe violations. Checks confirm the skip link, four listed cases, no `<script>` elements, 200% text enlargement at 390 and 320 pixels, the exact restriction note and absence of held Launchpad details, the AIOps page at 200, and that `/print/` no longer exists.
+
+## Three accents from the original draft
+
+Verified 7 October 2026. The original draft's violet, amber, and magenta return, assigned by kind of work in `src/tones.ts`: amber for product and for structural labels, violet for research and leadership (the practice and AIOps cases, the About timeline), magenta for delivery and technology (the hybrid cloud case, the side projects). Violet is lightened to `#9a93e6` for 6.7:1 contrast on the page color; magenta `#e94fb7` measures 5.5:1 and amber 9:1. On the home page the three parts of the opening sentence take one color each. `npm run build` and `npm test` passed: 40 page checks, 38 internal links, zero failures, zero axe violations.

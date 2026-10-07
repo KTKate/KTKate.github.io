@@ -2,7 +2,7 @@
 import { timeline } from '../site';
 ---
 <section class="timeline" aria-labelledby="timeline-title">
-  <h2 id="timeline-title" class="kicker">Every job since 2011</h2>
+  <h2 id="timeline-title" class="kicker" style="color:var(--violet)">Every job since 2011</h2>
   <ol>
     {timeline.map(item => <li class="stop">
       <p class="years">{item.years}</p>
@@ -17,11 +17,11 @@ import { timeline } from '../site';
 <style>
 .timeline>ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .stop{display:grid;grid-template-columns:160px minmax(0,1fr);gap:12px 32px;padding:30px 0;border-bottom:1px solid var(--line)}
-.years{font-weight:600;color:var(--accent);margin:0;padding-top:.3em}
+.years{font-weight:600;color:var(--violet);margin:0;padding-top:.3em}
 .what h3{margin:0 0 4px}
 .org{color:var(--fg-3);margin:0 0 14px}
 .what ul{margin:0;padding:0;list-style:none;max-width:40em}
 .what li{position:relative;padding:0 0 10px 20px;color:var(--fg-2);line-height:1.45}
-.what li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.what li::before{content:'';position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--violet)}
 @media(max-width:700px){.stop{grid-template-columns:1fr;gap:6px}}
 </style>

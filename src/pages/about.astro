@@ -5,8 +5,8 @@ import Scribble from '../components/Scribble.astro';
 import site, { stack, numbers } from '../site';
 ---
 <Base title="About" description="Kate Terraccino's career from front-end development at Spiceworks and IBM to leading design, research, and product direction for IBM LinuxONE, with the numbers that exist.">
-  <section class="head wrap">
-    <span class="kicker">About</span>
+  <section class="head wrap" style="--tone:var(--violet)">
+    <span class="kicker" style="color:var(--tone)">About</span>
     <h1>Eleven years at IBM, one degree from Rochester, and a lot of Angular 1.<Scribble name="squiggle" class="under" /></h1>
     <p class="lede">I write code, do research, run teams, and decide what gets built. The order I learned those in is below, newest first. I live in {site.location}.</p>
   </section>
@@ -36,7 +36,7 @@ import site, { stack, numbers } from '../site';
 <style>
 .head{padding-top:clamp(32px,6vw,88px);padding-bottom:clamp(32px,5vw,64px)}
 .head h1{margin:0 0 20px;max-width:16em}
-:global(.under){display:block;width:220px;color:var(--accent);margin-top:10px}
+:global(.under){display:block;width:220px;color:var(--tone);margin-top:10px}
 .head .lede{margin:0}
 .nums{padding-bottom:clamp(40px,6vw,80px)}
 .counts{margin:28px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--line)}
@@ -45,7 +45,7 @@ import site, { stack, numbers } from '../site';
 .counts dd{margin:0;color:var(--fg-2);font-size:.98rem;line-height:1.4}
 .stack{padding-top:clamp(40px,6vw,80px)}
 .stack-list{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:600;line-height:1.5;letter-spacing:-.01em;max-width:30em;margin:0}
-.dot{color:var(--accent)}
+.dot{color:var(--magenta)}
 .also{padding-top:clamp(40px,6vw,80px)}
 .also ul{list-style:none;margin:0 0 28px;padding:0;max-width:40em;border-top:1px solid var(--line)}
 .also li{padding:16px 0;border-bottom:1px solid var(--line);color:var(--fg-2)}
