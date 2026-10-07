@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
       # For a repo that is not <username>.github.io, uncomment and set:
       # env:
       #   BASE_PATH: /your-repo-name/

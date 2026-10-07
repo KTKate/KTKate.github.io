@@ -5,7 +5,6 @@ const { title, description = site.description } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const path = Astro.url.pathname;
 const current = (prefix: string) => path.startsWith(`${base}${prefix}`) ? 'page' : undefined;
-const built = new Date().toISOString().slice(0, 10);
 ---
 <!doctype html>
 <html lang="en">
@@ -16,58 +15,44 @@ const built = new Date().toISOString().slice(0, 10);
   <meta property="og:title" content={title ? `${title} · ${site.name}` : site.name} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#f5f0e6" />
+  <meta name="theme-color" content="#ff6a2b" />
   <link rel="canonical" href={new URL(path, Astro.site)} />
   <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
-  <title>{title ? `${title} · ${site.name}` : `${site.name} · ${site.positioning}`}</title>
+  <title>{title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`}</title>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <div class="marks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-  <header class="site-header wrap">
-    <a class="wordmark" href={base} aria-label="Kate Terraccino, home"><span class="k">K</span><span class="t">T</span></a>
+  <header class="top wrap">
+    <a class="name" href={base}>Kate Terraccino</a>
     <nav aria-label="Main">
       <a href={`${base}#work`}>Work</a>
-      <a href={`${base}#lab`}>Lab</a>
+      <a href={`${base}#side`}>Side projects</a>
       <a href={`${base}about/`} aria-current={current('about/')}>About</a>
-      <a href={`${base}portfolio.pdf`}>PDF</a>
+      <a href={`mailto:${site.email}`}>Email</a>
     </nav>
   </header>
   <main id="main" tabindex="-1"><slot /></main>
-  <footer class="site-footer">
-    <div class="wrap footer-grid">
-      <div>
-        <span class="rule-num">06 · Contact</span>
-        <h2 class="footer-title">Email is the fastest way to reach me.</h2>
-        <p class="footer-links"><a href={`mailto:${site.email}`}>{site.email}</a><a href={site.linkedin}>LinkedIn</a><a href={`${base}portfolio.pdf`}>Portfolio as PDF</a></p>
-      </div>
-      <dl class="colophon">
-        <div><dt>Location</dt><dd>{site.location}</dd></div>
-        <div><dt>Built with</dt><dd>Astro, static HTML, no analytics, no cookies</dd></div>
-        <div><dt>Set in</dt><dd>Fraunces and IBM Plex Mono</dd></div>
-        <div><dt>Last built</dt><dd><time datetime={built}>{built}</time></dd></div>
-      </dl>
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <p class="foot-name">Kate Terraccino<br/><span>{site.location}</span></p>
+      <p class="foot-links"><a href={`mailto:${site.email}`}>{site.email}</a><a href={site.linkedin}>LinkedIn</a><a href={`${base}about/`}>About</a></p>
+      <p class="foot-note">Static HTML. No analytics, no cookies, no JavaScript. Set in Bricolage Grotesque.</p>
     </div>
   </footer>
 </body>
 </html>
 <style>
-.skip{position:fixed;left:16px;top:-100px;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:100;font-family:var(--mono);font-size:.875rem}.skip:focus{top:12px}
-.marks{position:absolute;inset:0;pointer-events:none;z-index:0}.marks span{position:absolute;width:18px;height:18px;border-color:var(--line-2);border-style:solid;border-width:0}
-.marks span:nth-child(1){top:14px;left:14px;border-top-width:1px;border-left-width:1px}.marks span:nth-child(2){top:14px;right:14px;border-top-width:1px;border-right-width:1px}.marks span:nth-child(3){bottom:14px;left:14px;border-bottom-width:1px;border-left-width:1px}.marks span:nth-child(4){bottom:14px;right:14px;border-bottom-width:1px;border-right-width:1px}
-body{position:relative}
-.site-header{display:flex;justify-content:space-between;align-items:center;min-height:88px;gap:24px;position:relative;z-index:1}
-.wordmark{display:inline-flex;align-items:baseline;text-decoration:none;color:var(--ink);font-family:var(--serif);font-size:1.9rem;font-variation-settings:var(--wonk);line-height:1;padding:6px 0}
-.wordmark .t{color:var(--accent);margin-left:-.08em}
-.site-header nav{display:flex;gap:4px}
-.site-header nav a{font-family:var(--mono);font-size:.875rem;text-decoration:none;color:var(--ink);padding:12px 12px;min-height:48px;display:inline-flex;align-items:center;border-bottom:2px solid transparent}
-.site-header nav a:hover,.site-header nav a[aria-current]{border-bottom-color:var(--accent)}
-.site-footer{border-top:1px solid var(--ink);background:var(--paper-2);margin-top:clamp(56px,8vw,112px);position:relative;z-index:1}
-.footer-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px 56px;padding-block:clamp(48px,6vw,80px)}
-.footer-title{font-size:clamp(1.6rem,3vw,2.4rem);margin:0 0 22px;max-width:18ch}
-.footer-links{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0;font-family:var(--mono);font-size:.9375rem}.footer-links a{padding:8px 0}
-.colophon{margin:0;font-family:var(--mono);font-size:.8125rem;align-self:end}.colophon div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:10px 0;border-top:1px solid var(--line)}.colophon dt{color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em}.colophon dd{margin:0}
-@media(max-width:760px){.footer-grid{grid-template-columns:1fr;gap:36px}.site-header{min-height:76px}.site-header nav a{padding:12px 9px}.marks{display:none}}
-@media(max-width:400px){.site-header{flex-direction:column;align-items:flex-start;gap:0;padding-top:16px}.site-header nav{margin-left:-9px}}
-@media print{.site-header,.site-footer,.skip,.marks{display:none}}
+.skip{position:fixed;left:16px;top:-100px;background:var(--ink);color:var(--white);padding:12px 18px;z-index:100;border-radius:999px;font-weight:650}.skip:focus{top:12px}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:84px;gap:20px}
+.name{font-weight:750;font-size:1.2rem;text-decoration:none;letter-spacing:-.02em;padding:8px 0}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:600;font-size:1rem;padding:10px 14px;min-height:48px;display:inline-flex;align-items:center;border-radius:999px;border:2px solid transparent}
+nav a:hover{border-color:var(--ink)}nav a[aria-current]{background:var(--lemon);border-color:var(--ink)}
+.foot{border-top:3px solid var(--ink);margin-top:clamp(64px,9vw,128px)}
+.foot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;padding-block:44px;align-items:start}
+.foot p{margin:0}.foot-name{font-weight:750;font-size:1.15rem;line-height:1.3}.foot-name span{font-weight:400;color:var(--ink-2);font-size:1rem}
+.foot-links{display:flex;flex-direction:column;gap:6px}.foot-links a{font-weight:600;width:fit-content;padding:4px 0}
+.foot-note{color:var(--ink-2);font-size:.95rem;max-width:30ch}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr;gap:22px}.top{min-height:72px}nav a{padding:10px 10px}}
+@media(max-width:460px){.top{flex-direction:column;align-items:flex-start;gap:0;padding-top:14px}nav{margin-left:-10px}}
 </style>

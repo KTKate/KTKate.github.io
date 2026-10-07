@@ -1,21 +1,20 @@
 ---
+import Scribble from './Scribble.astro';
 const { diagram } = Astro.props;
 ---
-<figure class="decision-diagram">
-  <figcaption><span class="mono">Sequence</span>{diagram.title}</figcaption>
-  <ol>{diagram.steps.map((step, index) => <li><span class="step-number mono">{String(index + 1).padStart(2, '0')}</span><strong>{step.title}</strong><span>{step.detail}</span></li>)}</ol>
+<figure class="diagram">
+  <figcaption><strong>{diagram.title}</strong></figcaption>
+  <ol>{diagram.steps.map((step, index) => <li><span class="n">{index + 1}</span><strong>{step.title}</strong><span>{step.detail}</span>{index < diagram.steps.length - 1 && <Scribble name="arrow" class="arrow" />}</li>)}</ol>
   <p>{diagram.caption}</p>
 </figure>
 <style>
-.decision-diagram{margin:36px 0;padding:24px 26px;border:1px solid var(--ink);background:var(--paper);break-inside:avoid;box-shadow:5px 5px 0 var(--paper-3)}
-figcaption{font-weight:500;font-size:1.0625rem;margin-bottom:22px;display:flex;gap:14px;align-items:baseline;font-variation-settings:var(--wonk)}figcaption .mono{text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.diagram{margin:40px 0 0;padding:28px;border:3px solid var(--ink);border-radius:28px;background:var(--mint)}
+figcaption{font-size:1.2rem;margin-bottom:22px}
 ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:28px}
-li{position:relative;display:flex;flex-direction:column;gap:6px}
-.step-number{color:var(--accent)}
-li strong{font-size:1.0625rem;line-height:1.3;font-weight:500}
-li>span:last-child{font-size:.9375rem;color:var(--ink-2);line-height:1.5}
-li:not(:last-child)::after{content:'→';position:absolute;right:-22px;top:0;color:var(--accent);font-family:var(--mono)}
-.decision-diagram>p{font-size:.875rem;line-height:1.6;margin:22px 0 0;color:var(--ink-2);border-top:1px dashed var(--line-2);padding-top:14px}
-@media(max-width:600px){.decision-diagram{padding:20px}ol{grid-template-columns:1fr;gap:20px}li:not(:last-child)::after{display:none}li:not(:last-child){border-bottom:1px solid var(--line);padding-bottom:18px}}
-@media print{.decision-diagram{padding:12pt;margin:16pt 0;box-shadow:none}ol{grid-template-columns:repeat(3,minmax(0,1fr))}li>span:last-child,.decision-diagram>p{font-size:8.5pt}li strong{font-size:10pt}}
+li{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--white);border:2px solid var(--ink);border-radius:18px;padding:18px}
+.n{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--white);display:inline-flex;align-items:center;justify-content:center;font-weight:750;margin-bottom:6px}
+li strong{font-size:1.1rem;line-height:1.2}li>span:not(.n){font-size:.98rem;color:var(--ink-2);line-height:1.45}
+:global(.arrow){position:absolute;right:-30px;top:14px;width:34px;height:auto;color:var(--ink);z-index:1}
+.diagram>p{margin:22px 0 0;font-size:.95rem;color:var(--ink-2)}
+@media(max-width:700px){ol{grid-template-columns:1fr;gap:18px}:global(.arrow){display:none}.diagram{padding:20px}}
 </style>

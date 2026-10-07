@@ -1,29 +1,35 @@
 ---
+import Scribble from './Scribble.astro';
 import { restrictedNote } from '../site';
-const { data, number } = Astro.props;
+const { data, number, tone } = Astro.props;
 ---
-<header class="case-header">
-  <p class="case-kicker mono"><span class="cnum">{number ? `Case ${number}` : 'Case study'}</span><span>{data.category}</span></p>
-  <h1>{data.title}</h1>
-  <p class="summary">{data.summary}</p>
-  <dl class="specline">
-    {data.role && <div><dt>Role</dt><dd>{data.role}</dd></div>}
-    {data.timeframe && <div><dt>Period</dt><dd>{data.timeframe}</dd></div>}
-    {data.result && <div><dt>Result</dt><dd>{data.result}</dd></div>}
-  </dl>
-  {data.status === 'restricted' && <p class="restriction"><span class="mono">Restriction</span>{restrictedNote}</p>}
-  {data.brief && <dl class="brief">{data.brief.map(item => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>}
+<header class={`case-head tone-${tone}`}>
+  <div class="wrap">
+    <p class="eyebrow">Case {number} · {data.category}</p>
+    <h1>{data.title}</h1>
+    <p class="lede">{data.summary}</p>
+    <ul class="meta" aria-label="Role, period, and result">
+      {data.role && <li><span class="sticker" style="--tilt:-2deg">{data.role}</span></li>}
+      {data.timeframe && <li><span class="sticker" style="--tilt:2deg">{data.timeframe}</span></li>}
+      {data.result && <li><span class="sticker lemon" style="--tilt:-1deg">{data.result}</span></li>}
+    </ul>
+  </div>
 </header>
+<div class="wrap">
+  {data.status === 'restricted' && <p class="restriction"><strong>Restriction.</strong> {restrictedNote}</p>}
+  {data.brief && <dl class="brief">{data.brief.map(item => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>}
+</div>
 <style>
-.case-kicker{display:flex;gap:16px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);margin:0 0 18px}.cnum{color:var(--accent)}
-.case-header h1{font-size:clamp(2.4rem,6vw,4.6rem);margin:0 0 20px}
-.summary{font-size:clamp(1.125rem,2vw,1.4rem);color:var(--ink-2);max-width:52ch;line-height:1.4}
-.specline{display:flex;flex-wrap:wrap;gap:16px 40px;margin:26px 0;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
-.specline div{margin:0}.specline dt{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);margin-bottom:3px}.specline dd{margin:0;font-size:.9375rem}
-.restriction{font-size:.9375rem;background:var(--accent-soft);padding:14px 18px;border-left:3px solid var(--accent);margin:0 0 26px;display:flex;gap:16px;align-items:baseline}.restriction .mono{text-transform:uppercase;letter-spacing:.1em;color:var(--accent);white-space:nowrap}
-.brief{margin:0;border:1px solid var(--ink);background:var(--paper-2)}
-.brief>div{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:14px 18px;border-bottom:1px solid var(--line)}.brief>div:last-child{border-bottom:0}
-.brief dt{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);padding-top:4px}.brief dd{margin:0;font-size:1rem;line-height:1.5}
-@media(max-width:520px){.brief>div{grid-template-columns:1fr;gap:4px}.restriction{flex-direction:column;gap:6px}}
-@media print{.case-header h1{font-size:24pt}.summary{font-size:12pt}.brief dd{font-size:10pt}.brief>div{padding:7pt 10pt}.restriction{font-size:10pt}.specline{margin:12pt 0}}
+.case-head{padding:clamp(36px,6vw,80px) 0 clamp(40px,6vw,72px);border-bottom:3px solid var(--ink)}
+.tone-tangerine{background:var(--tangerine)}.tone-lemon{background:var(--lemon)}.tone-blue{background:var(--blue);color:var(--white)}
+.tone-blue .eyebrow::before{background:var(--lemon)}.tone-tangerine .eyebrow::before,.tone-lemon .eyebrow::before{background:var(--ink)}
+.case-head h1{font-size:clamp(2.4rem,5.6vw,4.8rem);margin:0 0 20px;max-width:16ch}
+.case-head .lede{margin-bottom:28px}
+.meta{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:16px 14px}
+.tone-blue .sticker{color:var(--ink)}
+.restriction{margin:32px 0 0;padding:18px 22px;border:3px solid var(--ink);border-radius:18px;background:var(--blush);font-size:1rem}
+.brief{margin:28px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.brief div{border:3px solid var(--ink);border-radius:22px;padding:20px 22px;background:var(--white)}
+.brief dt{font-weight:750;color:var(--blue);margin-bottom:8px;font-size:1.05rem}.brief dd{margin:0;line-height:1.45}
+@media(max-width:860px){.brief{grid-template-columns:1fr}}
 </style>

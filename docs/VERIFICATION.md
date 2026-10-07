@@ -103,3 +103,13 @@ Typefaces are Fraunces and IBM Plex Mono, stored locally with their SIL Open Fon
 `npm run build`, `npm test`, and `git diff --check` passed. The suite covered the seven routes at 320, 390, 768, 1024, and 1440 pixels: 35 page checks and 27 internal link and anchor checks, with zero failures. Checks were updated to the new structure: skip link, specification heading, eight counts, three cards, four process rows, four rule groups, reduced motion, 200% text enlargement at 390 and 320 pixels, no-JavaScript rendering, held Launchpad details, print parity, draft exclusion, and PDF byte parity. The `scripts/paper-qa.mjs` checks were removed with the artwork.
 
 The PDF regenerated at 12 A4 pages and was rendered to images for review. A class-name collision between the changelog and the print stylesheet's page-break rule initially produced one changelog entry per page; the class was renamed and the pagination corrected. Publication holds in `docs/HOLDS.md` are unchanged and still enforced by the test suite.
+
+## Second redesign: cover, stickers, timeline, no PDF
+
+Verified 7 October 2026 on branch `claude/portfolio-site-redesign-uruh39`, replacing the specification-sheet design from the same day. The home page now opens on the Launchpad case instead of a self-description. Typeface is Bricolage Grotesque only. Colors are flat tangerine, lemon, blue, mint, and blush on white. All marks are inline SVG in `Scribble.astro`. The PDF pipeline, print route, and the `pdf.mjs` script were removed, and the deploy workflow no longer installs a browser.
+
+The About timeline and the counts were rebuilt from Kate's LinkedIn profile export: team of up to 18, core team 2 to 8, four products including the award-winning IBM Z and Cloud Modernization Stack, a 98% average engagement score, the Future UI team, the Spiceworks work, and the Rochester roles.
+
+`npm run build`, `npm test`, and `git diff --check` passed. The suite covered six routes at 320, 390, 768, 1024, and 1440 pixels: 30 page checks and 26 internal link and anchor checks, zero failures, zero axe violations. Checks confirm the skip link, two further case cards, four project tiles, eight counts, three job parts, no `<script>` elements, 200% text enlargement at 390 and 320 pixels, the exact restriction note and absence of held Launchpad details, draft exclusion, and that `/print/` no longer exists.
+
+One defect was found in review and fixed before commit: Astro scopes component styles per element, so SVG marks rendered inside `Scribble.astro` ignored the parent's size rules and rendered at full width. The affected selectors now use `:global()`.

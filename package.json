@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/pdf.mjs && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "sync": "astro sync",
     "test": "node scripts/qa.mjs"

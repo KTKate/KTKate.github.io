@@ -23,6 +23,4 @@ jobs:
         if: always()
         with:
           name: portfolio-verification
-          path: |
-            artifacts/qa/
-            public/portfolio.pdf
+          path: artifacts/qa/

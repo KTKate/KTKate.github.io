@@ -1,0 +1,32 @@
+---
+import { timeline } from '../site';
+---
+<section class="timeline" aria-labelledby="timeline-title">
+  <h2 id="timeline-title">Every job so far.</h2>
+  <ol>
+    {timeline.map(item => <li class={`stop tone-${item.color}`}>
+      <div class="when"><span class="dot"></span><span class="years">{item.years}</span></div>
+      <div class="what">
+        <h3>{item.role}</h3>
+        <p class="org">{item.org}</p>
+        <ul>{item.points.map(point => <li>{point}</li>)}</ul>
+      </div>
+    </li>)}
+  </ol>
+</section>
+<style>
+.timeline h2{margin-bottom:32px}
+.timeline>ol{list-style:none;margin:0;padding:0;position:relative}
+.timeline>ol::before{content:'';position:absolute;left:11px;top:14px;bottom:14px;border-left:4px solid var(--ink)}
+.stop{display:grid;grid-template-columns:180px 1fr;gap:20px 36px;padding:0 0 44px}
+.when{display:flex;align-items:flex-start;gap:16px}
+.dot{width:26px;height:26px;border-radius:50%;border:4px solid var(--ink);background:var(--white);flex:none;position:relative;z-index:1}
+.tone-tangerine .dot{background:var(--tangerine)}.tone-lemon .dot{background:var(--lemon)}.tone-blue .dot{background:var(--blue)}.tone-mint .dot{background:var(--mint)}.tone-blush .dot{background:var(--blush)}
+.years{font-weight:750;font-size:1.05rem;padding-top:2px}
+.what h3{font-size:clamp(1.3rem,2.2vw,1.7rem);margin:0 0 4px}
+.org{color:var(--ink-2);margin:0 0 14px;font-weight:500}
+.what ul{margin:0;padding:0;list-style:none;max-width:62ch}
+.what li{position:relative;padding:0 0 10px 22px;line-height:1.45}
+.what li::before{content:'';position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--tangerine)}
+@media(max-width:700px){.stop{grid-template-columns:1fr;gap:10px;padding-bottom:36px}.what{padding-left:42px}}
+</style>

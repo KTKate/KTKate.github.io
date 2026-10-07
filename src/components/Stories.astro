@@ -1,0 +1,40 @@
+---
+import Scribble from './Scribble.astro';
+const { entries } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const tones = ['tangerine', 'lemon', 'blue'];
+const rest = entries.slice(1);
+---
+<section id="work" class="band stories" aria-labelledby="stories-title">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="stories-title">Two more, written the same way.</h2>
+      <p class="lede">Each case separates what the clients said, what I decided, and what the organization did with it. Where IBM has not published a number, the page says so instead of estimating one.</p>
+    </div>
+    <ol class="story-grid">
+      {rest.map((entry, i) => <li class={`story tone-${tones[i + 1]}`}>
+        <a href={`${base}work/${entry.id}/`}>
+          <span class="story-num"><Scribble name="star" class="star" />Case {i + 2}</span>
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.summary}</p>
+          <span class="story-result">{entry.data.result}</span>
+          <span class="story-go">Read it <Scribble name="arrow" /></span>
+        </a>
+      </li>)}
+    </ol>
+  </div>
+</section>
+<style>
+.head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 64px;align-items:end;margin-bottom:clamp(32px,5vw,56px)}
+.head h2{margin:0}.head .lede{margin:0}
+.story-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.story a{display:flex;flex-direction:column;height:100%;padding:32px;border-radius:28px;text-decoration:none;color:var(--ink);border:3px solid var(--ink);transition:transform .15s ease}
+.story a:hover{transform:translateY(-4px) rotate(-.6deg)}
+.tone-lemon a{background:var(--lemon)}.tone-blue a{background:var(--blue);color:var(--white)}.tone-tangerine a{background:var(--tangerine)}
+.story-num{display:inline-flex;align-items:center;gap:8px;font-weight:650;margin-bottom:22px}.story-num :global(svg){width:22px;height:22px}
+.story h3{margin:0 0 14px;font-size:clamp(1.7rem,3vw,2.5rem)}
+.story p{margin:0 0 22px;font-size:1.05rem;line-height:1.45;max-width:36em}
+.story-result{font-weight:650;margin-top:auto;padding-top:14px;border-top:2px solid currentColor}
+.story-go{display:inline-flex;align-items:center;gap:10px;font-weight:650;margin-top:18px}.story-go :global(svg){width:30px}
+@media(max-width:860px){.head{grid-template-columns:1fr}.story-grid{grid-template-columns:1fr}.story a{padding:26px}}
+</style>
