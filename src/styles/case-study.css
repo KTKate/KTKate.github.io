@@ -8,9 +8,9 @@
 .case-body p{font-size:1.08rem;line-height:1.65;color:var(--fg-2)}
 .case-body strong{color:var(--fg);font-weight:600}.case-body a{color:var(--fg)}
 .case-next{margin-top:clamp(48px,7vw,80px);padding-top:28px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;align-items:flex-start}
-.case-next .kicker{margin:0}
+.case-next .kicker{margin:0;color:var(--tone)}
 .case-next a:not(.all){font-size:clamp(1.5rem,3.2vw,2.4rem);font-weight:650;line-height:1.05;letter-spacing:-.02em;text-decoration:none;display:inline-flex;gap:14px;align-items:center;flex-wrap:wrap}
-.next-arrow{width:40px;color:var(--accent)}
+.next-arrow{width:40px;color:var(--tone)}
 .case-next a:not(.all):hover{color:var(--accent)}
 .case-next .all{color:var(--fg-2);font-size:.98rem;margin-top:6px}
 @media(max-width:860px){.case-layout{grid-template-columns:1fr;gap:24px}.contents{position:static;display:flex;flex-wrap:wrap;gap:4px 18px}.contents p{width:100%}.contents a{padding:4px 0}}

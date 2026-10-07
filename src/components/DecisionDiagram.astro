@@ -12,9 +12,9 @@ const { diagram } = Astro.props;
 figcaption{font-weight:600;margin-bottom:22px;color:var(--fg)}
 ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:36px}
 li{position:relative;display:flex;flex-direction:column;gap:6px}
-.n{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;margin-bottom:6px}
+.n{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--tone);color:var(--tone);display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;margin-bottom:6px}
 li strong{font-size:1.1rem;line-height:1.2}li>span:not(.n){font-size:.98rem;color:var(--fg-2);line-height:1.45}
-:global(.step-arrow){position:absolute;right:-34px;top:0;width:30px;height:auto;color:var(--accent)}
+:global(.step-arrow){position:absolute;right:-34px;top:0;width:30px;height:auto;color:var(--tone)}
 .diagram>p{margin:24px 0 0;font-size:.95rem;color:var(--fg-3)}
 @media(max-width:700px){ol{grid-template-columns:1fr;gap:22px}:global(.step-arrow){display:none}}
 </style>

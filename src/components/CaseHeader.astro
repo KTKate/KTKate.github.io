@@ -3,7 +3,7 @@ import { restrictedNote } from '../site';
 const { data, number } = Astro.props;
 ---
 <header class="case-head">
-  <p class="kicker">Case {String(number).padStart(2, '0')} · {data.category}</p>
+  <p class="kicker" style="color:var(--tone)">Case {String(number).padStart(2, '0')} · {data.category}</p>
   <h1>{data.title}</h1>
   <p class="lede">{data.summary}</p>
   <dl class="facts">
@@ -23,6 +23,6 @@ const { data, number } = Astro.props;
 .restriction{margin:0 0 28px;padding:16px 20px;border-left:3px solid var(--accent);background:var(--accent-dim);color:var(--fg)}
 .brief{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--line)}
 .brief div{padding:18px 0;border-bottom:1px solid var(--line)}
-.brief dt{color:var(--accent);font-weight:600;margin-bottom:8px}.brief dd{margin:0;color:var(--fg-2);line-height:1.45}
+.brief dt{color:var(--tone);font-weight:600;margin-bottom:8px}.brief dd{margin:0;color:var(--fg-2);line-height:1.45}
 @media(max-width:860px){.brief{grid-template-columns:1fr}.brief div{padding:14px 0}}
 </style>

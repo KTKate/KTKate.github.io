@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import CaseHeader from '../../components/CaseHeader.astro';
 import DecisionDiagram from '../../components/DecisionDiagram.astro';
 import Scribble from '../../components/Scribble.astro';
+import { toneFor } from '../../tones';
 import '../../styles/case-study.css';
 export async function getStaticPaths() {
   const entries = (await getCollection('case-studies', e => import.meta.env.DEV || e.data.status !== 'draft')).sort((a, b) => a.data.order - b.data.order);
@@ -14,7 +15,7 @@ const { Content, headings } = await render(entry);
 const base = import.meta.env.BASE_URL;
 ---
 <Base title={entry.data.title} description={entry.data.summary}>
-  <article class="case wrap">
+  <article class="case wrap" style={`--tone:${toneFor(entry.data.category)}`}>
     {entry.data.status === 'draft' && <p class="draft-note">Development draft. Not published.</p>}
     <CaseHeader data={entry.data} number={number} />
     {entry.data.diagram && <DecisionDiagram diagram={entry.data.diagram} />}

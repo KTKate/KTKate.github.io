@@ -1,7 +1,7 @@
 @font-face{font-family:Bricolage;src:url('../assets/fonts/bricolage.ttf') format('truetype');font-weight:200 800;font-stretch:75% 100%;font-style:normal;font-display:swap}
 :root{
   --bg:#0f1426;--bg-2:#161c35;--fg:#f1efe8;--fg-2:#b9bccb;--fg-3:#8a8ea3;--line:rgba(241,239,232,.16);--line-2:rgba(241,239,232,.34);
-  --accent:#f0a83a;--accent-dim:rgba(240,168,58,.16);
+  --amber:#f0a83a;--violet:#9a93e6;--magenta:#e94fb7;--accent:var(--amber);--accent-dim:rgba(240,168,58,.16);--tone:var(--accent);
   --sans:Bricolage,'Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box;min-width:0}
