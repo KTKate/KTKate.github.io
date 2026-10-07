@@ -1,17 +1,29 @@
 ---
 import { restrictedNote } from '../site';
-const { data } = Astro.props;
+const { data, number } = Astro.props;
 ---
 <header class="case-header">
-  <p class="kicker">{data.category}</p>
+  <p class="case-kicker mono"><span class="cnum">{number ? `Case ${number}` : 'Case study'}</span><span>{data.category}</span></p>
   <h1>{data.title}</h1>
   <p class="summary">{data.summary}</p>
-  <div class="spec">{data.role && <p><strong>My role</strong>{data.role}</p>}{data.timeframe && <p><strong>Period</strong>{data.timeframe}</p>}</div>
-  {data.status === 'restricted' && <p class="restriction">{restrictedNote}</p>}
+  <dl class="specline">
+    {data.role && <div><dt>Role</dt><dd>{data.role}</dd></div>}
+    {data.timeframe && <div><dt>Period</dt><dd>{data.timeframe}</dd></div>}
+    {data.result && <div><dt>Result</dt><dd>{data.result}</dd></div>}
+  </dl>
+  {data.status === 'restricted' && <p class="restriction"><span class="mono">Restriction</span>{restrictedNote}</p>}
   {data.brief && <dl class="brief">{data.brief.map(item => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>}
 </header>
 <style>
-.case-header h1{margin:0 0 20px}.summary{font-size:clamp(1.125rem,2vw,1.4rem);color:var(--type-2);max-width:52ch}.spec{display:flex;gap:24px 48px;flex-wrap:wrap;margin:26px 0}.spec p{margin:0;font-size:.9375rem}.spec strong{display:block;font-size:.875rem;color:var(--type-2);margin-bottom:3px}.restriction{font-size:.9375rem;background:#f1edf9;padding:16px 20px;border-left:3px solid var(--violet);margin:0 0 26px}.brief{margin:28px 0 0;border-top:1px solid var(--line)}.brief>div{display:grid;grid-template-columns:108px 1fr;gap:18px;padding:15px 0;border-bottom:1px solid var(--line)}.brief dt{font-size:.875rem;font-weight:800;color:var(--accent)}.brief dd{margin:0;font-size:1rem;color:var(--type);line-height:1.5}
-@media(max-width:500px){.brief>div{grid-template-columns:1fr;gap:5px}.spec{gap:20px}}
-@media print{.case-header h1{font-size:24pt}.summary{font-size:12pt}.brief dd{font-size:10pt}.brief>div{padding:8pt 0}.restriction{font-size:10pt}.spec{margin:14pt 0}}
+.case-kicker{display:flex;gap:16px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);margin:0 0 18px}.cnum{color:var(--accent)}
+.case-header h1{font-size:clamp(2.4rem,6vw,4.6rem);margin:0 0 20px}
+.summary{font-size:clamp(1.125rem,2vw,1.4rem);color:var(--ink-2);max-width:52ch;line-height:1.4}
+.specline{display:flex;flex-wrap:wrap;gap:16px 40px;margin:26px 0;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.specline div{margin:0}.specline dt{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-2);margin-bottom:3px}.specline dd{margin:0;font-size:.9375rem}
+.restriction{font-size:.9375rem;background:var(--accent-soft);padding:14px 18px;border-left:3px solid var(--accent);margin:0 0 26px;display:flex;gap:16px;align-items:baseline}.restriction .mono{text-transform:uppercase;letter-spacing:.1em;color:var(--accent);white-space:nowrap}
+.brief{margin:0;border:1px solid var(--ink);background:var(--paper-2)}
+.brief>div{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:14px 18px;border-bottom:1px solid var(--line)}.brief>div:last-child{border-bottom:0}
+.brief dt{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);padding-top:4px}.brief dd{margin:0;font-size:1rem;line-height:1.5}
+@media(max-width:520px){.brief>div{grid-template-columns:1fr;gap:4px}.restriction{flex-direction:column;gap:6px}}
+@media print{.case-header h1{font-size:24pt}.summary{font-size:12pt}.brief dd{font-size:10pt}.brief>div{padding:7pt 10pt}.restriction{font-size:10pt}.specline{margin:12pt 0}}
 </style>

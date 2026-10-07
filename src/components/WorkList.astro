@@ -1,0 +1,44 @@
+---
+const { entries } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<section id="work" class="section work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="rule-num">03 · Selected work</span><h2 id="work-title">Three decisions, written down.</h2></div>
+      <p>Each case study separates the situation, what the research showed, the decision I made, and what the organization did with it. Where IBM has not published a figure, the page says so instead of estimating.</p>
+    </div>
+    <ol class="cards">
+      {entries.map((entry, index) => <li class="card">
+        <a href={`${base}work/${entry.id}/`}>
+          <span class="tab"><span class="num">{String(index + 1).padStart(2, '0')}</span><span class="cat">{entry.data.category}</span></span>
+          <span class="body">
+            <h3>{entry.data.title}</h3>
+            <p class="summary">{entry.data.summary}</p>
+            <span class="meta">
+              {entry.data.result && <span class="result">{entry.data.result}</span>}
+              {entry.data.status === 'restricted' && <span class="chip">Some details restricted</span>}
+              {entry.data.status === 'draft' && <span class="chip">Draft</span>}
+            </span>
+          </span>
+          <span class="go mono" aria-hidden="true">Read →</span>
+        </a>
+      </li>)}
+    </ol>
+  </div>
+</section>
+<style>
+.cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.card a{display:flex;flex-direction:column;height:100%;text-decoration:none;color:var(--ink);background:var(--paper-2);border:1px solid var(--ink);box-shadow:5px 5px 0 var(--line-2);transition:transform .15s ease,box-shadow .15s ease}
+.card a:hover,.card a:focus-visible{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--accent-fill)}
+.tab{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--ink);font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}
+.num{color:var(--accent)}.cat{color:var(--ink-2);text-align:right}
+.body{display:flex;flex-direction:column;padding:22px 18px 18px;flex:1}
+h3{font-size:clamp(1.5rem,2.2vw,1.9rem);margin:0 0 12px;line-height:1.1}
+.summary{color:var(--ink-2);font-size:1rem;margin:0 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:auto}
+.result{font-family:var(--mono);font-size:.8125rem;color:var(--ink)}
+.go{padding:12px 18px;border-top:1px dashed var(--line-2);color:var(--ink-2)}
+.card a:hover .go{color:var(--accent)}
+@media(max-width:900px){.cards{grid-template-columns:1fr;max-width:640px}}
+</style>

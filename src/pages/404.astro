@@ -3,13 +3,14 @@ import Base from '../layouts/Base.astro';
 const base = import.meta.env.BASE_URL;
 ---
 <Base title="Not found">
-  <section class="nf">
-    <h1>Not found</h1>
-    <p>That page does not exist. <a href={base}>Back to the work.</a></p>
+  <section class="nf wrap">
+    <p class="mono code">Status 404</p>
+    <h1>No page at this address.</h1>
+    <p>The address may have changed, or it never existed. <a href={base}>Return to the specification sheet.</a></p>
   </section>
 </Base>
 <style>
-.nf{max-width:760px;margin:0 auto;padding:96px 40px}
-h1{font-size:2.4rem;margin:0 0 12px}
-a{color:var(--accent)}
+.nf{max-width:760px;padding-top:64px;padding-bottom:64px}
+.code{color:var(--accent);text-transform:uppercase;letter-spacing:.1em}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);margin:0 0 16px}
 </style>

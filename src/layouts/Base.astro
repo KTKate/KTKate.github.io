@@ -1,9 +1,11 @@
 ---
 import site from '../site';
 import '../styles/tokens.css';
-const { title, description = site.positioning } = Astro.props;
+const { title, description = site.description } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const about = Astro.url.pathname.endsWith('/about/');
+const path = Astro.url.pathname;
+const current = (prefix: string) => path.startsWith(`${base}${prefix}`) ? 'page' : undefined;
+const built = new Date().toISOString().slice(0, 10);
 ---
 <!doctype html>
 <html lang="en">
@@ -14,30 +16,58 @@ const about = Astro.url.pathname.endsWith('/about/');
   <meta property="og:title" content={title ? `${title} · ${site.name}` : site.name} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  <meta name="theme-color" content="#f5f0e6" />
+  <link rel="canonical" href={new URL(path, Astro.site)} />
+  <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
   <title>{title ? `${title} · ${site.name}` : `${site.name} · ${site.positioning}`}</title>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="name" href={base}>{site.name}<span>Product · Design · Technology</span></a>
-      <nav aria-label="Main"><a href={`${base}#work`}>Work</a><a href={`${base}about/`} aria-current={about ? 'page' : undefined}>About</a><a href={`${base}#lab`}>Lab</a></nav>
-    </div>
+  <div class="marks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <header class="site-header wrap">
+    <a class="wordmark" href={base} aria-label="Kate Terraccino, home"><span class="k">K</span><span class="t">T</span></a>
+    <nav aria-label="Main">
+      <a href={`${base}#work`}>Work</a>
+      <a href={`${base}#lab`}>Lab</a>
+      <a href={`${base}about/`} aria-current={current('about/')}>About</a>
+      <a href={`${base}portfolio.pdf`}>PDF</a>
+    </nav>
   </header>
   <main id="main" tabindex="-1"><slot /></main>
-  <footer class="wrap">
-    <div><p class="footer-name">Kate Terraccino</p><p>{site.location}</p></div>
-    <div class="footer-links"><a href={`mailto:${site.email}`}>Email Kate</a><a href={site.linkedin}>LinkedIn</a><a href={`${base}portfolio.pdf`}>Portfolio PDF</a></div>
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <span class="rule-num">06 · Contact</span>
+        <h2 class="footer-title">Email is the fastest way to reach me.</h2>
+        <p class="footer-links"><a href={`mailto:${site.email}`}>{site.email}</a><a href={site.linkedin}>LinkedIn</a><a href={`${base}portfolio.pdf`}>Portfolio as PDF</a></p>
+      </div>
+      <dl class="colophon">
+        <div><dt>Location</dt><dd>{site.location}</dd></div>
+        <div><dt>Built with</dt><dd>Astro, static HTML, no analytics, no cookies</dd></div>
+        <div><dt>Set in</dt><dd>Fraunces and IBM Plex Mono</dd></div>
+        <div><dt>Last built</dt><dd><time datetime={built}>{built}</time></dd></div>
+      </dl>
+    </div>
   </footer>
 </body>
 </html>
 <style>
-.site-header{background:var(--navy);color:#fafaf8}.header-inner{min-height:104px;display:flex;justify-content:space-between;align-items:center;gap:24px}
-.name{font-weight:800;letter-spacing:-.03em;text-decoration:none;font-size:1.0625rem}.name span{display:block;font-weight:500;font-size:.875rem;letter-spacing:0;color:#bdc2d5;margin-top:2px}
-nav{display:flex;gap:28px}nav a{font-size:.9375rem;text-decoration:none;padding:12px 0;min-height:48px}nav a:hover,nav a[aria-current]{text-decoration:underline;text-decoration-color:var(--amber);text-decoration-thickness:2px}.site-header :focus-visible{outline-color:var(--amber)}
-.skip{position:fixed;left:16px;top:-100px;background:var(--amber);color:var(--navy);padding:12px 18px;z-index:100}.skip:focus{top:12px}
-footer{padding-block:42px;display:flex;justify-content:space-between;gap:30px;border-top:1px solid var(--line);font-size:.9375rem;color:var(--type-2)}footer p{margin:0}.footer-name{color:var(--type);font-weight:800}.footer-links{display:flex;flex-wrap:wrap;gap:24px;align-items:start}.footer-links a{padding:8px 0}
-@media(max-width:500px){.header-inner{min-height:120px;display:block;padding-top:20px;padding-bottom:12px}.name span{display:none}nav{gap:26px;margin-top:5px}footer{flex-direction:column;gap:20px}.footer-links{gap:22px}}
-@media print{.site-header,footer,.skip{display:none}}
+.skip{position:fixed;left:16px;top:-100px;background:var(--ink);color:var(--paper);padding:12px 18px;z-index:100;font-family:var(--mono);font-size:.875rem}.skip:focus{top:12px}
+.marks{position:absolute;inset:0;pointer-events:none;z-index:0}.marks span{position:absolute;width:18px;height:18px;border-color:var(--line-2);border-style:solid;border-width:0}
+.marks span:nth-child(1){top:14px;left:14px;border-top-width:1px;border-left-width:1px}.marks span:nth-child(2){top:14px;right:14px;border-top-width:1px;border-right-width:1px}.marks span:nth-child(3){bottom:14px;left:14px;border-bottom-width:1px;border-left-width:1px}.marks span:nth-child(4){bottom:14px;right:14px;border-bottom-width:1px;border-right-width:1px}
+body{position:relative}
+.site-header{display:flex;justify-content:space-between;align-items:center;min-height:88px;gap:24px;position:relative;z-index:1}
+.wordmark{display:inline-flex;align-items:baseline;text-decoration:none;color:var(--ink);font-family:var(--serif);font-size:1.9rem;font-variation-settings:var(--wonk);line-height:1;padding:6px 0}
+.wordmark .t{color:var(--accent);margin-left:-.08em}
+.site-header nav{display:flex;gap:4px}
+.site-header nav a{font-family:var(--mono);font-size:.875rem;text-decoration:none;color:var(--ink);padding:12px 12px;min-height:48px;display:inline-flex;align-items:center;border-bottom:2px solid transparent}
+.site-header nav a:hover,.site-header nav a[aria-current]{border-bottom-color:var(--accent)}
+.site-footer{border-top:1px solid var(--ink);background:var(--paper-2);margin-top:clamp(56px,8vw,112px);position:relative;z-index:1}
+.footer-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px 56px;padding-block:clamp(48px,6vw,80px)}
+.footer-title{font-size:clamp(1.6rem,3vw,2.4rem);margin:0 0 22px;max-width:18ch}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0;font-family:var(--mono);font-size:.9375rem}.footer-links a{padding:8px 0}
+.colophon{margin:0;font-family:var(--mono);font-size:.8125rem;align-self:end}.colophon div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:10px 0;border-top:1px solid var(--line)}.colophon dt{color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em}.colophon dd{margin:0}
+@media(max-width:760px){.footer-grid{grid-template-columns:1fr;gap:36px}.site-header{min-height:76px}.site-header nav a{padding:12px 9px}.marks{display:none}}
+@media(max-width:400px){.site-header{flex-direction:column;align-items:flex-start;gap:0;padding-top:16px}.site-header nav{margin-left:-9px}}
+@media print{.site-header,.site-footer,.skip,.marks{display:none}}
 </style>
