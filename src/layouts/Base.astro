@@ -15,7 +15,7 @@ const current = (prefix: string) => path.startsWith(`${base}${prefix}`) ? 'page'
   <meta property="og:title" content={title ? `${title} · ${site.name}` : site.name} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#ff6a2b" />
+  <meta name="theme-color" content="#0f1426" />
   <link rel="canonical" href={new URL(path, Astro.site)} />
   <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
   <title>{title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`}</title>
@@ -26,33 +26,26 @@ const current = (prefix: string) => path.startsWith(`${base}${prefix}`) ? 'page'
     <a class="name" href={base}>Kate Terraccino</a>
     <nav aria-label="Main">
       <a href={`${base}#work`}>Work</a>
-      <a href={`${base}#side`}>Side projects</a>
+      <a href={`${base}side-projects/`} aria-current={current('side-projects/')}>Side projects</a>
       <a href={`${base}about/`} aria-current={current('about/')}>About</a>
       <a href={`mailto:${site.email}`}>Email</a>
     </nav>
   </header>
   <main id="main" tabindex="-1"><slot /></main>
-  <footer class="foot">
-    <div class="wrap foot-grid">
-      <p class="foot-name">Kate Terraccino<br/><span>{site.location}</span></p>
-      <p class="foot-links"><a href={`mailto:${site.email}`}>{site.email}</a><a href={site.linkedin}>LinkedIn</a><a href={`${base}about/`}>About</a></p>
-      <p class="foot-note">Static HTML. No analytics, no cookies, no JavaScript. Set in Bricolage Grotesque.</p>
-    </div>
+  <footer class="foot wrap">
+    <p><a href={`mailto:${site.email}`}>{site.email}</a> · <a href={site.linkedin}>LinkedIn</a> · {site.location}</p>
+    <p class="muted">Static HTML, no analytics, no cookies, no JavaScript.</p>
   </footer>
 </body>
 </html>
 <style>
-.skip{position:fixed;left:16px;top:-100px;background:var(--ink);color:var(--white);padding:12px 18px;z-index:100;border-radius:999px;font-weight:650}.skip:focus{top:12px}
-.top{display:flex;justify-content:space-between;align-items:center;min-height:84px;gap:20px}
-.name{font-weight:750;font-size:1.2rem;text-decoration:none;letter-spacing:-.02em;padding:8px 0}
-nav{display:flex;gap:2px;flex-wrap:wrap}
-nav a{text-decoration:none;font-weight:600;font-size:1rem;padding:10px 14px;min-height:48px;display:inline-flex;align-items:center;border-radius:999px;border:2px solid transparent}
-nav a:hover{border-color:var(--ink)}nav a[aria-current]{background:var(--lemon);border-color:var(--ink)}
-.foot{border-top:3px solid var(--ink);margin-top:clamp(64px,9vw,128px)}
-.foot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;padding-block:44px;align-items:start}
-.foot p{margin:0}.foot-name{font-weight:750;font-size:1.15rem;line-height:1.3}.foot-name span{font-weight:400;color:var(--ink-2);font-size:1rem}
-.foot-links{display:flex;flex-direction:column;gap:6px}.foot-links a{font-weight:600;width:fit-content;padding:4px 0}
-.foot-note{color:var(--ink-2);font-size:.95rem;max-width:30ch}
-@media(max-width:760px){.foot-grid{grid-template-columns:1fr;gap:22px}.top{min-height:72px}nav a{padding:10px 10px}}
-@media(max-width:460px){.top{flex-direction:column;align-items:flex-start;gap:0;padding-top:14px}nav{margin-left:-10px}}
+.skip{position:fixed;left:16px;top:-100px;background:var(--accent);color:var(--bg);padding:12px 18px;z-index:100;font-weight:600}.skip:focus{top:12px}
+.top{display:flex;justify-content:space-between;align-items:center;min-height:88px;gap:20px}
+.name{font-weight:650;font-size:1.15rem;text-decoration:none;letter-spacing:-.02em;padding:8px 0}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:500;font-size:1rem;padding:10px 12px;min-height:48px;display:inline-flex;align-items:center;border-bottom:2px solid transparent;color:var(--fg-2)}
+nav a:hover{color:var(--accent)}nav a[aria-current]{color:var(--fg);border-bottom-color:var(--accent)}
+.foot{margin-top:clamp(72px,10vw,140px);padding-top:28px;padding-bottom:40px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.95rem}
+.foot p{margin:0}
+@media(max-width:460px){.top{flex-direction:column;align-items:flex-start;gap:0;padding-top:14px}nav{margin-left:-12px}}
 </style>

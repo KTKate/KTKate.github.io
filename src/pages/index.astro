@@ -1,19 +1,54 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import Cover from '../components/Cover.astro';
-import Stories from '../components/Stories.astro';
-import Job from '../components/Job.astro';
-import SideProjects from '../components/SideProjects.astro';
-import Numbers from '../components/Numbers.astro';
-import Hello from '../components/Hello.astro';
+import Scribble from '../components/Scribble.astro';
+import { projects } from '../projects';
+import site from '../site';
+const base = import.meta.env.BASE_URL;
 const entries = (await getCollection('case-studies', e => import.meta.env.DEV || e.data.status !== 'draft')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base>
-  <Cover />
-  <Stories entries={entries} />
-  <Job />
-  <SideProjects />
-  <Numbers />
-  <Hello />
+  <section class="open wrap" aria-labelledby="open-title">
+    <h1 id="open-title">Design and research lead for IBM LinuxONE. Most of the job is finding out what a new client cannot do, checking whether the APIs exist, and getting a team <span class="ring">funded<Scribble name="loop" class="ring-mark" /></span> to build the fix.</h1>
+  </section>
+  <section id="work" class="work wrap" aria-labelledby="work-title">
+    <h2 id="work-title" class="kicker">Work</h2>
+    <ol class="cases">
+      {entries.map((entry, i) => <li>
+        <span class="n">{String(i + 1).padStart(2, '0')}</span>
+        <div class="case-text">
+          <h3><a href={`${base}work/${entry.id}/`}>{entry.data.title}</a></h3>
+          <p>{entry.data.summary}</p>
+          <p class="meta">{entry.data.result}{entry.data.status === 'restricted' && <span> · some figures restricted until general availability</span>}</p>
+        </div>
+        <Scribble name="arrow" class="go" />
+      </li>)}
+    </ol>
+  </section>
+  <section class="side wrap" aria-labelledby="side-title">
+    <h2 id="side-title" class="kicker">Side projects</h2>
+    <p class="lede">Four AI systems that run on my own hardware, separate from IBM: {projects.map((p, i) => <span>{i > 0 && (i === projects.length - 1 ? ', and ' : ', ')}<a href={`${base}side-projects/#${p.id}`}>{p.name}</a></span>)}. One of them makes documentaries.</p>
+  </section>
+  <section class="reach wrap" aria-labelledby="reach-title">
+    <h2 id="reach-title" class="kicker">Reach me</h2>
+    <p class="lede"><a href={`mailto:${site.email}`}>{site.email}</a>. The <a href={`${base}about/`}>About page</a> has every job since 2011, the numbers that exist, and the stack I have written code in. {site.location}.</p>
+  </section>
 </Base>
+<style>
+.open{padding-top:clamp(32px,6vw,88px);padding-bottom:clamp(40px,7vw,96px)}
+.open h1{font-size:clamp(1.9rem,4.2vw,3.7rem);font-weight:600;line-height:1.12;letter-spacing:-.02em;max-width:24em;margin:0}
+.ring{position:relative;display:inline-block;padding:0 .12em}
+:global(.ring-mark){position:absolute;left:-.28em;top:-.18em;width:calc(100% + .56em);height:1.3em;max-width:none;color:var(--accent);pointer-events:none}
+.work{padding-bottom:clamp(40px,6vw,80px)}
+.cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.cases li{display:grid;grid-template-columns:56px minmax(0,1fr) 40px;gap:16px 24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
+.n{color:var(--accent);font-weight:600;padding-top:.45em}
+.cases h3{margin:0 0 8px;font-size:clamp(1.4rem,2.6vw,2.1rem)}
+.cases h3 a{text-decoration:none}.cases h3 a:hover{color:var(--accent);text-decoration:underline}
+.cases p{margin:0;color:var(--fg-2);max-width:40em}
+.meta{margin-top:8px!important;font-size:.95rem;color:var(--fg-3)!important}
+:global(.go){width:40px;color:var(--accent);margin-top:.5em;opacity:.7}
+.side,.reach{padding-bottom:clamp(36px,5vw,64px)}
+.side .lede a,.reach .lede a{color:var(--fg)}
+@media(max-width:600px){.cases li{grid-template-columns:40px minmax(0,1fr)}:global(.go){display:none}}
+</style>

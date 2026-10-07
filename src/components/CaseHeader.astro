@@ -1,35 +1,28 @@
 ---
-import Scribble from './Scribble.astro';
 import { restrictedNote } from '../site';
-const { data, number, tone } = Astro.props;
+const { data, number } = Astro.props;
 ---
-<header class={`case-head tone-${tone}`}>
-  <div class="wrap">
-    <p class="eyebrow">Case {number} · {data.category}</p>
-    <h1>{data.title}</h1>
-    <p class="lede">{data.summary}</p>
-    <ul class="meta" aria-label="Role, period, and result">
-      {data.role && <li><span class="sticker" style="--tilt:-2deg">{data.role}</span></li>}
-      {data.timeframe && <li><span class="sticker" style="--tilt:2deg">{data.timeframe}</span></li>}
-      {data.result && <li><span class="sticker lemon" style="--tilt:-1deg">{data.result}</span></li>}
-    </ul>
-  </div>
-</header>
-<div class="wrap">
+<header class="case-head">
+  <p class="kicker">Case {String(number).padStart(2, '0')} · {data.category}</p>
+  <h1>{data.title}</h1>
+  <p class="lede">{data.summary}</p>
+  <dl class="facts">
+    {data.role && <div><dt>Role</dt><dd>{data.role}</dd></div>}
+    {data.timeframe && <div><dt>Period</dt><dd>{data.timeframe}</dd></div>}
+    {data.result && <div><dt>Result</dt><dd>{data.result}</dd></div>}
+  </dl>
   {data.status === 'restricted' && <p class="restriction"><strong>Restriction.</strong> {restrictedNote}</p>}
   {data.brief && <dl class="brief">{data.brief.map(item => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>}
-</div>
+</header>
 <style>
-.case-head{padding:clamp(36px,6vw,80px) 0 clamp(40px,6vw,72px);border-bottom:3px solid var(--ink)}
-.tone-tangerine{background:var(--tangerine)}.tone-lemon{background:var(--lemon)}.tone-blue{background:var(--blue);color:var(--white)}
-.tone-blue .eyebrow::before{background:var(--lemon)}.tone-tangerine .eyebrow::before,.tone-lemon .eyebrow::before{background:var(--ink)}
-.case-head h1{font-size:clamp(2.4rem,5.6vw,4.8rem);margin:0 0 20px;max-width:16ch}
+.case-head{padding-top:clamp(28px,5vw,72px)}
+.case-head h1{margin:0 0 20px;max-width:14em}
 .case-head .lede{margin-bottom:28px}
-.meta{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:16px 14px}
-.tone-blue .sticker{color:var(--ink)}
-.restriction{margin:32px 0 0;padding:18px 22px;border:3px solid var(--ink);border-radius:18px;background:var(--blush);font-size:1rem}
-.brief{margin:28px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.brief div{border:3px solid var(--ink);border-radius:22px;padding:20px 22px;background:var(--white)}
-.brief dt{font-weight:750;color:var(--blue);margin-bottom:8px;font-size:1.05rem}.brief dd{margin:0;line-height:1.45}
-@media(max-width:860px){.brief{grid-template-columns:1fr}}
+.facts{display:flex;flex-wrap:wrap;gap:14px 44px;margin:0 0 28px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{margin:0}.facts dt{color:var(--fg-3);font-size:.9rem;margin-bottom:2px}.facts dd{margin:0;font-weight:500}
+.restriction{margin:0 0 28px;padding:16px 20px;border-left:3px solid var(--accent);background:var(--accent-dim);color:var(--fg)}
+.brief{margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--line)}
+.brief div{padding:18px 0;border-bottom:1px solid var(--line)}
+.brief dt{color:var(--accent);font-weight:600;margin-bottom:8px}.brief dd{margin:0;color:var(--fg-2);line-height:1.45}
+@media(max-width:860px){.brief{grid-template-columns:1fr}.brief div{padding:14px 0}}
 </style>
