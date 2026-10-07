@@ -1,34 +1,45 @@
 ---
-title: AIOps on Z portfolio leadership
-summary: Managing design and research at portfolio level through product leads.
+title: A year managing AIOps on Z through product leads
+summary: Running a nine-person design and research team across a portfolio of observability and analytics products, without sitting in every product’s meetings.
 order: 4
-status: draft
+status: public
 role: Senior design and research manager
 timeframe: 2023 to 2024
-category: Portfolio operating model
+category: Management
+result: 9 people · Portfolio-level management
 brief:
   - label: Scope
-    text: A nine-person team across AIOps on Z.
+    text: A portfolio of observability and analytics products for IT operations on IBM Z, each with its own roadmap and engineering team.
   - label: My role
-    text: Managed at portfolio level through product leads.
-  - label: Evidence
-    text: Team size and management structure are established. A specific product-direction decision is needed for publication.
+    text: Managed the nine-person design and research team at portfolio level, through product leads, instead of directly on each product.
+  - label: What it is not
+    text: This is not a product-decision story like the other three. It is a management year, and it is written as one.
 diagram:
   title: Portfolio-level management
-  caption: A role structure, not a product-delivery sequence.
+  caption: A role structure, not a product-delivery sequence. It describes how the team was run, not a measured product result.
   steps:
     - title: Portfolio manager
-      detail: Kate's design and research management role.
+      detail: Staffing, priorities across products, and the conversations with product management and engineering about what the team could take on.
     - title: Product leads
-      detail: Management through product leads.
+      detail: One designer or researcher owning the design and research direction for each product.
     - title: Nine-person team
-      detail: Portfolio team size during 2023 to 2024.
+      detail: Designers and researchers working in product teams, with mentorship and professional development as part of the arrangement.
 ---
 
-## Established scope
+## The portfolio
 
-**I managed a nine-person design and research team at portfolio level through product leads.** This role covered AIOps on Z from 2023 to 2024.
+**AIOps on Z is a set of products that watch IBM Z systems and tell operations teams what is happening and what to do about it.** Observability, analytics, and automation, each product with its own roadmap, engineering team, and release cadence. Design and research had to serve all of them at once.
 
-## Publication requirement
+## How the team was run
 
-A specific product-direction decision is needed to develop this account. Record the options considered, Kate's decision, the evidence used, and the resulting change in scope or delivery. No confidential client details or numerical performance calculation is required.
+**I managed at portfolio level, through product leads.** Each product had a designer or researcher who owned its design and research direction and worked inside that product team day to day. My job was the layer above: staffing, priorities across products, and the conversations with product management and engineering about what the team could take on and what it could not.
+
+**Mentorship and professional development were part of the structure, not an extra.** Leading a product is how a designer or researcher grows into the next role. Giving each lead real ownership, and backing it when product management or engineering pushed back, was the main development tool I had.
+
+## What the year changed
+
+**The team balanced a portfolio instead of responding to whichever product asked most often.** With one person accountable per product and one person accountable for the whole, every request went to someone who could weigh it against the others. That is the arrangement I carried into the LinuxONE practice the following year.
+
+## Evidence and limits
+
+**Team size and the management structure are the evidence.** This page does not claim product results. Product telemetry for the AIOps portfolio belongs to those product teams, and the year was about how design and research were organized, not a single product decision.

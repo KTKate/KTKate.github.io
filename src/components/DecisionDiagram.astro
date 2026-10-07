@@ -3,18 +3,18 @@ import Scribble from './Scribble.astro';
 const { diagram } = Astro.props;
 ---
 <figure class="diagram">
-  <figcaption><strong>{diagram.title}</strong></figcaption>
-  <ol>{diagram.steps.map((step, index) => <li><span class="n">{index + 1}</span><strong>{step.title}</strong><span>{step.detail}</span>{index < diagram.steps.length - 1 && <Scribble name="arrow" class="arrow" />}</li>)}</ol>
+  <figcaption>{diagram.title}</figcaption>
+  <ol>{diagram.steps.map((step, index) => <li><span class="n">{index + 1}</span><strong>{step.title}</strong><span>{step.detail}</span>{index < diagram.steps.length - 1 && <Scribble name="arrow" class="step-arrow" />}</li>)}</ol>
   <p>{diagram.caption}</p>
 </figure>
 <style>
-.diagram{margin:40px 0 0;padding:28px;border:3px solid var(--ink);border-radius:28px;background:var(--mint)}
-figcaption{font-size:1.2rem;margin-bottom:22px}
-ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:28px}
-li{position:relative;display:flex;flex-direction:column;gap:6px;background:var(--white);border:2px solid var(--ink);border-radius:18px;padding:18px}
-.n{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--white);display:inline-flex;align-items:center;justify-content:center;font-weight:750;margin-bottom:6px}
-li strong{font-size:1.1rem;line-height:1.2}li>span:not(.n){font-size:.98rem;color:var(--ink-2);line-height:1.45}
-:global(.arrow){position:absolute;right:-30px;top:14px;width:34px;height:auto;color:var(--ink);z-index:1}
-.diagram>p{margin:22px 0 0;font-size:.95rem;color:var(--ink-2)}
-@media(max-width:700px){ol{grid-template-columns:1fr;gap:18px}:global(.arrow){display:none}.diagram{padding:20px}}
+.diagram{margin:40px 0 0;padding:26px 0 0;border-top:1px solid var(--line)}
+figcaption{font-weight:600;margin-bottom:22px;color:var(--fg)}
+ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:36px}
+li{position:relative;display:flex;flex-direction:column;gap:6px}
+.n{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem;margin-bottom:6px}
+li strong{font-size:1.1rem;line-height:1.2}li>span:not(.n){font-size:.98rem;color:var(--fg-2);line-height:1.45}
+:global(.step-arrow){position:absolute;right:-34px;top:0;width:30px;height:auto;color:var(--accent)}
+.diagram>p{margin:24px 0 0;font-size:.95rem;color:var(--fg-3)}
+@media(max-width:700px){ol{grid-template-columns:1fr;gap:22px}:global(.step-arrow){display:none}}
 </style>

@@ -17,18 +17,17 @@ npm run preview
 
 If Playwright's bundled Chromium is not installed, set `CHROMIUM_PATH` to a Chromium or Chrome executable and the tests use it.
 
-`npm test` starts its own preview and inspects all six public HTML routes at 320, 390, 768, 1024, and 1440 pixels. It checks overflow, console errors, minimum readable text size, WCAG A/AA rules through axe, the skip link, enlarged text, the absence of JavaScript, internal routes and anchors, publication holds, and draft exclusion. Screenshots and reports are written to ignored `artifacts/qa/`.
+`npm test` starts its own preview and inspects all eight public HTML routes at 320, 390, 768, 1024, and 1440 pixels. It checks overflow, console errors, minimum readable text size, WCAG A/AA rules through axe, the skip link, enlarged text, the absence of JavaScript, internal routes and anchors, publication holds, and draft exclusion. Screenshots and reports are written to ignored `artifacts/qa/`.
 
 ## Design
 
-The home page opens on the first case study instead of an introduction, then the two other cases, the three parts of the job, four side projects, the counts that exist, and a short hello. The About page is a timeline built from Kate's LinkedIn history. Bricolage Grotesque, flat tangerine, lemon, blue, mint, and blush, hand-drawn SVG marks, and rotated stickers. There is no JavaScript on the public pages and no animation beyond hover states.
+Deep navy page, off-white type, amber as the only accent, Bricolage Grotesque as the only typeface. The home page fits in two screens: one specific sentence about the job, the four cases as a list, a line for side projects, and contact. Cases, side projects, and the About timeline each have their own page. A few hand-drawn SVG marks in amber. There is no JavaScript on the public pages and no animation beyond hover states.
 
 ## Content
 
 - `src/site.ts`: contact information, counts, technology list, timeline, exact restriction note.
 - `src/content/case-studies/`: Markdown case studies and development drafts.
 - `src/content.config.ts`: content schema, including three-line briefs and decision diagrams.
-- `src/principles.ts`: the three parts of the job and their working rules.
 - `src/projects.ts`: side project descriptions and notes.
 - `src/components/`: one component per section, plus `Scribble.astro` for every SVG mark.
 - `src/styles/tokens.css`: color, type, layout, focus, and reduced-motion foundations.
@@ -39,7 +38,7 @@ Statuses:
 
 - `public`: complete web page and PDF content.
 - `restricted`: complete web page and PDF content with the exact restricted-information note.
-- `draft`: development route only. Not built for production.
+- `draft`: development route only. Not built for production. No case study currently uses it.
 
 Files prefixed with `_` are templates and excluded from the collection. Private local planning and captured review artifacts are ignored and never included in static output.
 

@@ -2,46 +2,55 @@
 import Base from '../layouts/Base.astro';
 import Timeline from '../components/Timeline.astro';
 import Scribble from '../components/Scribble.astro';
-import site, { stack } from '../site';
+import site, { stack, numbers } from '../site';
 ---
-<Base title="About" description="Kate Terraccino's career from front-end development at Spiceworks and IBM to leading design, research, and product direction for IBM LinuxONE.">
-  <section class="about-head">
-    <div class="wrap">
-      <p class="eyebrow">About</p>
-      <h1>Eleven years at IBM, one degree from Rochester, and a lot of Angular 1.<Scribble name="squiggle" class="scribble" /></h1>
-      <p class="lede">I write code, do research, run teams, and decide what gets built. The order I learned those in is below, oldest at the bottom.</p>
-    </div>
+<Base title="About" description="Kate Terraccino's career from front-end development at Spiceworks and IBM to leading design, research, and product direction for IBM LinuxONE, with the numbers that exist.">
+  <section class="head wrap">
+    <span class="kicker">About</span>
+    <h1>Eleven years at IBM, one degree from Rochester, and a lot of Angular 1.<Scribble name="squiggle" class="under" /></h1>
+    <p class="lede">I write code, do research, run teams, and decide what gets built. The order I learned those in is below, newest first. I live in {site.location}.</p>
   </section>
-  <div class="wrap about-body">
+  <section class="wrap nums" aria-labelledby="nums-title">
+    <h2 id="nums-title" class="kicker">Numbers that exist</h2>
+    <p class="lede">I do not have adoption or revenue figures I am allowed to publish, so there is no stat wall. These come from employment records, team records, and IBM’s own assessments.</p>
+    <dl class="counts">{numbers.map(n => <div><dt>{n.big}</dt><dd>{n.small}</dd></div>)}</dl>
+  </section>
+  <section class="wrap">
     <Timeline />
-    <section class="stack" aria-labelledby="stack-title">
-      <h2 id="stack-title">Things I have shipped code in.</h2>
-      <p class="lede">From the Spiceworks and IBM years. Listed so nobody has to guess whether “technical” means slides.</p>
-      <ul class="stack-list">{stack.map((item, i) => <li><span class={`sticker ${['lemon','white','mint','blush'][i % 4]}`} style={`--tilt:${(i % 3 - 1) * 3}deg`}>{item}</span></li>)}</ul>
-    </section>
-    <section class="also" aria-labelledby="also-title">
-      <h2 id="also-title">Also true.</h2>
-      <ul>
-        <li>I live in {site.location}.</li>
-        <li>The LinuxONE client council I founded meets virtually through the year and in person once a year. It is not a sales channel.</li>
-        <li>I had my team present the Launchpad work and take the credit. I did not keep a record of which decisions were mine. The case study says what I would do differently.</li>
-        <li>My first IT job was resolving support tickets at a nursing school.</li>
-      </ul>
-      <p><a class="cta" href={`mailto:${site.email}`}>Email me <Scribble name="arrow" /></a> <a class="plain" href={site.linkedin}>Or read the LinkedIn version.</a></p>
-    </section>
-  </div>
+  </section>
+  <section class="wrap stack" aria-labelledby="stack-title">
+    <h2 id="stack-title" class="kicker">Things I have shipped code in</h2>
+    <p class="lede">From the Spiceworks and IBM years. Listed so nobody has to guess whether “technical” means slides.</p>
+    <p class="stack-list">{stack.map((item, i) => <span>{i > 0 && <span class="dot" aria-hidden="true"> · </span>}{item}</span>)}</p>
+  </section>
+  <section class="wrap also" aria-labelledby="also-title">
+    <h2 id="also-title" class="kicker">Also true</h2>
+    <ul>
+      <li>The LinuxONE client council I founded meets virtually through the year and in person once a year. It is not a sales channel.</li>
+      <li>I had my team present the Launchpad work and take the credit. I did not keep a record of which decisions were mine. The case study says what I would do differently.</li>
+      <li>My first IT job was resolving support tickets at a nursing school.</li>
+    </ul>
+    <p><a class="cta" href={`mailto:${site.email}`}>Email me <Scribble name="arrow" /></a> <a class="plain" href={site.linkedin}>Or read the LinkedIn version.</a></p>
+  </section>
 </Base>
 <style>
-.about-head{background:var(--blush);border-bottom:3px solid var(--ink);padding:clamp(36px,6vw,80px) 0 clamp(40px,6vw,72px)}
-.about-head h1{font-size:clamp(2.3rem,5vw,4.4rem);max-width:18ch;margin-bottom:22px}
-.about-head .lede{margin:0}
-.about-body{padding-top:clamp(48px,7vw,88px)}
-.stack{margin-top:clamp(48px,7vw,88px)}.stack h2{margin-bottom:12px}
-.stack-list{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:18px 14px}
-.stack-list .sticker{font-size:1.05rem;padding:11px 18px}
-.also{margin-top:clamp(48px,7vw,88px)}.also h2{margin-bottom:20px}
-.also ul{list-style:none;margin:0 0 32px;padding:0;max-width:62ch}
-.also li{padding:14px 0;border-top:2px solid var(--ink);line-height:1.45}
+.head{padding-top:clamp(32px,6vw,88px);padding-bottom:clamp(32px,5vw,64px)}
+.head h1{margin:0 0 20px;max-width:16em}
+:global(.under){display:block;width:220px;color:var(--accent);margin-top:10px}
+.head .lede{margin:0}
+.nums{padding-bottom:clamp(40px,6vw,80px)}
+.counts{margin:28px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--line)}
+.counts div{padding:20px 0 22px;border-bottom:1px solid var(--line)}
+.counts dt{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:650;letter-spacing:-.03em;line-height:1;color:var(--accent);font-variation-settings:"opsz" 96;margin-bottom:8px}
+.counts dd{margin:0;color:var(--fg-2);font-size:.98rem;line-height:1.4}
+.stack{padding-top:clamp(40px,6vw,80px)}
+.stack-list{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:600;line-height:1.5;letter-spacing:-.01em;max-width:30em;margin:0}
+.dot{color:var(--accent)}
+.also{padding-top:clamp(40px,6vw,80px)}
+.also ul{list-style:none;margin:0 0 28px;padding:0;max-width:40em;border-top:1px solid var(--line)}
+.also li{padding:16px 0;border-bottom:1px solid var(--line);color:var(--fg-2)}
 .also p{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin:0}
-.plain{font-weight:650}
+.plain{font-weight:500}
+@media(max-width:900px){.counts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){.counts{grid-template-columns:1fr}}
 </style>

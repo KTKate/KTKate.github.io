@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Scribble from '../components/Scribble.astro';
+import { projects } from '../projects';
+---
+<Base title="Side projects" description="Four AI systems Kate Terraccino builds and runs on her own hardware: an agent pipeline on Telegram, local call transcription, an automated documentary pipeline, and a prediction-market bot.">
+  <section class="head wrap">
+    <span class="kicker">Side projects</span>
+    <h1>Four systems on my own hardware.<Scribble name="squiggle" class="under" /></h1>
+    <p class="lede">Separate from IBM, built on my own time. They keep my understanding of servers, agents, and APIs current, and they are where I try things before I would ever propose them at work.</p>
+  </section>
+  <section class="wrap">
+    <ol class="list">
+      {projects.map((p, i) => <li id={p.id}>
+        <span class="n">{String(i + 1).padStart(2, '0')}</span>
+        <div>
+          <p class="kind">{p.kind}</p>
+          <h2>{p.name}</h2>
+          <p>{p.description}</p>
+          <p class="aside"><Scribble name="tick" class="tick" />{p.aside}</p>
+        </div>
+      </li>)}
+    </ol>
+  </section>
+</Base>
+<style>
+.head{padding-top:clamp(32px,6vw,88px);padding-bottom:clamp(32px,5vw,64px)}
+.head h1{margin:0 0 20px;max-width:14em}
+:global(.under){display:block;width:220px;color:var(--accent);margin-top:10px}
+.head .lede{margin:0}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.list li{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px 24px;padding:36px 0;border-bottom:1px solid var(--line)}
+.n{color:var(--accent);font-weight:600;padding-top:.3em}
+.kind{color:var(--accent);font-weight:600;margin:0 0 8px;font-size:1rem}
+.list h2{margin:0 0 14px;font-size:clamp(1.6rem,3vw,2.4rem)}
+.list p{color:var(--fg-2);max-width:40em;margin:0 0 12px}
+.aside{display:flex;gap:12px;align-items:flex-start;color:var(--fg)!important;font-weight:500;margin:0!important}
+:global(.tick){width:24px;flex:none;color:var(--accent);margin-top:2px}
+@media(max-width:600px){.list li{grid-template-columns:40px minmax(0,1fr)}}
+</style>
