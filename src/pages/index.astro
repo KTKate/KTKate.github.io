@@ -1,17 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import SpecSheet from '../components/SpecSheet.astro';
-import Counts from '../components/Counts.astro';
-import WorkList from '../components/WorkList.astro';
-import Principles from '../components/Principles.astro';
-import Lab from '../components/Lab.astro';
+import Cover from '../components/Cover.astro';
+import Stories from '../components/Stories.astro';
+import Job from '../components/Job.astro';
+import SideProjects from '../components/SideProjects.astro';
+import Numbers from '../components/Numbers.astro';
+import Hello from '../components/Hello.astro';
 const entries = (await getCollection('case-studies', e => import.meta.env.DEV || e.data.status !== 'draft')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base>
-  <SpecSheet />
-  <Counts />
-  <WorkList entries={entries} />
-  <Principles />
-  <Lab />
+  <Cover />
+  <Stories entries={entries} />
+  <Job />
+  <SideProjects />
+  <Numbers />
+  <Hello />
 </Base>

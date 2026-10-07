@@ -1,0 +1,18 @@
+---
+// Hand-drawn style SVG marks. All decorative unless a label is passed.
+const { name, class: cls = '', label } = Astro.props;
+const a11y = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' };
+const stroke = { fill: 'none', stroke: 'currentColor', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+---
+{name === 'squiggle' && <svg class={cls} viewBox="0 0 280 18" {...a11y}><path {...stroke} d="M3 11c18-8 32 7 50 3s26-10 44-4 30 11 50 2 28-9 48-3 36 6 50-1 24-6 32-2"/></svg>}
+{name === 'arrow' && <svg class={cls} viewBox="0 0 48 32" {...a11y}><path {...stroke} d="M3 20c12-10 24-14 40-6M33 7l10 7-9 9"/></svg>}
+{name === 'loop' && <svg class={cls} viewBox="0 0 300 90" {...a11y}><path {...stroke} d="M150 12c-70-6-140 10-140 36 0 24 60 34 140 32s138-14 136-38c-2-22-58-32-120-30-26 1-40 4-54 8"/></svg>}
+{name === 'star' && <svg class={cls} viewBox="0 0 40 40" {...a11y}><path {...stroke} d="M20 4l4 11 12 1-9 8 3 12-10-6-10 6 3-12-9-8 12-1z"/></svg>}
+{name === 'chat' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><path {...stroke} d="M12 12h40c3 0 5 2 5 5v22c0 3-2 5-5 5H30l-12 10 1-10h-7c-3 0-5-2-5-5V17c0-3 2-5 5-5z"/><path {...stroke} d="M20 24h24M20 32h16"/></svg>}
+{name === 'mic' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><rect {...stroke} x="23" y="6" width="18" height="30" rx="9"/><path {...stroke} d="M13 30c0 11 8 18 19 18s19-7 19-18M32 48v10M22 58h20"/></svg>}
+{name === 'film' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><path {...stroke} d="M8 24h48v30c0 2-1 3-3 3H11c-2 0-3-1-3-3zM8 24l4-12 46-4-2 16"/><path {...stroke} d="M18 12l6 12M30 11l6 12M42 10l6 12"/></svg>}
+{name === 'dice' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><rect {...stroke} x="9" y="9" width="46" height="46" rx="10"/><circle cx="22" cy="22" r="3.5" fill="currentColor"/><circle cx="32" cy="32" r="3.5" fill="currentColor"/><circle cx="42" cy="42" r="3.5" fill="currentColor"/></svg>}
+{name === 'ear' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><circle {...stroke} cx="27" cy="27" r="17"/><path {...stroke} d="M40 40l16 16M20 27c1-6 5-9 10-9"/></svg>}
+{name === 'plug' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><path {...stroke} d="M22 6v14M42 6v14M14 20h36v10c0 10-8 18-18 18S14 40 14 30zM32 48v10"/></svg>}
+{name === 'flag' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><path {...stroke} d="M14 58V8M14 10c10-6 20 4 32-2v26c-12 6-22-4-32 2"/></svg>}
+{name === 'smile' && <svg class={cls} viewBox="0 0 64 64" {...a11y}><circle {...stroke} cx="32" cy="32" r="26"/><path {...stroke} d="M21 38c6 7 16 7 22 0"/><circle cx="23" cy="26" r="2.5" fill="currentColor"/><circle cx="41" cy="26" r="2.5" fill="currentColor"/></svg>}

@@ -1,18 +1,15 @@
 # Assets
 
-## Typefaces
+## Typeface
 
-Both typefaces are local files so the HTML and the generated PDF render the same way.
+`src/assets/fonts/bricolage.ttf` is the variable Bricolage Grotesque typeface (axes: opsz, wdth, wght) from the Google Fonts repository. Its SIL Open Font License is `src/assets/fonts/Bricolage-OFL.txt`. Source: https://github.com/google/fonts/tree/main/ofl/bricolagegrotesque
 
-- `src/assets/fonts/fraunces.ttf` is the variable Fraunces typeface (axes: opsz, wght, SOFT, WONK) from the Google Fonts repository. Its SIL Open Font License is `src/assets/fonts/Fraunces-OFL.txt`. Source: https://github.com/google/fonts/tree/main/ofl/fraunces
-- `src/assets/fonts/plexmono-regular.ttf`, `plexmono-medium.ttf`, and `plexmono-italic.ttf` are IBM Plex Mono from the Google Fonts repository. Its SIL Open Font License is `src/assets/fonts/IBMPlexMono-OFL.txt`. Source: https://github.com/google/fonts/tree/main/ofl/ibmplexmono
+It is the only typeface on the site and is stored locally so rendering does not depend on a font service.
 
-Display text uses Fraunces with `WONK` enabled. Labels, tables, and metadata use IBM Plex Mono.
+## Marks and icons
 
-## Favicon
-
-`public/favicon.svg` is an inline SVG wordmark drawn in this repository. No external imagery is used anywhere on the site.
+`src/components/Scribble.astro` holds every drawing on the site: the squiggle, arrow, loop, star, smile, and the project and job icons. They are inline SVG paths written in this repository. No external imagery, stock illustration, or generated artwork is used. `public/favicon.svg` is an inline SVG drawn the same way.
 
 ## Diagrams
 
-Case-study diagrams describe documented decisions, staffing, or research structures. The process table in the Lab section lists each independent project's components as supplied by Kate. Nothing on the site is a fabricated screenshot or a performance result.
+Case-study diagrams describe documented decisions, staffing, or research structures. Nothing on the site is a fabricated screenshot or a performance result.

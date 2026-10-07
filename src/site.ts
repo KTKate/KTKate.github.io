@@ -1,67 +1,64 @@
-// Shared copy and facts. Every page and the PDF read from this file.
+// Shared facts and copy. Sourced from Kate's LinkedIn profile, the case studies, and her own notes.
 const site = {
   name: 'Kate Terraccino',
-  positioning: 'Product direction, design, and technical evaluation for enterprise infrastructure.',
-  description: 'Kate Terraccino leads design and research for IBM LinuxONE and Linux on Z, sets product and platform direction from client research and technical evaluation, and builds AI systems independently.',
+  tagline: 'Product and platform strategy for IBM LinuxONE. Design and research leader.',
+  description: 'Kate Terraccino leads design and research for IBM LinuxONE and Linux on IBM Z, sets product and platform direction from client research and technical evaluation, and builds AI systems on her own hardware.',
   email: 'kateterraccino@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kateterraccino/',
-  location: 'Connecticut, United States',
-  revision: '2026.10',
-  partNumber: 'KT-2014-HCI',
+  location: 'Southbury, Connecticut',
 };
+
+// Numbers that come from employment records, team records, and IBM's own assessments. None are product telemetry.
+export const numbers = [
+  { big: '11', small: 'years at IBM', tilt: '-3deg', color: 'lemon' },
+  { big: '98%', small: 'average engagement score for my hybrid cloud team in IBM’s annual assessment', tilt: '2deg', color: 'white' },
+  { big: '2 → 8', small: 'core hybrid cloud design team, with a peak of 18 people', tilt: '-1deg', color: 'mint' },
+  { big: '4', small: 'hybrid cloud products shipped, including the award-winning IBM Z and Cloud Modernization Stack', tilt: '3deg', color: 'blush' },
+  { big: '0 → 6', small: 'LinuxONE design and research practice, founded in 2024', tilt: '-2deg', color: 'white' },
+  { big: '≈30', small: 'clients in the LinuxONE client council I founded', tilt: '1deg', color: 'lemon' },
+  { big: '1', small: 'proposal that became a funded product team: IBM Launchpad for LinuxONE', tilt: '-3deg', color: 'blush' },
+  { big: '4', small: 'AI systems running on my own hardware', tilt: '2deg', color: 'mint' },
+];
+
+// Technologies Kate has personally written production code in, from her LinkedIn history.
+export const stack = ['Angular 1', 'Dojo', 'Angular 4', 'TypeScript', 'Sass', 'Rails', 'Ember', 'jQuery', 'D3', 'PostgreSQL', 'Webpack', 'React', 'Vue'];
+
+export const timeline = [
+  { years: '2024 to now', role: 'Design and research leader, LinuxONE and Linux on IBM Z', org: 'IBM', color: 'tangerine', points: [
+    'Founded the LinuxONE design and research practice and grew it from zero to six people.',
+    'Founded a client council of about 30 clients, with recurring virtual sessions and one in-person event a year. It exists for design input and future direction, not sales.',
+    'Built the client research and technical feasibility case that became IBM Launchpad for LinuxONE, now a funded product team.',
+    'Do product and platform strategy work without the product manager title, across product management, engineering, and design.',
+  ] },
+  { years: '2023 to 2024', role: 'Senior design and research manager, AIOps on Z', org: 'IBM', color: 'blue', points: [
+    'Managed a nine-person team of designers and researchers across a portfolio of observability and analytics products for IT operations.',
+    'Managed at portfolio level, through product leads, with mentorship and professional development as part of the job.',
+  ] },
+  { years: '2019 to 2023', role: 'Senior design and research manager, z/OS hybrid cloud', org: 'IBM, Poughkeepsie', color: 'lemon', points: [
+    'Led a team of up to 18 designers, researchers, and content professionals across a portfolio of hybrid cloud products for the core systems behind banks, insurers, and financial systems.',
+    'Grew the core team from 2 to 8 so every product and discipline was represented.',
+    'Shipped four new hybrid cloud products, including the award-winning IBM Z and Cloud Modernization Stack, which let clients bring on-premises systems to public cloud and use standard automation on mainframe applications.',
+    'Maintained a 98% average engagement score for the team in IBM’s annual assessment.',
+    'Trained and mentored new designers and researchers alongside experienced professionals.',
+  ] },
+  { years: '2017 to 2018', role: 'User experience researcher', org: 'IBM, Poughkeepsie', color: 'mint', points: [
+    'Ran user research alongside the design and development role.',
+  ] },
+  { years: '2015 to 2019', role: 'UX designer and front-end developer', org: 'IBM, Poughkeepsie', color: 'blush', points: [
+    'Promoted new tooling to an established enterprise team, which led to a Future UI team that evaluated and adopted Webpack, React, Vue, and Angular 2 and later.',
+    'Designed and implemented features in mainframe analytics products and a microservices app, in Angular 1 and Dojo.',
+    'Helped design, prototype, architect, and build a new file explorer in Angular 4, TypeScript, and Sass.',
+  ] },
+  { years: '2015', role: 'UI developer', org: 'Spiceworks, Austin', color: 'lemon', points: [
+    'Built an app for marketing traffickers to manage niche advertising campaigns, in Rails, Ember, jQuery, D3, Sass, and PostgreSQL.',
+    'Converted a Rails app into a REST interface between Ember and Google’s real-time bidders.',
+    'Contributed to reusable Ember addons.',
+  ] },
+  { years: '2011 to 2014', role: 'B.S., Computer Science and Human-Computer Interaction', org: 'University of Rochester', color: 'mint', points: [
+    'Teaching and research assistant for three years.',
+    'Xerox Research Scholar, summer 2013.',
+    'IT assistant at the School of Nursing: researched Active Directory integration and resolved faculty and staff support tickets.',
+  ] },
+];
 export const restrictedNote = 'Some figures and dates are omitted until the product is generally available.';
-
-// Specification sheet on the home page. Rows read top to bottom.
-export const spec = [
-  { term: 'Designation', detail: 'Senior design and research lead, IBM LinuxONE and Linux on Z.' },
-  { term: 'Function', detail: 'Sets product and platform direction from client research, design, and technical evaluation. Builds and manages the teams that do the work.' },
-  { term: 'Started', detail: 'October 2015 at IBM. Front-end development before that.' },
-  { term: 'Interfaces', detail: 'APIs, virtualization, containers, networking, storage, server hardware, hybrid cloud patterns.' },
-  { term: 'Teams founded', detail: 'Two. The z/OS hybrid cloud design and research team, grown from 2 to 8 people. The LinuxONE design and research practice, grown from 0 to 6.' },
-  { term: 'Largest team led', detail: '18 people, at the peak of the hybrid cloud portfolio.' },
-  { term: 'Background processes', detail: 'Four AI systems that run on my own hardware and time. Listed in section 05.' },
-  { term: 'Education', detail: 'B.S. in Computer Science and Human-Computer Interaction, University of Rochester, 2014.' },
-  { term: 'Location', detail: 'Connecticut, United States.' },
-  { term: 'Known limitation', detail: 'Does not publish adoption, revenue, or performance figures for products that are not generally available.' },
-];
-
-// Counts the site can state without product telemetry. Each has a source.
-export const counts = [
-  { value: '11', unit: 'years', label: 'at IBM, across five roles and three platform areas', source: 'Employment dates' },
-  { value: '2', unit: 'teams', label: 'founded from zero and grown into practices', source: 'Headcount records' },
-  { value: '18', unit: 'people', label: 'on the largest team I managed', source: 'Headcount at peak' },
-  { value: '4', unit: 'products', label: 'reached general availability with my team’s design and research', source: 'Release records' },
-  { value: '≈30', unit: 'clients', label: 'in the LinuxONE client council I founded', source: 'Council membership' },
-  { value: '1', unit: 'proposal', label: 'became a funded product team: IBM Launchpad for LinuxONE', source: 'Organizational commitment' },
-  { value: '≈5', unit: 'products', label: 'I shipped front-end code for before moving into leadership', source: 'Early IBM work' },
-  { value: '4', unit: 'systems', label: 'running independently on my own hardware', source: 'Section 05' },
-];
-
-export const experience = [
-  { version: '2024', period: '2024 to present', role: 'Senior design and research lead', area: 'IBM LinuxONE and Linux on Z', changes: [
-    ['Added', 'A design and research practice for LinuxONE, built from zero and grown to six people.'],
-    ['Added', 'A client council of about 30 clients, with recurring virtual sessions and one in-person event each year.'],
-    ['Added', 'The client research and technical feasibility case that became IBM Launchpad for LinuxONE, now a funded product team.'],
-    ['Changed', 'Scope of the role to include product and platform strategy, without the product manager title.'],
-  ] },
-  { version: '2023', period: '2023 to 2024', role: 'Senior design and research manager', area: 'AIOps on Z', changes: [
-    ['Changed', 'Managed a nine-person design and research team at portfolio level, through product leads rather than directly.'],
-  ] },
-  { version: '2019', period: '2019 to 2023', role: 'Senior design and research manager', area: 'z/OS hybrid cloud', changes: [
-    ['Added', 'Headcount. Advocated for and grew the core team from 2 to 8 people, with a peak of 18.'],
-    ['Shipped', 'Four hybrid cloud products to general availability, including the IBM Z and Cloud Modernization Stack.'],
-  ] },
-  { version: '2017', period: '2017 to 2018', role: 'UX researcher', area: 'IBM', changes: [
-    ['Added', 'User research, alongside the design and development role.'],
-  ] },
-  { version: '2015', period: '2015 to 2019', role: 'UX designer and front-end developer', area: 'IBM', changes: [
-    ['Shipped', 'Front-end features across about five enterprise products.'],
-  ] },
-  { version: '2015', period: '2015', role: 'UI developer', area: 'Spiceworks, Austin, Texas', changes: [
-    ['Added', 'First role after university, building user interfaces for an IT management product.'],
-  ] },
-  { version: '2014', period: '2014', role: 'B.S. in Computer Science and Human-Computer Interaction', area: 'University of Rochester', changes: [
-    ['Completed', 'Computer science with a focus on how people use what gets built.'],
-  ] },
-];
 export default site;

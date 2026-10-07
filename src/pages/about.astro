@@ -1,51 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
-import Experience from '../components/Experience.astro';
-import site from '../site';
+import Timeline from '../components/Timeline.astro';
+import Scribble from '../components/Scribble.astro';
+import site, { stack } from '../site';
 ---
-<Base title="About" description="How Kate Terraccino went from front-end development to leading design, research, and product direction for IBM LinuxONE, with a changelog of every role.">
-  <div class="about wrap">
-    <section class="about-intro" aria-labelledby="about-title">
-      <span class="rule-num">About</span>
-      <h1 id="about-title">Front-end developer first. Everything since has been about deciding what to build.</h1>
-      <div class="columns">
-        <div>
-          <p class="lead">I lead design and research for IBM LinuxONE and Linux on Z. The job title says design and research. The work is product and platform direction: finding out what clients cannot do, checking whether the APIs exist to fix it, and getting the organization to commit a team.</p>
-          <p>I started at IBM in 2015 writing front-end code for enterprise products, then moved into user research, then into managing design and research teams for z/OS hybrid cloud and AIOps on Z. In 2024 I founded the LinuxONE design and research practice. Each move added a discipline without removing the previous one.</p>
-        </div>
-        <div>
-          <p>The technical side is not decoration. I evaluate APIs, virtualization, containers, networking, storage, and server hardware with engineering, because a product direction that ignores the deployment environment stops working once it reaches a client's data center.</p>
-          <p>On my own time I build AI systems: an agent pipeline I operate from Telegram, a fully local call transcriber, an automated documentary pipeline, and a prediction-market bot. They run on my own hardware and keep my understanding of servers current. They are listed in <a href={`${import.meta.env.BASE_URL}#lab`}>section 05 of the home page</a>.</p>
-          <p class="mono where">{site.location}. <a href={site.linkedin}>Full history on LinkedIn.</a></p>
-        </div>
-      </div>
+<Base title="About" description="Kate Terraccino's career from front-end development at Spiceworks and IBM to leading design, research, and product direction for IBM LinuxONE.">
+  <section class="about-head">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1>Eleven years at IBM, one degree from Rochester, and a lot of Angular 1.<Scribble name="squiggle" class="scribble" /></h1>
+      <p class="lede">I write code, do research, run teams, and decide what gets built. The order I learned those in is below, oldest at the bottom.</p>
+    </div>
+  </section>
+  <div class="wrap about-body">
+    <Timeline />
+    <section class="stack" aria-labelledby="stack-title">
+      <h2 id="stack-title">Things I have shipped code in.</h2>
+      <p class="lede">From the Spiceworks and IBM years. Listed so nobody has to guess whether “technical” means slides.</p>
+      <ul class="stack-list">{stack.map((item, i) => <li><span class={`sticker ${['lemon','white','mint','blush'][i % 4]}`} style={`--tilt:${(i % 3 - 1) * 3}deg`}>{item}</span></li>)}</ul>
     </section>
-    <Experience />
-    <section class="asks" aria-labelledby="asks-title">
-      <span class="rule-num">Working with me</span>
-      <h2 id="asks-title">What you can expect.</h2>
-      <dl>
-        <div><dt>From research</dt><dd>Client sessions turned into a ranked list of problems, with the evidence and its limits stated.</dd></div>
-        <div><dt>From technical evaluation</dt><dd>A clear answer about whether the interfaces exist, from reading the APIs and watching the software run.</dd></div>
-        <div><dt>From management</dt><dd>Teams that are staffed for the portfolio they support, and that present their own work.</dd></div>
-        <div><dt>From me in writing</dt><dd>Decisions recorded with the date and the reasoning. I learned this from the Launchpad work, and that case study says so.</dd></div>
-      </dl>
+    <section class="also" aria-labelledby="also-title">
+      <h2 id="also-title">Also true.</h2>
+      <ul>
+        <li>I live in {site.location}.</li>
+        <li>The LinuxONE client council I founded meets virtually through the year and in person once a year. It is not a sales channel.</li>
+        <li>I had my team present the Launchpad work and take the credit. I did not keep a record of which decisions were mine. The case study says what I would do differently.</li>
+        <li>My first IT job was resolving support tickets at a nursing school.</li>
+      </ul>
+      <p><a class="cta" href={`mailto:${site.email}`}>Email me <Scribble name="arrow" /></a> <a class="plain" href={site.linkedin}>Or read the LinkedIn version.</a></p>
     </section>
   </div>
 </Base>
 <style>
-.about{max-width:1100px;padding-top:clamp(28px,5vw,64px);padding-bottom:40px}
-.about-intro{margin-bottom:clamp(48px,7vw,88px)}
-.about-intro h1{font-size:clamp(2.2rem,5vw,4rem);max-width:20ch;margin-bottom:34px}
-.columns{display:grid;grid-template-columns:1fr 1fr;gap:24px 56px}
-.columns p{color:var(--ink-2);max-width:58ch;font-size:1.0625rem;line-height:1.65}
-.lead{color:var(--ink)!important;font-size:1.25rem!important;line-height:1.5!important}
-.where{color:var(--ink-2)}
-.asks{margin-top:clamp(48px,7vw,88px)}
-.asks h2{margin-bottom:24px}
-.asks dl{margin:0;border-top:1px solid var(--ink)}
-.asks div{display:grid;grid-template-columns:220px 1fr;gap:16px 32px;padding:16px 0;border-bottom:1px solid var(--line)}
-.asks dt{font-family:var(--mono);font-size:.8125rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);padding-top:5px}
-.asks dd{margin:0;max-width:62ch;font-size:1.0625rem}
-@media(max-width:760px){.columns{grid-template-columns:1fr}.asks div{grid-template-columns:1fr;gap:4px}}
+.about-head{background:var(--blush);border-bottom:3px solid var(--ink);padding:clamp(36px,6vw,80px) 0 clamp(40px,6vw,72px)}
+.about-head h1{font-size:clamp(2.3rem,5vw,4.4rem);max-width:18ch;margin-bottom:22px}
+.about-head .lede{margin:0}
+.about-body{padding-top:clamp(48px,7vw,88px)}
+.stack{margin-top:clamp(48px,7vw,88px)}.stack h2{margin-bottom:12px}
+.stack-list{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:18px 14px}
+.stack-list .sticker{font-size:1.05rem;padding:11px 18px}
+.also{margin-top:clamp(48px,7vw,88px)}.also h2{margin-bottom:20px}
+.also ul{list-style:none;margin:0 0 32px;padding:0;max-width:62ch}
+.also li{padding:14px 0;border-top:2px solid var(--ink);line-height:1.45}
+.also p{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;margin:0}
+.plain{font-weight:650}
 </style>
