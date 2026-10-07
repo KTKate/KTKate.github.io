@@ -31,8 +31,9 @@ export const timeline = [
     'Do product and platform strategy work without the product manager title, across product management, engineering, and design.',
   ] },
   { years: '2023 to 2024', role: 'Senior design and research manager, AIOps on Z', org: 'IBM', points: [
-    'Managed a nine-person team of designers and researchers across a portfolio of observability and analytics products for IT operations.',
-    'Managed at portfolio level, through product leads, with mentorship and professional development as part of the job.',
+    'Inherited a nine-person team of designers and researchers across a portfolio of observability and analytics products for IT operations. Its work was not connected to what the products needed.',
+    'Found out what each product and the business needed from design and research, assigned a lead per product with a brief tied to those needs, and stopped work that did not serve one.',
+    'Managed through the leads and backed their decisions. Product management and engineering started asking for the team’s work and using it.',
   ] },
   { years: '2019 to 2023', role: 'Senior design and research manager, z/OS hybrid cloud', org: 'IBM, Poughkeepsie', points: [
     'Led a team of up to 18 designers, researchers, and content professionals across a portfolio of hybrid cloud products for the core systems behind banks, insurers, and financial systems.',
