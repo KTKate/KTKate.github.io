@@ -7,7 +7,7 @@ let server, browser;
 try {
   server = await preview({ root, server: { port: 4329, host: '127.0.0.1' } });
   const bundled = chromium.executablePath();
-  const system = ['/usr/bin/google-chrome-stable','/usr/bin/google-chrome'].find(existsSync);
+  const system = [process.env.CHROMIUM_PATH,'/usr/bin/google-chrome-stable','/usr/bin/google-chrome'].filter(Boolean).find(existsSync);
   browser = await chromium.launch({ executablePath: existsSync(bundled) ? bundled : system });
   const page = await browser.newPage();
   const base = (process.env.BASE_PATH || '/').replace(/\/?$/, '/');

@@ -1,15 +1,19 @@
 @page{size:A4;margin:17mm 18mm}
-html{background:white;color:#171d32;font-size:16px}
+html{background:white;color:#1d1b1a;font-size:16px}
 .print-document{max-width:920px;margin:0 auto;padding:32px clamp(20px,4vw,48px)}
-.print-nav{display:flex;gap:24px;border-bottom:1px solid #d2d4dc;padding-bottom:20px;margin-bottom:40px;font-size:.9375rem}.print-document a{overflow-wrap:anywhere}
-.cover h1{font-size:clamp(2.4rem,6vw,4rem)}.cover .positioning{font-size:1.5rem;font-weight:700}.cover{padding:36px 0 60px}.cover h2{font-size:1.4rem;margin-top:32px}.cover p{max-width:60ch}.drafts{font-size:.875rem;margin-top:28px;color:#495063}.drafts p{margin:4px 0 0}
-.entry{margin:0 0 64px;padding-top:30px;border-top:1px solid #d2d4dc}.entry>h1{font-size:2.4rem}.principle-group{margin:28px 0}.principle-group h2{font-size:1.4rem}.print-project{margin-top:32px}.print-project>h2{font-size:1.7rem}
+.print-nav{display:flex;gap:24px;border-bottom:1px solid #cfc6b5;padding-bottom:20px;margin-bottom:40px}.print-document a{overflow-wrap:anywhere}
+.cover{padding:36px 0 60px}.cover .meta{text-transform:uppercase;letter-spacing:.1em;color:#5f594f}.cover h1{font-size:clamp(2.6rem,7vw,4.6rem);margin-bottom:12px}.cover .positioning{font-size:1.4rem;max-width:30ch;margin-bottom:28px}
+.cover .spec{margin:0 0 24px;border-top:1px solid #1d1b1a}.cover .spec div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:8px 0;border-bottom:1px solid #cfc6b5}.cover .spec dt{font-family:var(--mono);font-size:.8125rem;text-transform:uppercase;letter-spacing:.08em;color:#5f594f;padding-top:3px}.cover .spec dd{margin:0}
+.cover h2{font-size:1.4rem;margin-top:32px}.cover ol{padding-left:20px}.drafts{font-size:.875rem;margin-top:28px;color:#5f594f}.drafts p{margin:4px 0 0}
+.entry{margin:0 0 64px;padding-top:30px;border-top:1px solid #cfc6b5}.entry>h1{font-size:2.4rem}
+.counts{margin:0 0 40px;border-top:1px solid #1d1b1a}.counts div{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:8px 0;border-bottom:1px solid #cfc6b5}.counts dt{font-family:var(--serif);font-size:1.3rem;font-variation-settings:var(--wonk)}.counts dd{margin:0}.counts .mono{color:#5f594f}
+.principle-group{margin:28px 0}.principle-group h2{font-size:1.4rem}.principle-group .mono{color:var(--accent)}
+.print-project{margin-top:32px}.print-project>h2{font-size:1.7rem}.print-project .note{color:#5f594f}.print-project .parts{color:#5f594f}
 @media print{
  html{font-size:10pt}.print-document{max-width:none;padding:0;margin:0}.print-nav{display:none}h1,h2,h3{break-after:avoid}p{widows:3;orphans:3}
- .cover{padding:26mm 0 0;min-height:240mm}.cover h1{font-size:32pt}.cover .positioning{font-size:15pt}.cover h2{font-size:14pt}.cover>p{font-size:11pt}.cover ol{padding-left:16pt}.cover li{margin-bottom:5pt}.drafts{font-size:9pt}
- .entry{break-before:page;border:0;padding:0;margin:0}.entry>h1{font-size:25pt}.principle-group{break-inside:avoid;margin:18pt 0}.principle-group h2{font-size:14pt}.principle-group p{font-size:10pt}.print-project{break-inside:avoid;margin-top:18pt}.print-project>h2{font-size:16pt}.print-project>p{font-size:10pt}
+ .cover{padding:20mm 0 0;min-height:240mm}.cover h1{font-size:34pt}.cover .positioning{font-size:14pt}.cover h2{font-size:14pt}.cover .spec dd{font-size:9.5pt}.cover .spec dt{font-size:7.5pt}.cover .spec div{padding:5pt 0}.cover li{margin-bottom:4pt}.drafts{font-size:9pt}
+ .entry{break-before:page;border:0;padding:0;margin:0}.entry>h1{font-size:25pt}.counts dt{font-size:12pt}.counts dd{font-size:9.5pt}.counts div{padding:5pt 0}
+ .principle-group{break-inside:avoid;margin:18pt 0}.principle-group h2{font-size:14pt}.principle-group p{font-size:10pt}
+ .print-project{break-inside:avoid;margin-top:18pt}.print-project>h2{font-size:16pt}.print-project>p{font-size:10pt}
  a{color:inherit;text-decoration:none}img,svg{max-width:100%}
-}
-@media print{
- .case-header h1{font-size:22pt!important;margin-bottom:10pt!important}.case-header .kicker{margin-bottom:8pt;font-size:8pt}.case-header .summary{font-size:11pt!important;margin-bottom:10pt}.case-header .spec{margin:10pt 0!important}.case-header .spec p{font-size:9pt}.case-header .spec strong{font-size:8pt}.case-header .restriction{padding:9pt 11pt;margin-bottom:12pt;font-size:9pt!important}.case-header .brief{margin-top:12pt}.case-header .brief>div{padding:6pt 0!important}.case-header .brief dd{font-size:9.5pt!important}.case-header .brief dt{font-size:8pt}.decision-diagram{padding:11pt!important;margin:14pt 0!important}.decision-diagram figcaption{margin-bottom:12pt!important;font-size:10pt!important}.decision-diagram>p{margin-top:12pt!important;font-size:8pt!important}.decision-diagram li>span:last-child{font-size:8.5pt!important}.case-body h2{font-size:12pt;margin:13pt 0 6pt}.case-body p{font-size:9.5pt;line-height:1.5;margin-bottom:10pt}
 }

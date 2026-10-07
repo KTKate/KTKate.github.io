@@ -93,3 +93,13 @@ Follow-up to `d996f27`, verified 11 September 2026. Removed the repeating ten-se
 Baseline and final `npm run build` and `npm test` passed. The final run covered all seven routes and five widths listed above: 35 page checks and 27 internal links/anchors, with zero failures. Added checks confirm that pointer and scroll responses stop within two browser frames and stay still afterward, with no automatic animations. Keyboard, accessibility, reduced-motion, enlarged-text, no-JavaScript, publication-hold, and HTML/print parity checks passed. `git diff --check` passed.
 
 Reviewed full-page home captures at 320, 390, 768, 1024, and 1440 pixels, plus both pointer extremes and the touch scroll position. The local preview also passed the focused input checks. The regenerated PDF has nine pages; public and build copies are byte-identical.
+
+## Redesign: specification sheet, counts, changelog
+
+Verified 7 October 2026 on branch `claude/portfolio-site-redesign-uruh39`. The cut-paper hero, its pointer and scroll motion, the principle tabs, and the Manrope typeface were removed. The home page now opens with a specification sheet instead of an introduction, followed by a ledger of counts that need no product telemetry, three case-study cards, four groups of operating rules, and a process table of independent AI systems. The About page presents experience as a changelog. Public pages ship no JavaScript.
+
+Typefaces are Fraunces and IBM Plex Mono, stored locally with their SIL Open Font License files in `src/assets/fonts/`. The accent color was darkened to `#a8300c` after axe reported 4.26:1 against the secondary paper tone; every text color now passes WCAG AA at the sizes used.
+
+`npm run build`, `npm test`, and `git diff --check` passed. The suite covered the seven routes at 320, 390, 768, 1024, and 1440 pixels: 35 page checks and 27 internal link and anchor checks, with zero failures. Checks were updated to the new structure: skip link, specification heading, eight counts, three cards, four process rows, four rule groups, reduced motion, 200% text enlargement at 390 and 320 pixels, no-JavaScript rendering, held Launchpad details, print parity, draft exclusion, and PDF byte parity. The `scripts/paper-qa.mjs` checks were removed with the artwork.
+
+The PDF regenerated at 12 A4 pages and was rendered to images for review. A class-name collision between the changelog and the print stylesheet's page-break rule initially produced one changelog entry per page; the class was renamed and the pagination corrected. Publication holds in `docs/HOLDS.md` are unchanged and still enforced by the test suite.

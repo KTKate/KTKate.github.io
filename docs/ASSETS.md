@@ -1,19 +1,18 @@
 # Assets
 
-## Cut-paper hero
+## Typefaces
 
-`public/images/paper-convergence.webp` is original generated artwork created using the built-in image generation tool. It depicts three complementary cut-paper stacks in violet, amber, and magenta, with dark-to-light sheets and three channels meeting at the center. The background is transparent. No client or project interface is depicted. The supplied inspiration images were inspected for material and construction reference; they are not redistributed in this repository.
+Both typefaces are local files so the HTML and the generated PDF render the same way.
 
-The generated 1254 × 1254 RGBA PNG was encoded as WebP at quality 92 with its alpha channel preserved. All three animated stacks share that one cached resource. Motion responds directly to pointer movement and scrolling while the artwork is visible and can be paused from the keyboard. There is no repeating animation. Reduced-motion and no-JavaScript presentations are static. See [HERO-ART.md](HERO-ART.md) for the generation prompt and implementation details.
+- `src/assets/fonts/fraunces.ttf` is the variable Fraunces typeface (axes: opsz, wght, SOFT, WONK) from the Google Fonts repository. Its SIL Open Font License is `src/assets/fonts/Fraunces-OFL.txt`. Source: https://github.com/google/fonts/tree/main/ofl/fraunces
+- `src/assets/fonts/plexmono-regular.ttf`, `plexmono-medium.ttf`, and `plexmono-italic.ttf` are IBM Plex Mono from the Google Fonts repository. Its SIL Open Font License is `src/assets/fonts/IBMPlexMono-OFL.txt`. Source: https://github.com/google/fonts/tree/main/ofl/ibmplexmono
 
-The approved asset is retained for the pointer/scroll refinement. A CSS tonal adjustment increases contrast without changing its transparency or geometry. The additional motion uses translated wrappers and downloads no additional imagery.
+Display text uses Fraunces with `WONK` enabled. Labels, tables, and metadata use IBM Plex Mono.
 
-## Typeface
+## Favicon
 
-`src/assets/manrope.ttf` is the variable Manrope typeface from the Google Fonts repository. Its SIL Open Font License is included as `src/assets/Manrope-OFL.txt`.
-
-Source: https://github.com/google/fonts/tree/main/ofl/manrope
+`public/favicon.svg` is an inline SVG wordmark drawn in this repository. No external imagery is used anywhere on the site.
 
 ## Diagrams
 
-Case-study diagrams describe documented decisions, staffing, or research structures. Lab diagrams are explicitly conceptual and use only the supplied project components. They are not fabricated application screenshots or performance results.
+Case-study diagrams describe documented decisions, staffing, or research structures. The process table in the Lab section lists each independent project's components as supplied by Kate. Nothing on the site is a fabricated screenshot or a performance result.

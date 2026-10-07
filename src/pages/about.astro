@@ -3,14 +3,49 @@ import Base from '../layouts/Base.astro';
 import Experience from '../components/Experience.astro';
 import site from '../site';
 ---
-<Base title="About" description="Kate Terraccino leads product and platform direction through design, research, and technical evaluation for enterprise infrastructure.">
+<Base title="About" description="How Kate Terraccino went from front-end development to leading design, research, and product direction for IBM LinuxONE, with a changelog of every role.">
   <div class="about wrap">
-    <section class="about-intro"><p class="kicker">About Kate</p><h1>Product direction informed by research and technical depth.</h1><p class="lead">I am a senior design and research lead at IBM for LinuxONE and Linux on Z. I lead product and platform strategy, client research, and the organizational work needed to move a technical product from proposal to delivery.</p><p>My technical range includes APIs, virtualization, containers, virtual machines, networking, storage, hybrid cloud patterns, and server hardware. I use that knowledge to evaluate implementation options with engineering.</p><p>I build independent AI and automation systems on my own time. Those projects also develop my understanding of hardware and server internals.</p><p>My career began in front-end development. My current work focuses on product decisions: what to build, how to establish feasibility, and how to organize delivery.</p></section>
+    <section class="about-intro" aria-labelledby="about-title">
+      <span class="rule-num">About</span>
+      <h1 id="about-title">Front-end developer first. Everything since has been about deciding what to build.</h1>
+      <div class="columns">
+        <div>
+          <p class="lead">I lead design and research for IBM LinuxONE and Linux on Z. The job title says design and research. The work is product and platform direction: finding out what clients cannot do, checking whether the APIs exist to fix it, and getting the organization to commit a team.</p>
+          <p>I started at IBM in 2015 writing front-end code for enterprise products, then moved into user research, then into managing design and research teams for z/OS hybrid cloud and AIOps on Z. In 2024 I founded the LinuxONE design and research practice. Each move added a discipline without removing the previous one.</p>
+        </div>
+        <div>
+          <p>The technical side is not decoration. I evaluate APIs, virtualization, containers, networking, storage, and server hardware with engineering, because a product direction that ignores the deployment environment stops working once it reaches a client's data center.</p>
+          <p>On my own time I build AI systems: an agent pipeline I operate from Telegram, a fully local call transcriber, an automated documentary pipeline, and a prediction-market bot. They run on my own hardware and keep my understanding of servers current. They are listed in <a href={`${import.meta.env.BASE_URL}#lab`}>section 05 of the home page</a>.</p>
+          <p class="mono where">{site.location}. <a href={site.linkedin}>Full history on LinkedIn.</a></p>
+        </div>
+      </div>
+    </section>
     <Experience />
-    <p class="location">{site.location}. <a href={site.linkedin}>LinkedIn profile</a></p>
+    <section class="asks" aria-labelledby="asks-title">
+      <span class="rule-num">Working with me</span>
+      <h2 id="asks-title">What you can expect.</h2>
+      <dl>
+        <div><dt>From research</dt><dd>Client sessions turned into a ranked list of problems, with the evidence and its limits stated.</dd></div>
+        <div><dt>From technical evaluation</dt><dd>A clear answer about whether the interfaces exist, from reading the APIs and watching the software run.</dd></div>
+        <div><dt>From management</dt><dd>Teams that are staffed for the portfolio they support, and that present their own work.</dd></div>
+        <div><dt>From me in writing</dt><dd>Decisions recorded with the date and the reasoning. I learned this from the Launchpad work, and that case study says so.</dd></div>
+      </dl>
+    </section>
   </div>
 </Base>
 <style>
-.about{max-width:1050px;padding-top:56px;padding-bottom:72px}.about-intro{margin-bottom:60px}.about-intro h1{max-width:17ch;margin-bottom:30px}.about-intro p:not(.kicker){max-width:65ch;color:var(--type-2);font-size:1.0625rem;line-height:1.7}.about-intro .lead{font-size:1.3rem!important;color:var(--type)!important}.location{margin:40px 0 0;color:var(--type-2)}
-@media(max-width:600px){.about{padding-top:36px}.about-intro .lead{font-size:1.125rem!important}}
+.about{max-width:1100px;padding-top:clamp(28px,5vw,64px);padding-bottom:40px}
+.about-intro{margin-bottom:clamp(48px,7vw,88px)}
+.about-intro h1{font-size:clamp(2.2rem,5vw,4rem);max-width:20ch;margin-bottom:34px}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:24px 56px}
+.columns p{color:var(--ink-2);max-width:58ch;font-size:1.0625rem;line-height:1.65}
+.lead{color:var(--ink)!important;font-size:1.25rem!important;line-height:1.5!important}
+.where{color:var(--ink-2)}
+.asks{margin-top:clamp(48px,7vw,88px)}
+.asks h2{margin-bottom:24px}
+.asks dl{margin:0;border-top:1px solid var(--ink)}
+.asks div{display:grid;grid-template-columns:220px 1fr;gap:16px 32px;padding:16px 0;border-bottom:1px solid var(--line)}
+.asks dt{font-family:var(--mono);font-size:.8125rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);padding-top:5px}
+.asks dd{margin:0;max-width:62ch;font-size:1.0625rem}
+@media(max-width:760px){.columns{grid-template-columns:1fr}.asks div{grid-template-columns:1fr;gap:4px}}
 </style>
