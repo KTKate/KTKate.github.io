@@ -1,6 +1,6 @@
 ---
-title: A LinuxONE design and research practice, from zero
-summary: Founding a practice and a client council so that product direction for LinuxONE has recurring client input.
+title: Founding a design practice and a 30-client council from nothing
+summary: A platform with engineering and product management but no one asking clients what they could not do. I built the practice to six people and a standing council of about 30 clients that product direction now runs through.
 order: 2
 status: public
 role: Founder of the LinuxONE design and research practice and client council

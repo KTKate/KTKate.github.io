@@ -3,14 +3,18 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Scribble from '../components/Scribble.astro';
 import { projects } from '../projects';
-import site from '../site';
+import site, { proof } from '../site';
 import { toneFor } from '../tones';
 const base = import.meta.env.BASE_URL;
 const entries = (await getCollection('case-studies', e => import.meta.env.DEV || e.data.status !== 'draft')).sort((a, b) => a.data.order - b.data.order);
 ---
 <Base>
   <section class="open wrap" aria-labelledby="open-title">
-    <h1 id="open-title">Design and research lead for IBM LinuxONE. Most of the job is <span class="t-violet">finding out what a new client cannot do</span>, <span class="t-magenta">checking whether the APIs exist</span>, and getting a team <span class="ring">funded<Scribble name="loop" class="ring-mark" /></span> to build the fix.</h1>
+    <h1 id="open-title">Cross-functional product leader for enterprise infrastructure.</h1>
+    <p class="lede open-lede">I set product and platform strategy, build and run the design and research teams behind it, and read the APIs <span class="ring">myself<Scribble name="loop" class="ring-mark" /></span> to prove it can be built. Eleven years doing that for the systems behind banks, insurers, and the world’s largest companies.</p>
+    <ul class="proof" aria-label="Three disciplines">
+      {proof.map(p => <li style={`--tone:var(--${p.tone})`}><strong>{p.name}</strong><span>{p.text}</span></li>)}
+    </ul>
   </section>
   <section id="work" class="work wrap" aria-labelledby="work-title">
     <h2 id="work-title" class="kicker">Work</h2>
@@ -20,7 +24,7 @@ const entries = (await getCollection('case-studies', e => import.meta.env.DEV ||
         <div class="case-text">
           <h3><a href={`${base}work/${entry.id}/`}>{entry.data.title}</a></h3>
           <p>{entry.data.summary}</p>
-          <p class="meta">{entry.data.result}{entry.data.status === 'restricted' && <span> · some figures restricted until general availability</span>}</p>
+          <p class="meta">{entry.data.result}</p>
         </div>
         <Scribble name="arrow" class="go" />
       </li>)}
@@ -28,19 +32,23 @@ const entries = (await getCollection('case-studies', e => import.meta.env.DEV ||
   </section>
   <section class="side wrap" aria-labelledby="side-title">
     <h2 id="side-title" class="kicker">Side projects</h2>
-    <p class="lede">Four AI systems that run on my own hardware, separate from IBM: {projects.map((p, i) => <span>{i > 0 && (i === projects.length - 1 ? ', and ' : ', ')}<a href={`${base}side-projects/#${p.id}`}>{p.name}</a></span>)}. One of them makes documentaries.</p>
+    <p class="lede">Four AI systems I built and run myself, on my own servers and a cloud VM: {projects.map((p, i) => <span>{i > 0 && (i === projects.length - 1 ? ', and ' : ', ')}<a href={`${base}side-projects/#${p.id}`}>{p.name}</a></span>)}. They keep the technical judgment on this page current.</p>
   </section>
   <section class="reach wrap" aria-labelledby="reach-title">
     <h2 id="reach-title" class="kicker">Reach me</h2>
-    <p class="lede"><a href={`mailto:${site.email}`}>{site.email}</a>. The <a href={`${base}about/`}>About page</a> has every job since 2011, the numbers that exist, and the stack I have written code in. {site.location}.</p>
+    <p class="lede"><a href={`mailto:${site.email}`}>{site.email}</a>. The <a href={`${base}about/`}>About page</a> has the full history, the numbers, and how I work. {site.location}.</p>
   </section>
 </Base>
 <style>
 .open{padding-top:clamp(32px,6vw,88px);padding-bottom:clamp(40px,7vw,96px)}
-.open h1{font-size:clamp(1.9rem,4.2vw,3.7rem);font-weight:600;line-height:1.12;letter-spacing:-.02em;max-width:24em;margin:0}
-.t-violet{color:var(--violet)}.t-magenta{color:var(--magenta)}
+.open h1{font-size:clamp(2.3rem,5.2vw,4.6rem);max-width:13em;margin:0 0 22px}
+.open-lede{margin:0 0 clamp(32px,5vw,56px);max-width:40em}
+.proof{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 32px;border-top:1px solid var(--line)}
+.proof li{padding-top:18px;border-top:2px solid var(--tone);margin-top:-1px}
+.proof strong{display:block;color:var(--tone);font-weight:600;margin-bottom:8px}
+.proof span{color:var(--fg-2);line-height:1.45;font-size:1rem}
 .ring{position:relative;display:inline-block;padding:0 .12em}
-:global(.ring-mark){position:absolute;left:-.28em;top:-.18em;width:calc(100% + .56em);height:1.3em;max-width:none;color:var(--accent);pointer-events:none}
+:global(.ring-mark){position:absolute;left:-.3em;top:-.2em;width:calc(100% + .6em);height:1.35em;max-width:none;color:var(--accent);pointer-events:none}
 .work{padding-bottom:clamp(40px,6vw,80px)}
 .cases{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .cases li{display:grid;grid-template-columns:56px minmax(0,1fr) 40px;gap:16px 24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start}
@@ -52,5 +60,6 @@ const entries = (await getCollection('case-studies', e => import.meta.env.DEV ||
 :global(.go){width:40px;color:var(--tone);margin-top:.5em;opacity:.8}
 .side,.reach{padding-bottom:clamp(36px,5vw,64px)}
 .side .lede a,.reach .lede a{color:var(--fg)}
+@media(max-width:860px){.proof{grid-template-columns:1fr;gap:18px}}
 @media(max-width:600px){.cases li{grid-template-columns:40px minmax(0,1fr)}:global(.go){display:none}}
 </style>

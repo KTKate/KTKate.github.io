@@ -1,6 +1,6 @@
 ---
-title: IBM Launchpad for LinuxONE
-summary: Client research and a working demonstration turned a provisioning proposal into a funded product team.
+title: From client research to a funded product team
+summary: I built the case that new clients could not get a first workload running, found the proof that the APIs to fix it already existed, and got leadership to fund IBM Launchpad for LinuxONE.
 order: 1
 status: restricted
 role: Design and research lead, with product leadership responsibilities
