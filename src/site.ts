@@ -5,7 +5,7 @@ const site = {
   description: 'Kate Terraccino sets product and platform strategy for enterprise infrastructure, builds and runs the design and research teams behind it, and reads the APIs herself to prove it can be built. Eleven years on the systems behind banks, insurers, and the world’s largest companies.',
   email: 'kateterraccino@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kateterraccino/',
-  location: 'Southbury, Connecticut',
+  location: 'Connecticut, US',
 };
 
 // Three proof points, one per discipline. Shown under the opening statement on the home page.
