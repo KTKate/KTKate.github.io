@@ -23,7 +23,7 @@ export const numbers = [
   { big: '98%', small: 'average team engagement score in the company’s annual assessment' },
   { big: '4', small: 'hybrid cloud products shipped, including the award-winning IBM Z and Cloud Modernization Stack' },
   { big: '≈30', small: 'enterprise clients in the council I founded, still meeting' },
-  { big: '9', small: 'person team redirected around business needs in one year' },
+  { big: '9', small: 'person team made effective after the business had stopped relying on it' },
   { big: '4', small: 'AI systems I build and run myself' },
 ];
 
@@ -45,7 +45,7 @@ export const timeline = [
     'Led up to 18 designers, researchers, and content professionals across a portfolio of hybrid cloud products for the core systems behind banks, insurers, and financial systems.',
     'Grew the core team from 2 to 8 so every product and discipline was covered, and held a 98% average engagement score.',
     'Shipped four new hybrid cloud products, including the award-winning IBM Z and Cloud Modernization Stack, which brought on-premises systems to public cloud and standard automation to mainframe applications.',
-    'Trained new designers and researchers into a team that experienced hires joined by choice.',
+    'Trained and mentored new designers and researchers alongside experienced professionals.',
   ] },
   { years: '2015 to 2019', role: 'UX designer, front-end developer, and user researcher', org: 'IBM Z analytics', points: [
     'Shipped front-end features across about five enterprise products.',
