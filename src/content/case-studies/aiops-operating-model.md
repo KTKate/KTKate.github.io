@@ -1,12 +1,12 @@
 ---
-title: Making an inherited AIOps on Z team effective
-summary: I took over a nine-person design and research team that was not producing work the business could use, found out what the business needed, and redirected the team around it.
+title: Redirecting an inherited team of nine around what the business needed
+summary: I took over a design and research team the business had stopped relying on, rebuilt its remit around what product management and engineering needed, and made it a team those groups asked for.
 order: 4
 status: public
 role: Senior design and research manager
 timeframe: 2023 to 2024
 category: Team leadership
-result: 9 people · Redirected around business needs
+result: 9 people · A team the business asked for again
 brief:
   - label: Before
     text: An inherited team of nine designers and researchers across a portfolio of observability and analytics products, working hard on things the products did not need.

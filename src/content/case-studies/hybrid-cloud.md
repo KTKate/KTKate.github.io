@@ -1,6 +1,6 @@
 ---
-title: Four hybrid cloud products to general availability
-summary: Growing the design and research team behind an enterprise hybrid cloud portfolio, and supporting four products to release.
+title: Four hybrid cloud products shipped, a team grown from 2 to 18
+summary: I made the case for headcount, built the team to match the portfolio, and shipped four products including the award-winning IBM Z and Cloud Modernization Stack, with a 98% team engagement score.
 order: 3
 status: public
 role: Senior design and research manager, z/OS hybrid cloud

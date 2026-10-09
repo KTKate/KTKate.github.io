@@ -4,31 +4,31 @@ import Timeline from '../components/Timeline.astro';
 import Scribble from '../components/Scribble.astro';
 import site, { stack, numbers } from '../site';
 ---
-<Base title="About" description="Kate Terraccino's career from front-end development at Spiceworks and IBM to leading design, research, and product direction for IBM LinuxONE, with the numbers that exist.">
+<Base title="About" description="Kate Terraccino: developer, then researcher, then manager, then product strategist for enterprise infrastructure. The full history, the numbers, and how she works.">
   <section class="head wrap" style="--tone:var(--violet)">
     <span class="kicker" style="color:var(--tone)">About</span>
-    <h1>Eleven years at IBM, one degree from Rochester, and a lot of Angular 1.<Scribble name="squiggle" class="under" /></h1>
-    <p class="lede">I write code, do research, run teams, and decide what gets built. The order I learned those in is below, newest first. I live in {site.location}.</p>
+    <h1>Developer, then researcher, then manager, then strategist. I kept each one.<Scribble name="squiggle" class="under" /></h1>
+    <p class="lede">That order is why I can sit in the API review, run the client research, and make the business case in the same week. Each role below added a discipline without dropping one. I live in {site.location}.</p>
   </section>
   <section class="wrap nums" aria-labelledby="nums-title">
-    <h2 id="nums-title" class="kicker">Numbers that exist</h2>
-    <p class="lede">I do not have adoption or revenue figures I am allowed to publish, so there is no stat wall. These come from employment records, team records, and IBM’s own assessments.</p>
+    <h2 id="nums-title" class="kicker">By the numbers</h2>
     <dl class="counts">{numbers.map(n => <div><dt>{n.big}</dt><dd>{n.small}</dd></div>)}</dl>
   </section>
   <section class="wrap">
     <Timeline />
   </section>
   <section class="wrap stack" aria-labelledby="stack-title">
-    <h2 id="stack-title" class="kicker">Things I have shipped code in</h2>
-    <p class="lede">From the Spiceworks and IBM years. Listed so nobody has to guess whether “technical” means slides.</p>
+    <h2 id="stack-title" class="kicker">I still read and write code</h2>
+    <p class="lede">Production front-end work across about five enterprise products, which is why engineering teams let me into the API discussion and why the side projects exist.</p>
     <p class="stack-list">{stack.map((item, i) => <span>{i > 0 && <span class="dot" aria-hidden="true"> · </span>}{item}</span>)}</p>
   </section>
   <section class="wrap also" aria-labelledby="also-title">
-    <h2 id="also-title" class="kicker">Also true</h2>
+    <h2 id="also-title" class="kicker">How I work</h2>
     <ul>
-      <li>The LinuxONE client council I founded meets virtually through the year and in person once a year. It is not a sales channel.</li>
-      <li>I had my team present the Launchpad work and take the credit. I did not keep a record of which decisions were mine. The case study says what I would do differently.</li>
-      <li>My first IT job was resolving support tickets at a nursing school.</li>
+      <li>Research before requirements. An hour with a user saves a quarter of rework, so the client conversation happens before the roadmap is fixed, not after.</li>
+      <li>APIs before promises. I read the interfaces and watch the software run before I commit a team to a direction.</li>
+      <li>One accountable lead per product, and a manager accountable for the whole. It is how I run teams and how I built two practices from nothing.</li>
+      <li>The team presents its own work. Credit goes to the people who did it, and the organization learns who to call.</li>
     </ul>
     <p><a class="cta" href={`mailto:${site.email}`}>Email me <Scribble name="arrow" /></a> <a class="plain" href={site.linkedin}>Or read the LinkedIn version.</a></p>
   </section>

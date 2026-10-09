@@ -2,14 +2,14 @@
 import { timeline } from '../site';
 ---
 <section class="timeline" aria-labelledby="timeline-title">
-  <h2 id="timeline-title" class="kicker" style="color:var(--violet)">Every job since 2011</h2>
+  <h2 id="timeline-title" class="kicker" style="color:var(--violet)">History</h2>
   <ol>
     {timeline.map(item => <li class="stop">
       <p class="years">{item.years}</p>
       <div class="what">
         <h3>{item.role}</h3>
-        <p class="org">{item.org}</p>
-        <ul>{item.points.map(point => <li>{point}</li>)}</ul>
+        {item.org && <p class="org">{item.org}</p>}
+        {item.points.length > 0 && <ul>{item.points.map(point => <li>{point}</li>)}</ul>}
       </div>
     </li>)}
   </ol>
