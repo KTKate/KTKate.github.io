@@ -1,5 +1,5 @@
 ---
-title: Redirecting an inherited team of nine around what the business needed
+title: Making an inherited team of nine effective again
 summary: I took over a design and research team the business had stopped relying on, rebuilt its remit around what product management and engineering needed, and made it a team those groups asked for.
 order: 4
 status: public
@@ -16,11 +16,11 @@ brief:
     text: A team whose work product management and engineering asked for and used. The evidence is organizational, not product telemetry.
 diagram:
   title: From inherited to effective
-  caption: The sequence I followed. It describes how the team was redirected, not a measured product result.
+  caption: The sequence I followed. It describes how the team was made effective, not a measured product result.
   steps:
     - title: Find the needs
       detail: Worked through each product’s plans with product management and engineering to learn what they needed from design and research, and what they were not getting.
-    - title: Redirect the team
+    - title: Refocus the team
       detail: Assigned a lead per product with a clear brief tied to those needs, and stopped work that did not serve one.
     - title: Keep to the needs
       detail: Managed through the leads, backed their decisions, and kept new requests measured against the needs already agreed.
