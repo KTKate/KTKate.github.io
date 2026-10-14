@@ -1,8 +1,8 @@
 // Shared facts and copy. Sourced from Kate's LinkedIn profile, the case studies, and her own notes.
 const site = {
   name: 'Kate Terraccino',
-  tagline: 'Cross-functional product leader for enterprise infrastructure',
-  description: 'Kate Terraccino sets product and platform strategy for enterprise infrastructure, builds and runs the design and research teams behind it, and reads the APIs herself to prove it can be built. Eleven years on the systems behind banks, insurers, and the world’s largest companies.',
+  tagline: 'Enterprise UX and platform strategy for IBM Z and LinuxONE',
+  description: 'Kate Terraccino leads enterprise UX, research, and platform strategy for IBM Z and LinuxONE. Customer discovery, an unreleased enterprise product, four hybrid cloud launches, and independent projects with agents, MCP, and local inference.',
   email: 'kateterraccino@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kateterraccino/',
   location: 'Connecticut, US',
@@ -10,9 +10,9 @@ const site = {
 
 // Three proof points, one per discipline. Shown under the opening statement on the home page.
 export const proof = [
-  { tone: 'violet', name: 'Design and research', text: 'Founded two design and research practices from zero, grew one team to 18, and held a 98% engagement score.' },
-  { tone: 'amber', name: 'Product and business', text: 'Turned client research into a funded product team, and took four hybrid cloud products to general availability.' },
-  { tone: 'magenta', name: 'Technical', text: 'Read the APIs and watch the software run before committing a roadmap to it. Shipped production front-end code. Build AI systems in my own time.' },
+  { tone: 'violet', name: 'Enterprise experience', text: 'Lead design and research across IBM Z and LinuxONE, with a recurring council of about 30 enterprise clients informing product direction.' },
+  { tone: 'amber', name: 'Platform strategy and delivery', text: 'Helped turn customer research into a funded enterprise product initiative. Led design and research teams supporting four hybrid cloud launches.' },
+  { tone: 'magenta', name: 'Hands-on AI and development', text: 'Shipped production front-end code. Build and operate independent projects with agents, an MCP gateway, local inference, and third-party APIs.' },
 ];
 
 // Counts from team and release records.
@@ -34,7 +34,7 @@ export const timeline = [
   { years: '2024 to now', role: 'Design and research leader, product and platform strategy', org: 'LinuxONE and Linux on IBM Z', points: [
     'Founded the design and research practice from zero and grew it to six people.',
     'Founded a council of about 30 enterprise clients that meets through the year and in person annually, so product direction has standing client input instead of one-off interviews.',
-    'Built the client research and technical feasibility case that became IBM Launchpad for LinuxONE, a funded product team.',
+    'Helped turn customer research into a funded enterprise product initiative.',
     'Set product and platform strategy across product management, engineering, and design, without holding the product manager title.',
   ] },
   { years: '2023 to 2024', role: 'Senior design and research manager', org: 'AIOps on Z', points: [
