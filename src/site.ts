@@ -1,8 +1,8 @@
 // Shared facts and copy. Sourced from Kate's LinkedIn profile, the case studies, and her own notes.
 const site = {
   name: 'Kate Terraccino',
-  tagline: 'Enterprise UX and platform strategy for IBM Z and LinuxONE',
-  description: 'Kate Terraccino leads enterprise UX, research, and platform strategy for IBM Z and LinuxONE. Customer discovery, an unreleased enterprise product, four hybrid cloud launches, and independent projects with agents, MCP, and local inference.',
+  tagline: 'Product and platform strategy for IBM Z and LinuxONE',
+  description: 'Kate Terraccino leads product strategy, research, and platform direction for IBM Z and LinuxONE. Customer discovery, an unreleased enterprise product, four hybrid cloud launches, and independent projects with agents, MCP, and local inference.',
   email: 'kateterraccino@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kateterraccino/',
   location: 'Connecticut, US',
@@ -10,7 +10,7 @@ const site = {
 
 // Three proof points, one per discipline. Shown under the opening statement on the home page.
 export const proof = [
-  { tone: 'violet', name: 'Enterprise experience', text: 'Lead design and research across IBM Z and LinuxONE, with a recurring council of about 30 enterprise clients informing product direction.' },
+  { tone: 'violet', name: 'Customer research and product direction', text: 'Lead design and research across IBM Z and LinuxONE, with a recurring council of about 30 enterprise clients informing product direction.' },
   { tone: 'amber', name: 'Platform strategy and delivery', text: 'Helped turn customer research into a funded enterprise product initiative. Led design and research teams supporting four hybrid cloud launches.' },
   { tone: 'magenta', name: 'Hands-on AI and development', text: 'Shipped production front-end code. Build and operate independent projects with agents, an MCP gateway, local inference, and third-party APIs.' },
 ];

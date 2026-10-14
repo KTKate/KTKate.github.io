@@ -10,7 +10,7 @@ const entries = (await getCollection('case-studies', e => import.meta.env.DEV ||
 ---
 <Base>
   <section class="open wrap" aria-labelledby="open-title">
-    <h1 id="open-title">Enterprise UX and platform strategy for IBM Z and LinuxONE.</h1>
+    <h1 id="open-title">Product and platform strategy for IBM Z and LinuxONE.</h1>
     <p class="lede open-lede">I lead design and research for complex infrastructure workflows, connect customer needs to product scope, and work with engineering to establish what the APIs can support. My experience spans IBM Z analytics, AIOps, hybrid cloud, and LinuxONE. I also build and operate independent AI systems.</p>
     <ul class="proof" aria-label="Three disciplines">
       {proof.map(p => <li style={`--tone:var(--${p.tone})`}><strong>{p.name}</strong><span>{p.text}</span></li>)}
