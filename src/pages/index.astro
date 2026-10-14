@@ -10,8 +10,8 @@ const entries = (await getCollection('case-studies', e => import.meta.env.DEV ||
 ---
 <Base>
   <section class="open wrap" aria-labelledby="open-title">
-    <h1 id="open-title">Cross-functional product leader for enterprise infrastructure.</h1>
-    <p class="lede open-lede">I set product and platform strategy, build and run the design and research teams behind it, and read the APIs <span class="ring">myself<Scribble name="loop" class="ring-mark" /></span> to prove it can be built. Eleven years doing that for the systems behind banks, insurers, and the world’s largest companies.</p>
+    <h1 id="open-title">Product and platform strategy for IBM Z and LinuxONE.</h1>
+    <p class="lede open-lede">I lead design and research for complex infrastructure workflows, connect customer needs to product scope, and work with engineering to establish what the APIs can support. My experience spans IBM Z analytics, AIOps, hybrid cloud, and LinuxONE. I also build and operate independent AI systems.</p>
     <ul class="proof" aria-label="Three disciplines">
       {proof.map(p => <li style={`--tone:var(--${p.tone})`}><strong>{p.name}</strong><span>{p.text}</span></li>)}
     </ul>
@@ -31,8 +31,8 @@ const entries = (await getCollection('case-studies', e => import.meta.env.DEV ||
     </ol>
   </section>
   <section class="side wrap" aria-labelledby="side-title">
-    <h2 id="side-title" class="kicker">Side projects</h2>
-    <p class="lede">Four AI systems I build and run: {projects.map((p, i) => <span>{i > 0 && (i === projects.length - 1 ? ', and ' : ', ')}<a href={`${base}side-projects/#${p.id}`}>{p.name}</a></span>)}. Agents, MCP, local inference, CI/CD, and third-party APIs, hands-on, so the technical judgment above is current.</p>
+    <h2 id="side-title" class="kicker">Independent AI and automation projects</h2>
+    <p class="lede">{projects.map((p, i) => <span>{i > 0 && (i === projects.length - 1 ? ', and ' : ', ')}<a href={`${base}side-projects/#${p.id}`}>{p.name}</a></span>)}. These personal projects cover agent tool use, an MCP gateway, local inference, CI/CD, and third-party APIs. They are separate from my IBM work.</p>
   </section>
   <section class="reach wrap" aria-labelledby="reach-title">
     <h2 id="reach-title" class="kicker">Reach me</h2>

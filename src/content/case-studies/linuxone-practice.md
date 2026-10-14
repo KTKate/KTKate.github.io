@@ -23,7 +23,7 @@ diagram:
     - title: Recurring research
       detail: Virtual sessions through the year and one in-person event, run by the practice.
     - title: Product direction
-      detail: Findings feed design work and future direction for LinuxONE, including Launchpad.
+      detail: Findings feed design work and future direction for LinuxONE, including an unreleased product initiative.
 ---
 
 ## The organizational need
@@ -36,7 +36,7 @@ diagram:
 
 **I established recurring client participation.** I founded the LinuxONE client council with about **30 clients**, recurring virtual sessions, and one in-person event each year. Its purpose is design input and future direction, not sales, and the sessions are run that way.
 
-**I connected the practice to product definition.** I lead design and research on Launchpad for LinuxONE and do product leadership work without the product manager title, with influence across product management, strategy, and engineering. The council's findings are part of how that product was scoped.
+**I connected the practice to product definition.** I lead design and research on an unreleased enterprise product and do product leadership work without the product manager title, with influence across product management, strategy, and engineering. 
 
 ## Team activity and evidence
 
